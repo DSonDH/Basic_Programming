@@ -46,5 +46,29 @@ void save_address(void)
 주소를 가리키는 도구  
 
 그 주소에 저장된 자료형은 아무꺼나 다 됨.  
-![화면 캡처 2023-01-15 204220](https://user-images.githubusercontent.com/15919242/212538609-2d27c8f4-8850-4479-a70f-722132f44c11.png)
+![화면 캡처 2023-01-15 204220](https://user-images.githubusercontent.com/15919242/212538609-2d27c8f4-8850-4479-a70f-722132f44c11.png)  
+같은 bit pattern이어도 읽으려는 type 따라서 다르게 읽음.  
+따라서, 해당 주소에서 몇 바이트를 읽을지는 하드웨어에 알려줘야함.  
+int 포인터, float 포인터, char 포인터 ... 이런 식으로 정의함.  
+```c
+void save_address(void)
+{
+    int num = 10;
+    int* num_address = &num;
+}
+/* 포인터 정의 하려면 별표 붙임 
+우리 코딩 표준은 int* address; 로 함. int *address;도 됨...
+*/
+
+/* 발음법 : pointer to an int 혹은 int포인터. 포인터만은 오른쪽에서 왼쪽으로 읽자. 별 부터 타입으로 읽자. */
+```
+
+포인터 변수는 어디 저장되지 ? 얘도 주소라는 값을 어딘가 저장해야하니까.
+![image](https://user-images.githubusercontent.com/15919242/212538856-fbefac3b-5c6c-46e9-89e3-9302743412e7.png)  
+리틀 엔디언 : 데이터가 끝나는 마지막 단위가 '가장 작은 메모리 주소'에 위치하는 저장 순서(인텔, amd cpu)  
+빅 엔디언 : 데이터가 끝나는 마지막 단위가 '가장 큰 메모리 주소'에 위치하는 저장 순서(옛날 기계)  
+![image](https://user-images.githubusercontent.com/15919242/212539054-6276c1cb-3852-4222-a47d-b656ddfe21d2.png)
+
+반드시 알아야 할 ascii code : A: 65, a: 97, b:98, c:99  
+포인터에 저장된 주소도 바꾸기 당연히 가능.  
 
