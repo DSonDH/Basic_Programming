@@ -46,4 +46,5 @@ void save_address(void)
 주소를 가리키는 도구  
 
 그 주소에 저장된 자료형은 아무꺼나 다 됨.  
+![화면 캡처 2023-01-15 204220](https://user-images.githubusercontent.com/15919242/212538609-2d27c8f4-8850-4479-a70f-722132f44c11.png)
 
