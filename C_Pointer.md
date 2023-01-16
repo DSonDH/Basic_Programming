@@ -176,4 +176,5 @@ ptr = ptr + sizeof(int);  /* 4를 더함 */
 
 int* ptr1 = nums + 3;  /* ptr1는 nums[3]을 가리킴 */
 int* ptr2 = &nums[3];  /* ptr2는 nums[3]을 가리킴 */
+int* ptr3 = nums + 4;  /* nums[0]의 주소는 0x100 일 때 ptr3 은 Ox116이 아니라 Ox110이다... 16 */
 ```
