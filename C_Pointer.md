@@ -195,3 +195,94 @@ C에서 주소얻는 방법은 &연산자, 배열의 이름으로 배열 시작 
 int_ptr = (char*)int_ptr + 1;
 /* char 형 크기만큼 1을 더하라는 뜻. */ ```  
 어떤 포인터 형도 크기는 같다. 4바이트. 다만, 실제 그 주소로 가서 데이터를 몇 바이트씩으로 읽어야 하는지가 바뀌는 것.  
+
+
+포인터 연산자와 우선순위 및 결합 법칙
+1순위 후위연산 : 연산자 결합 법칙 ->, 2순위 전위연산, * : 연산자 겹합 법칙 <-  
+int num = *p++;  : p++먼저 * 나중에 : p값에 *로 접근, num에 대입 나중에 p++.  
+*++p; 는 *랑 ++는 같은 순위인데 연산자 결합 법칙에 따라 오른족에서 왼쪽임. *(++p); 랑 같음.  
+++*p는 p주소에 있는 값 접근, 값 + 1해줌.  
+(*p)++ 는 p주소에 있는 값에 접근, num에 그 값 대입, 그다음 p값 1증가.  
+괄호 써주면 초보자 배려 됨...  
+
+조금 더 빠른 배열 요소 더하기 함수.
+``` c
+int sum(int* start, int* end)
+{
+    int result = 0;
+    int* p = start;
+    
+    while (p < end) {
+        result += *P++;
+    }
+    
+    return result
+}
+
+/* 메인 함수 */
+int num[] = {10, 20, 30, 40, 50};
+int result = sum(nums, nums + 5);
+
+/* 배열은 첫 주소 + 요소 위치까지의 오프셋 만큼 데이터타입 크기에 곱해서 주소 확정하고
+ 원하는 원소에 접근함
+ 
+포인터는 다음 주소를 확정할 때 오프셋 곱하는것 없이 상수로 고정. 먼저 이동.
+포인터 변수 주소값이 가 있으므로 바로 참조*/
+```  
+
+## 포인터와 const
+메모리 주소 보호 const  
+int* coonst p = &num;  
+"p is a const pointer to int"  
+const가 아닌 변수에 대입은 가능  
+const포인터가 가리키는 대상의 값은 변경 가능  
+
+값을 보호하는 const  
+```c
+const int* p = &num1;  /* 코딩 표준. 이렇게 쓰는 사람이 더 많대 */
+int const * p = &num1;   
+```
+다른 주소를 가리킬 수 있고, 가리키는 주소에 있는 값은 못바꿈.  
+
+오른쪽에서 왼쪽으로 읽으면 이해하기 쉽다.  
+![image](https://user-images.githubusercontent.com/15919242/212917960-10362b2d-c2a0-412a-9cd9-5a72861eb4d6.png)  
+
+포인터의 용도
+1. 큰 데이터를 매개변수로 할 때 주소만 전달할 때  
+2. 반환 값이 둘 이상일 때 return으로는 안되니까 포인터를 사용해서 함수 안에서 원본을 직접 변경.  
+3. 동적 메모리 할당 (나중에 배움). 힙 메모리 사용시.
+4. 데이터 구조 구현할 때. 임베디드 프로그래밍 등에서 하드웨어에 있는 메모리에 직접 접근할 때.  
+
+포인터 배열 : 포인터를 저장하는 배열.  
+``` c
+int nums1[3] = { 11, 22, 33 };
+int nums2[1] = { 90 };
+int nums3[4] = { 88, 36, 37 };
+
+int* num_pointers[3];
+num_pointers[0] = nums1;  /* 11의 주소 */
+num_pointers[1] = nums2;  /* 90의 주소 */
+num_pointers[2] = nums3;  /* 88의 주소 */
+```
+
+2차원 배열은 어차피 한덩어리 메모리라 주솟값이 저장된 곳이 맨 앞에 한 곳 뿐.  
+``` c
+void do_magic(int matrix[][10], size_t m)  /* 10은 열의 갯수를 알려줌. */
+{
+    /* 10을 알려줘야만 matrix[1][]할 때 몇 개를 (몇개 열을) 건너 뛰어야 하는지 알게됨. 
+    컴파일러가 알아서 인식해줌.*/
+}
+==============
+3x5 이차원 행렬의 경우
+printf("nums[0] address: %p\n", (void)nums[0]);  /* 1행 시작 주소 */
+printf("nums[1] address: %p\n", (void)nums[1]);  /* 2행 시작 주소 */
+printf("nums[2] address: %p\n", (void)nums[2]);  /* 3행 시작 주소 */
+
+printf("nums[2]'s offset from nums[0]: %d\n", nums[2] - nums[0]);  /* 10 */
+printf("nums[1]'s offset from nums[0]: %d\n", nums[1] - nums[0]);  /* 5 */
+
+printf("nums2[2]'s offset from nums2[0]: %d\n", &nums2[2] - &nums2[0]);  /* 2 */
+printf("nums2[1]'s offset from nums2[0]: %d\n", &nums2[1] - &nums2[0]);  /* 1 */
+
+/* 포인터의 사칙연산에서 주소끼리 뺄셈하면 데이터 크기만큼 나눠서 자동으로 반환됨 !!!!!!! */
+```
