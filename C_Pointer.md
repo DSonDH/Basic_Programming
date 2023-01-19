@@ -152,9 +152,10 @@ NULL포인터는 사용 예시
 함수 매개변수로 전달한 배열의 sizeof()연산자는, 배열은 연속된 메모리. 그걸 다 스택에 넣을 수 없음. 따라서 시작위치의 메모리 주소만 전달했음.  
 
 ``` c
-void print_scores(int scores[])
+void print_scores(int scores[], int scores2[5])
 {
     size_t size = sizeof(scores);  /* 4 반환 */
+    size_t size = sizeof(scores2);  /* 4*5 반환. 자료형크기 * 배열길이 */
 }
 --------
 배열을 곧바로 포인터에 대입
