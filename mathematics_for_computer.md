@@ -11,4 +11,36 @@
 
 ## 2진법
 0, 1을 사용해서 수를 표현하는 방법.  
+![image](https://user-images.githubusercontent.com/15919242/214197138-d9ea158e-da31-41b0-a5d5-1a5b57e409d8.png)
+
+## 8진법
+8개의 숫자를 사용해서 수를 표현하는 방법.  
+
+## 16 진법
+16개의 숫자를 사용해서 수를 표현하는 방법.  
+0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F  
+
+Hexa decimal 의 x 를 따와서 0x로 표현  
+![image](https://user-images.githubusercontent.com/15919242/214197929-1ce64918-eae1-485d-93f4-4057f658d3f3.png)
+
+2진수 <-> 8진수 변환 : 2진수 3자리 씩 끊어서 8진수로 바꾸면 됨.  
+2진수 <-> 16진수 변환 : 2진수 4자리 씩 끊어서 16진수로 바꾸면 됨.  
+
+
+# bit, byte
+## 컴퓨터 구성요소
+transistor (반도체 소자)  
+표현가능한 상태는 단 두 개 뿐  
+전류가 흐르지 않는다 : 0  
+전류가 흐른다 : 1  
+하나의 트랜지스터의 상태를 기록하는 최소 단위를 비트라고 부름.  
+2진법/2진수 가 딱임.  
+
+저장 단위는 byte로 함.
+한 입 베어 문 조각. bite에서 byte로 바뀜.  
+8비트.  1byte = 8bit. (8b = 1B)  
+![image](https://user-images.githubusercontent.com/15919242/214203813-1d90954f-04a0-47ce-b237-3a51c5c27ead.png)
+컴퓨터에서 1K는 1000이 아니라 1024임.  
+![image](https://user-images.githubusercontent.com/15919242/214204337-5e1d486f-820c-4356-96da-642a10637bbf.png)
+
 
