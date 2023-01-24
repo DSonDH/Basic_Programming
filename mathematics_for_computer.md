@@ -28,8 +28,7 @@ Hexa decimal 의 x 를 따와서 0x로 표현
 
 <br>
 <br>
-
-# bit, byte
+# Bit, Byte
 ## 컴퓨터 구성요소
 transistor (반도체 소자)  
 표현가능한 상태는 단 두 개 뿐  
