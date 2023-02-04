@@ -275,9 +275,9 @@ void do_magic(int matrix[][10], size_t m)  /* 10은 열의 갯수를 알려줌. 
 }
 ==============
 3x5 이차원 행렬의 경우
-printf("nums[0] address: %p\n", (void)nums[0]);  /* 1행 시작 주소 */
-printf("nums[1] address: %p\n", (void)nums[1]);  /* 2행 시작 주소 */
-printf("nums[2] address: %p\n", (void)nums[2]);  /* 3행 시작 주소 */
+printf("nums[0] address: %p\n", (void*)nums[0]);  /* 1행 시작 주소 */
+printf("nums[1] address: %p\n", (void*)nums[1]);  /* 2행 시작 주소 */
+printf("nums[2] address: %p\n", (void*)nums[2]);  /* 3행 시작 주소 */
 
 printf("nums[2]'s offset from nums[0]: %d\n", nums[2] - nums[0]);  /* 10 */
 printf("nums[1]'s offset from nums[0]: %d\n", nums[1] - nums[0]);  /* 5 */
