@@ -24,6 +24,25 @@ n 의 약수 찾기 : ???
 ```python3
 >>> [1, 1] + [1, 2, 3]
 [1, 1, 1, 2, 3]
+
+test = [1, 2, 3, 4]
+test[-2:]
+>>> [4]
+
+test[-200:]
+>>> [1, 2, 3, 4]  # 리스트 크기 초과해도 됨.
+
+test[:200]
+>>> [1, 2, 3, 4]  # 리스트 크기 초과해도 됨
+
+test[4]
+>>> IndexError: list index out of range
+
+test[-4]
+>>> 1
+
+test[-5]
+>>> IndexError: list index out of range
 ```
 
 pop : 해당 index 자리 제거  
