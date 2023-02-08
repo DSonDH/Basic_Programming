@@ -1,6 +1,19 @@
 # Python
+primitive는 이용 가능한 가장 단순한 요소들이다.  
+프로그래머에게 이용가능한 가장 작은 processing단위이거나 언어에서 표현의 원자 요소가 될 수 있다.  
+덧셈, 뺄셈 같은 가장 단순하고 원초적인 연산을 primitive operation이라고 함..  
+python은 primitive type이 존재하지 않는다. 모든 데이터는 object나 object산의 관계로 표현된다.  
+
 
 sort(item, key = lambda x: f(x))
+
+
+## python modules
+.
+### select module
+소켓 프로그래밍에서 I/O multiplexing을 가능하게 하는 모듈.  
+I/O multiplexing: 하나의 전송로로 여저 종류의 데이터를 송수신하는 방식.  
+둘 이상의 클라이언트가 동시에 접속해도 잘 동작하도록 함, 클라이언트와의 접속이 끝나도 서버 종료되지 않도록 함.  
 
 
 ## logging 
