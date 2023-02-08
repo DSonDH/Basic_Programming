@@ -3,6 +3,13 @@
 sort(item, key = lambda x: f(x))
 
 
+## logging 
+우리 프로그램이 어떤 상태를 가지고 있는지, 외부 출력으로 개발장 등이 눈으로 직접 확인하는 것.  
+DEBUG < INFO < WARNING < ERROR < CRITICAL 다섯가지 등급이 사용됨.  
+Handler : 내가 로깅한 정부가 출력되는 위치를 설정하는 것.  
+
+
+
 ## 알고리듬  
 n 크기 이하 모든 소수 찾기 : 에라토스테네스 체  
 n 의 약수 찾기 : ???  
