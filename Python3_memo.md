@@ -47,7 +47,16 @@ n 의 약수 찾기 : ???
 ```python3
 'ooyyy'.count('y')
 >>> 3
+
+chr(string)
+: Return the string representing a character whose Unicode code point 
+is the integer i. For example, chr(97) returns the string 'a'
+
+ord(number)
+: 하나의 유니코드 문자를 나타내는 문자열이 주어지면 해당 문자의 유니코드 코드
+포인트를 나타내는 정수를 돌려줍니다. 예를 들어, ord('a') 는 정수 97 을 반환
 ```  
+
 
 
 * list  
