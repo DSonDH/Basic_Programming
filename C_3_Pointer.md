@@ -40,7 +40,7 @@ void save_address(void)
 특별한 변수, 포인터가 필요함 !!!  
 
 ## Pointer  
-주소를 저장하기 위한 변수형.  
+메모리 주소를 저장하기 위한 변수형.  
 메모리 주소를 저장하는 변수.  
 변수인데, 속에 담긴 내용은 메모리 주소.  
 주소를 가리키는 도구  
@@ -70,6 +70,10 @@ void save_address(void)
 ![image](https://user-images.githubusercontent.com/15919242/212539054-6276c1cb-3852-4222-a47d-b656ddfe21d2.png)
 
 반드시 알아야 할 ascii code : A: 65, a: 97, b:98, c:99  
+주소 바로 다음에 실제 저장된 값 bit pattern이 메모리에 저장되네 ?  
+
+![image](https://user-images.githubusercontent.com/15919242/219949191-2643c6e1-7a2d-43f5-8997-5af2ef2781d8.png)  
+![image](https://user-images.githubusercontent.com/15919242/219949206-0deff7b3-a3fd-4de6-95dd-2996a6f17445.png)  
 포인터에 저장된 주소도 바꾸기 당연히 가능.  
 
 포인터를 함수 매개변수로도 쓸 수 있음. 
@@ -85,7 +89,9 @@ print_address(&score);
 주소에 저장된 값을 출력 하는 * 연산자를 역참조 연산자라 함
 ```
 
-## 역참조 : 실제 데이터에 간접적으로 접근.  
+## 역참조 연산자 : 실제 데이터에 간접적으로 접근.  
+C에서 포인터로 부르는 것들이 다른 언어에서는 참조로 불린대.  
+지금까지는 모든 데이터를 복사해서 썻는데, 주소로 원본에 접근하는 방식이 생긴것임.  
 indirect 연산자라고 함. indirection...  
 ```c
 *pointer =  50;
@@ -175,11 +181,22 @@ ptr = ptr + sizeof(int);  /* 4를 더함 */
 바이트 1 더하는게 아님. 다음 메모리 칸? 으로. 다만 이동하는 칸 크기는 자료형 크기에 따라 다름. 
 뺄셈도 ++도 --도 마찬가지. 
 
+궂이 주소에 자료형 크기만큼 아니고 1 단위로 제어하고 싶으면 (char*)로 casting 하여 더하면 됨.  
+
 int* ptr1 = nums + 3;  /* ptr1는 nums[3]을 가리킴 */
 int* ptr2 = &nums[3];  /* ptr2는 nums[3]을 가리킴 */
 int* ptr3 = nums + 4;  /* nums[0]의 주소는 0x100 일 때 ptr3 은 Ox116이 아니라 Ox110이다... 16진수니까 */
+int* ptr2 = &nums[0] - 1;  /* 0xFC */
 ```
+![image](https://user-images.githubusercontent.com/15919242/219953703-7e6b1e63-5a04-450c-a765-1c6fe6e01ee6.png)  
+<br>
 
+두 주소 간의 사칙연산
+뺄셈 말고는 모두 지원 안함. 의미가 이상하기 때문.  
+뺄셈은 두 주소 사이에 들어갈 수 있는 데이터 수를 반환.  
+포인터가 아니라 정수를반환. 자동으로 주소 거리(바이트 단위)를 자료형 크기 만큼 나눠서 반환함.  
+
+<br>
 배열 요소에 포인터로 접근하기.  
 배열명은 시작 주소이므로, 포인터 변수에 대입 가능하다고 했음. 
 배열의 첨자 연산자([])도 포인터에 쓸 수 있음. 
@@ -197,16 +214,43 @@ int_ptr = (char*)int_ptr + 1;
 /* char 형 크기만큼 1을 더하라는 뜻. */ ```  
 어떤 포인터 형도 크기는 같다. 4바이트. 다만, 실제 그 주소로 가서 데이터를 몇 바이트씩으로 읽어야 하는지가 바뀌는 것.  
 
+```
+![image](https://user-images.githubusercontent.com/15919242/219954891-368f86d1-361b-4b43-a659-330bcc122dc0.png)  
+![image](https://user-images.githubusercontent.com/15919242/219954992-b7b91654-02cd-413d-b8b4-31f351d1eafb.png)  
+``` C
+#include <stdio.h>
 
-포인터 연산자와 우선순위 및 결합 법칙
+int main(void)
+{
+    int arr[5] = { 5, 10, 15, 20, 25 };
+    int* ptr = arr + 2;
+
+    arr = ptr + 1;
+    printf("%d %d", *arr, *ptr);
+
+    return 0;
+    /* 배열에 메모리 주소를 저장할 수 없으므로 컴파일 오류 */
+}
+```
+
+포인터 연산자와 우선순위 및 결합 법칙  
+![image](https://user-images.githubusercontent.com/15919242/219955508-5b68a372-1f7c-4f79-baa8-3adbfc0638fa.png)  
+
+``` C
 1순위 후위연산 : 연산자 결합 법칙 ->, 2순위 전위연산, * : 연산자 겹합 법칙 <-  
-int num = *p++;  : p++먼저 * 나중에 : p값에 *로 접근, num에 대입 나중에 p++.  
+int num = *p++;  : p++먼저 * 나중에 : p값에 *로 접근, num에 대입 나중에 p에 값 더함.  
 *++p; 는 *랑 ++는 같은 순위인데 연산자 결합 법칙에 따라 오른족에서 왼쪽임. *(++p); 랑 같음.  
 ++*p는 p주소에 있는 값 접근, 값 + 1해줌.  
 (*p)++ 는 p주소에 있는 값에 접근, num에 그 값 대입, 그다음 p값 1증가.  
 괄호 써주면 초보자 배려 됨...  
 
-조금 더 빠른 배열 요소 더하기 함수.
+int nums[] = { 134, 68, 47956 };
+int* p = nums; /* 변수 nums의 주소가 0x104라 가정 */
+int num = *p++;  /* num: 134, p: 0x108 */
+```  
+
+
+조금 더 빠른 배열 요소 더하기 함수.  
 ``` c
 int sum(int* start, int* end)
 {
@@ -232,13 +276,13 @@ int result = sum(nums, nums + 5);
 ```  
 
 ## 포인터와 const
-메모리 주소 보호 const  
+1. 메모리 주소 보호 const  
 int* coonst p = &num;  
 "p is a const pointer to int"  
 const가 아닌 변수에 대입은 가능  
 const포인터가 가리키는 대상의 값은 변경 가능  
 
-값을 보호하는 const  
+2. 값을 보호하는 const  
 ```c
 const int* p = &num1;  /* 코딩 표준. 이렇게 쓰는 사람이 더 많대 */
 int const * p = &num1;   
@@ -247,6 +291,10 @@ int const * p = &num1;
 
 오른쪽에서 왼쪽으로 읽으면 이해하기 쉽다.  
 ![image](https://user-images.githubusercontent.com/15919242/212917960-10362b2d-c2a0-412a-9cd9-5a72861eb4d6.png)  
+
+개념 주의 !!  
+![image](https://user-images.githubusercontent.com/15919242/219956306-ce0d2b0f-d7ea-4513-af5c-e8e8607344ce.png)  
+
 
 포인터의 용도
 1. 큰 데이터를 매개변수로 할 때 주소만 전달할 때  
@@ -271,7 +319,8 @@ num_pointers[2] = nums3;  /* 88의 주소 */
 void do_magic(int matrix[][10], size_t m)  /* 10은 열의 갯수를 알려줌. */
 {
     /* 10을 알려줘야만 matrix[1][]할 때 몇 개를 (몇개 열을) 건너 뛰어야 하는지 알게됨. 
-    컴파일러가 알아서 인식해줌.*/
+    컴파일러가 알아서 인식해줌.
+    행 수는 따로 전달을 받아야 함 여기 예에선 m으로. */
 }
 ==============
 3x5 이차원 행렬의 경우
