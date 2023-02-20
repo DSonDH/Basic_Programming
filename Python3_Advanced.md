@@ -12,3 +12,16 @@ file descriptor 등록과 등록 해지를 지원하고 그런 다음 I/O 이벤
 ![python_poll_sequence](https://user-images.githubusercontent.com/15919242/219988297-e2e49056-74ca-48cd-8f72-b84eb1d1ae0c.png)  
 (image source : https://pythontic.com/modules/select/poll)  
 
+* file descriptor
+Unix 시스템에서 모든 것은 파일이라고 함.  
+일반적인 Regular file, Directory, Socker, PIPE 등등 모든 객체들은 파일로써 관리된다.  
+유닉스 시스템에서 프로세스가 이 파일들을 접근할 때에 파일 디스크립터라는 개념을 이용한다.  
+파일 디스크립터는 0아닌 정수값을 가짐.  
+프로세스가 실행중에 파일을 Open하면 커널은 해당 프로세스의 fd 숫자 중에 사용하지 않는 가장 작은값을 할당해줌.  
+그 다음 프로세스가 열려있는 파일 중에 시스템 콜을 이용해서 접근할 때, fd값을 이용해 파일을 지칭할 수 있음.  
+
+플로그램이 프로세스로 메모리에서 실행을 시작할 때, 기본적으로 할당되는 파일 디스크립터들이 있음.  
+표준입력, 표준출력, 표준에러가 그것이고, 각각 0, 1, 2,라는 정수가 할당됨.  
+0아닌 정수로 표현되는 fd는 0~OPEN_MAX까지 값을 가질 수 있고, OPEN_MAX값은 플랫폼 마다 다름.  
+fd 3번이라는 의미는 fd 테이블의 3번 항목이 가리키는 파일이라는 의미임.  
+
