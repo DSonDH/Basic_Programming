@@ -8,3 +8,7 @@ select.poll()
 (모든 운영 체제에서 지원되는 것은 아닙니다.)  
 file descriptor 등록과 등록 해지를 지원하고 그런 다음 I/O 이벤트에 대해 폴링하는 폴링 객체를 반환합니다.  
 
+
+![python_poll_sequence](https://user-images.githubusercontent.com/15919242/219988297-e2e49056-74ca-48cd-8f72-b84eb1d1ae0c.png)  
+(image source : https://pythontic.com/modules/select/poll)  
+
