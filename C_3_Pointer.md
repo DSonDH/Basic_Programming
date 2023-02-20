@@ -155,13 +155,12 @@ NULL포인터는 사용 예시
 32bit 아키텍쳐에서 포인트 크기는 4바이트  
 64t 아키텍쳐에서 포인트 크기는 8바이트  
 
-함수 매개변수로 전달한 배열의 sizeof()연산자는, 배열은 연속된 메모리. 그걸 다 스택에 넣을 수 없음. 따라서 시작위치의 메모리 주소만 전달했음.  
-
+함수 매개변수로 전달한 배열의 sizeof()연산자는 배열 시작위치의 메모리 주소만 전달했음.  
 ``` c
 void print_scores(int scores[], int scores2[5])
 {
     size_t size = sizeof(scores);  /* 4 반환 */
-    size_t size = sizeof(scores2);  /* 4*5 반환. 자료형크기 * 배열길이 */
+    size_t size = sizeof(scores2);  /* 4 반환 */
 }
 --------
 배열을 곧바로 포인터에 대입
@@ -189,6 +188,10 @@ int* ptr3 = nums + 4;  /* nums[0]의 주소는 0x100 일 때 ptr3 은 Ox116이 �
 int* ptr2 = &nums[0] - 1;  /* 0xFC */
 ```
 ![image](https://user-images.githubusercontent.com/15919242/219953703-7e6b1e63-5a04-450c-a765-1c6fe6e01ee6.png)  
+
+빅 엔디언 방식은 낮은 주소에 데이터의 높은 바이트(MSB, Most Significant Bit)부터 저장하는 방식  
+리틀 엔디언 방식은 낮은 주소에 데이터의 낮은 바이트(LSB, Least Significant Bit)부터 저장하는 방식  
+
 <br>
 
 두 주소 간의 사칙연산
@@ -236,8 +239,9 @@ int main(void)
 포인터 연산자와 우선순위 및 결합 법칙  
 ![image](https://user-images.githubusercontent.com/15919242/219955508-5b68a372-1f7c-4f79-baa8-3adbfc0638fa.png)  
 
-``` C
+
 1순위 후위연산 : 연산자 결합 법칙 ->, 2순위 전위연산, * : 연산자 겹합 법칙 <-  
+``` C
 int num = *p++;  : p++먼저 * 나중에 : p값에 *로 접근, num에 대입 나중에 p에 값 더함.  
 *++p; 는 *랑 ++는 같은 순위인데 연산자 결합 법칙에 따라 오른족에서 왼쪽임. *(++p); 랑 같음.  
 ++*p는 p주소에 있는 값 접근, 값 + 1해줌.  
@@ -277,7 +281,7 @@ int result = sum(nums, nums + 5);
 
 ## 포인터와 const
 1. 메모리 주소 보호 const  
-int* coonst p = &num;  
+int* const p = &num;  
 "p is a const pointer to int"  
 const가 아닌 변수에 대입은 가능  
 const포인터가 가리키는 대상의 값은 변경 가능  
