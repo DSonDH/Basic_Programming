@@ -8,6 +8,9 @@ select.poll()
 (모든 운영 체제에서 지원되는 것은 아닙니다.)  
 file descriptor 등록과 등록 해지를 지원하고 그런 다음 I/O 이벤트에 대해 폴링하는 폴링 객체를 반환합니다.  
 
+* polling object
+대부분의 유닉스 시스템에서 지원되는 poll() 시스템 호출은 동시에 많은 클라이언트에게 서비스를  
+제공하는 네트워크 서버에 더 나은 확장성을 제공. 
 
 ![python_poll_sequence](https://user-images.githubusercontent.com/15919242/219988297-e2e49056-74ca-48cd-8f72-b84eb1d1ae0c.png)  
 (image source : https://pythontic.com/modules/select/poll)  
@@ -23,3 +26,4 @@ Unix 시스템에서 모든 것은 파일이라고 함.
 0아닌 정수로 표현되는 fd는 0~OPEN_MAX까지 값을 가질 수 있고, OPEN_MAX값은 플랫폼 마다 다름.  
 fd 3번이라는 의미는 fd 테이블의 3번 항목이 가리키는 파일이라는 의미임.  
 
+cf) POSIX : C 표준과 POSIX 표준(얇게 위장한 유닉스 인터페이스)에 의해 표준화된 운영 체제 기능에 대한 액세스를 제공
