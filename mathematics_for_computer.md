@@ -141,3 +141,4 @@ Quiz 4개
 ![image](https://user-images.githubusercontent.com/15919242/221410154-1742c49f-ec5b-470b-82be-04363c7debe3.png)  
 ![image](https://user-images.githubusercontent.com/15919242/221410161-e87d392f-bb1f-46e8-9311-f970fca001bc.png)  
 
+### 2진수의 곱셈
