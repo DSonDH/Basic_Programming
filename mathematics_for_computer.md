@@ -141,4 +141,78 @@ Quiz 4개
 ![image](https://user-images.githubusercontent.com/15919242/221410154-1742c49f-ec5b-470b-82be-04363c7debe3.png)  
 ![image](https://user-images.githubusercontent.com/15919242/221410161-e87d392f-bb1f-46e8-9311-f970fca001bc.png)  
 
-### 2진수의 곱셈
+### 2진수의 곱셈  
+bit shift 와 같음.  
+1101(2) X 10(2) = 11010(2)  
+1001(2) X 101(2) = 1001(2) x 100(2) + 1001(2) x 1(2)  
+음수가 있으면 양수로 바꾸고 계산.  
+
+### 2진수의 곱셈  
+bit shift 와 같음.  
+1100(2) / 10(2) = 110(2)  
+![image](https://user-images.githubusercontent.com/15919242/221411719-b05fea58-f67b-4a06-bbfd-4bd07e7341c7.png)  
+
+
+Quiz 4개
+``` C
+/* 1010(2) * 1100(2) (부호없음) ? */
+/* >>>  111 1000(2) */
+
+/* 1001(2) * 1011(2) (부호 있음. 2의 보수 사용) ? */
+/* >>>  010 0011(2) */
+
+/* 1111(2) / 0011(2) (부호없음) ? */
+/* >>>  0101(2) */
+
+/* 1100(2) / 1110(2) (부호 있음. 2의 보수 사용) ? */
+/* >>>  0010(2) */
+```   
+
+* 정수는 정확히 수를 표현한다.  
+부동소수점은 정확히 표현하지 못하고 근사치로 표현하게되는 경우가 있음.  
+
+
+# 컴퓨터의 문자 표현법 (ASCII)  
+American Standard Code for Information Interchange (ASCII)  
+65 : A  
+97 : a  
+숫자, 영어 알파벳, 특수문자 및 공백, 제어문자(화면 출력은 불가능) 표현 가능  
+65 + 1 하면 B가 출력 됨. 1관 '1'은 비트패턴이 다름.  
+
+ASNI, 멀티바이트, 유니코드  
+ANSI : MS Windows에서 라틴문자 기반의 언어를 표현하기 위해 만든 문자 인코딩.  
+1바이트로 표현 가능.  
+
+멀티바이트 : 아스키코드에 없는 문자들은 2바이트으로 표현.  
+Extended Unix Code (EUC) : 한국어, 일본어, 중국어를 위한 멀티바이트 문자 인코딩.  
+EUC-KR, EUC-CN, EUC-JP 같이 이름 붙음.  
+
+유니코드  
+멀티바이트의 한계로, 여러 언어를 한번에 표현 못했음.  
+전 세계의 모든 문자 및 이모지까지 일관되게 표현할 수 있는 규격.  
+![image](https://user-images.githubusercontent.com/15919242/221413224-a2ceffbe-7556-4982-84d8-125e85d444a5.png)  
+
+유니코드 인코딩 종류  
+![image](https://user-images.githubusercontent.com/15919242/221413308-a850c53f-5d98-4c75-a143-eb93e18a4a1d.png)  
+
+요즘은 UTF-8만 쓴다.  
+![image](https://user-images.githubusercontent.com/15919242/221413420-660775ac-8150-4d82-8046-099146d024b2.png)  
+![image](https://user-images.githubusercontent.com/15919242/221413473-b3f7273a-daee-47c3-9eee-61ad69203c70.png)  
+
+* 리틀 엔디언, 빅 엔디언  
+![image](https://user-images.githubusercontent.com/15919242/221413497-9ec9d689-9142-48e3-ad37-91009cef5268.png)  
+
+UTF-8의 장점  
+거의 모든 문자에 1바이트 또는 3바이트를 사용.  
+한국어는 대부분 3바이트 필요.  
+
+예시)  
+![image](https://user-images.githubusercontent.com/15919242/221413813-3c6f0ad2-bc6b-4b7a-9445-86aececb82fa.png)  
+
+
+UTF-16  
+![image](https://user-images.githubusercontent.com/15919242/221413912-4e5af546-3d06-4f76-be55-f14ef610498f.png)  
+
+UTF-32  
+![image](https://user-images.githubusercontent.com/15919242/221413924-5b533e21-99c9-4c18-b3d7-f85fc641d252.png)  
+
