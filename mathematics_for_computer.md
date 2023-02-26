@@ -216,3 +216,5 @@ UTF-16
 UTF-32  
 ![image](https://user-images.githubusercontent.com/15919242/221413924-5b533e21-99c9-4c18-b3d7-f85fc641d252.png)  
 
+
+# 컴퓨터의 실수 (Real number)   
