@@ -92,4 +92,13 @@ N의 보수 : N진법 수 중 다음 자릿수가 되기 위해 필요한 값.
 0012 - 0003 할 때 0003의 10의 보수를 누군가 계산 해주면 그 보수랑 0012랑 더해서 오버플로는 없애서 빼기연산 가능.  
 ![image](https://user-images.githubusercontent.com/15919242/214249712-df63e5d7-fe20-4525-9ed7-06c0ffccd521.png)
 
+1의 보수(one's complement)  
+![image](https://user-images.githubusercontent.com/15919242/221391513-46953f76-0dd1-4dc3-8330-dbea2034479c.png)  
+
+1의 보수를 구하는 방법  
+![image](https://user-images.githubusercontent.com/15919242/221391546-05ef2591-fb25-4e40-9a71-ca90149b9cc2.png)  
+
+1의 보수의 표현 범위 : 가장 왼쪽 비트가 부호(sign bit)가 됨.  
+
+
 
