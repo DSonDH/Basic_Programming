@@ -92,7 +92,7 @@ N의 보수 : N진법 수 중 다음 자릿수가 되기 위해 필요한 값.
 0012 - 0003 할 때 0003의 10의 보수를 누군가 계산 해주면 그 보수랑 0012랑 더해서 오버플로는 없애서 빼기연산 가능.  
 ![image](https://user-images.githubusercontent.com/15919242/214249712-df63e5d7-fe20-4525-9ed7-06c0ffccd521.png)
 
-1의 보수(one's complement)  
+### 1의 보수(one's complement)  
 ![image](https://user-images.githubusercontent.com/15919242/221391513-46953f76-0dd1-4dc3-8330-dbea2034479c.png)  
 
 1의 보수를 구하는 방법  
@@ -100,5 +100,44 @@ N의 보수 : N진법 수 중 다음 자릿수가 되기 위해 필요한 값.
 
 1의 보수의 표현 범위 : 가장 왼쪽 비트가 부호(sign bit)가 됨.  
 
+Quiz 4개
+``` C
+/* -1(10)을 1의 보수를 이용해서 8비트로 표현하면 ? */
+/* >>>  1111 1110(2) */
 
+/* 127(10)을 1의 보수를 이용해서 8비트로 표현하면 ? */
+/* >>>  0111 1111(2) */
+
+/* 1의 보수를 이용해서 8비트로 1010 1010(2)인 값은 10진수로 몇 ? */
+/* >>>  -85(10) */
+
+/* 1의 보수를 이용해서 8비트로 0101 0111(2)인 값은 10진수로 몇 ? */
+/* >>>  86(10) */
+```    
+
+1의 보수의 장점 : 간단히 뺄셈 가능.  
+한계점 : 0이 두개임.  
+뺄셈 할 때 따로 +1 해줘야 하는 예외상황이 생김.  
+![image](https://user-images.githubusercontent.com/15919242/221409356-25ecaa55-0114-45d0-8bd1-f79a09a8e03d.png)  
+이를 2의 보수로 해결할 수 있음 !!
+
+### 2의 보수(two's complement)  
+현재 부호 있는 정수를 표현하는 가장 흔한 방법.  
+![image](https://user-images.githubusercontent.com/15919242/221409423-29eae377-689d-4975-bc44-a34ab038db51.png)  
+가장 왼쪽 비트가 부호를 나타냄.  
+2^(n-1) -1 ~ -2^(n-1)
+![image](https://user-images.githubusercontent.com/15919242/221409471-e898dfad-0405-490d-9904-4460d964e752.png)  
+
+장점 : 음수 하나 더 많이 표현함. 따로 +1을 처리하는 예외도 없음.  
+오늘날 음수를 표현할 때 가장 많이  방법.  
+![image](https://user-images.githubusercontent.com/15919242/221409805-a5d133c5-4b7a-475a-a723-01afa09447ba.png)
+![image](https://user-images.githubusercontent.com/15919242/221409833-01adb24b-65ed-46cd-b7d9-201410bf3093.png)
+![image](https://user-images.githubusercontent.com/15919242/221409868-db441546-5300-4045-b4c3-00d4c92674ff.png)  
+![image](https://user-images.githubusercontent.com/15919242/221409876-fb791a48-677b-4455-ad57-1654463c9bf6.png)
+표현 가능 한 부호의 범위를 벗어나지 않게 조심해야함 !!  
+최댓값 보다 큰 값이 결과로 나올 경우 오버플로가 발생한 것,  
+최솟값 보다 작은 값이 결과로 나올 경우 언더플로가 발생했다고 함.  
+
+![image](https://user-images.githubusercontent.com/15919242/221410154-1742c49f-ec5b-470b-82be-04363c7debe3.png)  
+![image](https://user-images.githubusercontent.com/15919242/221410161-e87d392f-bb1f-46e8-9311-f970fca001bc.png)  
 
