@@ -1,0 +1,5 @@
+1. 구조체 정의 맨 마지막 ; 꼭 붙이기.
+2. include guard idndef define endif
+3. header file에 전방선언 끝에도 ; 붙이기
+
+
