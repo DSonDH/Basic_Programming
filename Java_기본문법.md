@@ -162,9 +162,32 @@ Manifest파일?
 ![image](https://user-images.githubusercontent.com/15919242/235687111-1ba6628f-0ffe-4201-924b-e4518878e6d6.png)  
 ![image](https://user-images.githubusercontent.com/15919242/235687194-070fa98e-08e9-4963-8da0-1d60bd6485de.png)  
 
-
-
 ## 패키지 사용하기
+외부 패키지 안에 들어있는 클래스 사용하기
+```java
+package academy.pocu.randomnumber;
+
+import java.util.Random;
+
+public class RandomNumPrinter {
+    public static void main(String[] args) {
+        Random rand = new Random();
+        System.out.println("Random number:" + rand.nextInt(50));
+    }
+}
+```
+* import  
+![image](https://user-images.githubusercontent.com/15919242/235688429-a849a172-4ff1-438f-8937-126c428314f6.png)  
+C#의 using이나 C의 #include와 같은 존재.  
+다른 패키지 안에 있는 클래스에 접근하기 위해 사용.  
+실제 클래스 이름을 적을 경우: 특정 클래스.  
+* 를 사용할 경우: 모든 클래스.  
+
+java.lang  
+기본 패키지.  
+모든 .java파일에 자동으로 임포트 되는 패키지.  
+import java.lang.*; 이 자동으로 실행된 격임.  
+System은 java.lang안에 있는 클래스 중 하나.  
 
 ## 정수 자료형
 
