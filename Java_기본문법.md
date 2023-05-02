@@ -113,6 +113,56 @@ java vs C# vs C
 ![image](https://user-images.githubusercontent.com/15919242/235680286-96c9a4bc-f444-4fb7-949e-469dbecd9328.png)  
 
 ## 빌드 및 실행
+기본은 커맨드 라인 명령으로 빌드 함.  
+![image](https://user-images.githubusercontent.com/15919242/235680799-3dfc0801-4337-40be-a259-c908cfaf7ffb.png)  
+class폴더에는 compile된 결과물이 들어간대.  
+
+``` hellopucu>javac -d class\ src\academy\pocu\*.java```  
+이 명령어 치면 컴파일한 java클래스의 패키지 이름과 동일한 폴더들이 class 폴더 밑에 생성됨!  
+![image](https://user-images.githubusercontent.com/15919242/235681822-88697209-2e14-4c7a-8b50-0bc2504d6ef4.png)  
+그리고 그 안에 HelloPocu.class라는 파일이 생김.  
+
+javac 명령어  
+java compile  
+![image](https://user-images.githubusercontent.com/15919242/235681992-b476bedc-bc5c-4fcb-94c2-75762d9bc16f.png)  
+.java파일과 .class 파일이 동일한 폴더 구조를 따름.  
+
+프로그램 실행하기  
+```java -classpath D:\hellopocu\class\ academy.pocu.HelloPocu```  
+java 명령어  
+![image](https://user-images.githubusercontent.com/15919242/235684049-93fdfd64-57be-4872-9d81-bd6e2f99546a.png)  
+main이 없으면 main 못찾는다고 컴파일에러 뜸.  
+
+java 명령어의 -classpath 옵션  
+![image](https://user-images.githubusercontent.com/15919242/235684250-a6657b2b-8f69-4e0a-949e-30f4056860d2.png)  
+
+흔히 하는 실수 : 클래스명 앞에 패키지 누락  
+![image](https://user-images.githubusercontent.com/15919242/235684426-1889364e-323e-4194-ad37-832c40253b59.png)  
+
+배포하기  
+내가 만든 라이브러리나 프로그램을 배포하는 방법  
+C#의 경우 라이브러리 : .dll파일을 만듦, 프로그램: .exe파일을 만듦.  
+java의 경우 : 두 경우 모두 .jar파일을 만듦.  
+![image](https://user-images.githubusercontent.com/15919242/235686009-431c0a28-c8e1-4515-870a-f29b7ae5220c.png)  
+
+jar 명령어  
+![image](https://user-images.githubusercontent.com/15919242/235685138-22365bdd-d8cd-4dc4-8718-4098ce4f157b.png)  
+정상적으로 명령어가 실행되면, .jar파일이 생성됨.  
+
+jar 파일은 .zip파일임. .jar파일 내부를 보면 META-INF\MANIFEST.MF라는 파일이 있음.  
+.jar를 만들 때 자동으로 같이 생성되는 파일임.  
+
+Manifest파일?  
+자바 애플리케이션의 정보를 담고 있는 메타데이터 파일.  
+.jar파일을 만들 때 이 파일을 같이 넣어줄 수 있음.  
+.jar파일의 시작점 (main함수)에 대한 정보를 넣어야 함.  
+그 외에 여러 정보를 담을 수 있는데, 직접 찾아볼 것.  
+
+![image](https://user-images.githubusercontent.com/15919242/235687046-b8d73165-4262-49e7-ba57-029d54601263.png)  
+![image](https://user-images.githubusercontent.com/15919242/235687111-1ba6628f-0ffe-4201-924b-e4518878e6d6.png)  
+![image](https://user-images.githubusercontent.com/15919242/235687194-070fa98e-08e9-4963-8da0-1d60bd6485de.png)  
+
+
 
 ## 패키지 사용하기
 
