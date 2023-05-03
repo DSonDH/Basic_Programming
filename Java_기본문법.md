@@ -189,3 +189,22 @@ java.lang
 import java.lang.*; 이 자동으로 실행된 격임.  
 System은 java.lang안에 있는 클래스 중 하나.  
 
+## java의 실행 모델
+java는 cross-platform인가? 네니오.  
+cross-platform: 특정 언어로 작성한 코드를 여러 플랫폼에서 실행할 수 있다는 의미.  
+즉 여러 디바이스와 운영체제에서 실행가능한 소프트웨어.  
+자바 코드를 컴파일 한 결과는 바이트 코드(byte code)임.  
+byte code란?  
+언떤 운영체제/디바이스가 이해하는 기계어가 아님.  
+JVM (java virtual machine)이라는 특수한 프로그램이 이해하는 명령어.  
+각 운영체제/디바이스 마다 다른 버전을 설치.  
+JVM이 "실행 중에" 최종 플랫폼에 맞는 명령어로 바꿔서 실행해줌.  
+JVM에 맞게 최적화 됐지만 당연히 기계어보다는 느림.  
+![image](https://user-images.githubusercontent.com/15919242/235922818-4059ad29-fa80-437f-ab10-372019558b08.png)  
+java의 플랫폼은 JVM인거지.  
+근데, JVM이 설치 안되어있다면 java프로그램 실행 불가.  
+이런 관점에서는 크로스 플랫폼이라 하기엔 좀 어폐가 있음.  
+
+JVM이 바이트 코드를 실제 디바이스에서 실행하는 방식은 다양함.  
+과어 JVM은 인터프리터 방식으로 동작하나 최식 JVM은 JIT(just-in-time) 컴파일을 추가.  
+여러 가지 컴파일 방식이 공존하는 형태임.  
