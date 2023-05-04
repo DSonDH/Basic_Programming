@@ -146,11 +146,103 @@ bit shift 연산자
 
 
 ## 조건문
+if문: 알던대로!  
+![image](https://user-images.githubusercontent.com/15919242/236215309-f49bb0c9-4d10-45a9-91c5-3745f15ca3ad.png)  
+
+switch case문  
+![image](https://user-images.githubusercontent.com/15919242/236215470-4cec1604-e00c-4e99-aef0-08b3fa818787.png)  
+C랑은 다르고, C# 이랑은 같은 부분: case에 사용 가능한 자료형!  
+![image](https://user-images.githubusercontent.com/15919242/236215555-75da6c32-b6aa-4430-8260-625bdaab131d.png)  
+intentional fallthrough도 되서 C랑 비슷, C#이랑은 다름. C#은 컴파일 오류.  
+case문 마다 미리 break;를 넣는 습관 들이기 !!
 
 ## 반복문
 
+for loop, while loop  
+![image](https://user-images.githubusercontent.com/15919242/236216660-b25c2566-b0c6-44c6-a31f-cfca89ccd527.png)  
+![image](https://user-images.githubusercontent.com/15919242/236216836-40f5b0e8-760c-43e9-ba3f-6f1cd06d0190.png)  
+
+goto문 비슷한게 Java에 있음  
+break <라벨이름>;  
+![image](https://user-images.githubusercontent.com/15919242/236217050-43e9c8c6-1bbc-4d17-b789-60a24a305886.png)  
+![image](https://user-images.githubusercontent.com/15919242/236217190-1b328f88-c45c-4256-bd8d-fef7f9399e15.png)  
+![image](https://user-images.githubusercontent.com/15919242/236217333-a11ed108-1c8d-4070-a137-7225db01a761.png)  
+
+continue 역시 라벨 사용 가능.  
+![image](https://user-images.githubusercontent.com/15919242/236217706-4de7c4b0-2e08-4e7b-a580-a2665990a115.png)  
+
+foreach 스타일 for문  
+![image](https://user-images.githubusercontent.com/15919242/236217842-37bed3bd-a0ee-49f6-bc6e-d7e2b31e28f6.png)  
+
+
 ## 참조형 인자, 열거형
 
-## 람다
+함수  
+![image](https://user-images.githubusercontent.com/15919242/236218126-a3e9ea42-b4f6-41c1-8283-fc244076ec24.png)  
+Java에서는 모든게 포인터!  
+![image](https://user-images.githubusercontent.com/15919242/236218847-d1c27ce0-0287-406d-b5a7-40cbda76e9c1.png)  
 
-## 모듈
+final 참조형 매개변수  
+![image](https://user-images.githubusercontent.com/15919242/236219232-6e400ef9-592a-4333-95d7-a8bb255bb2c5.png)  
+![image](https://user-images.githubusercontent.com/15919242/236219330-76bbc7c0-95b4-4d63-b456-97bfc4adcbf4.png)  
+
+1차원 배열 예  
+![image](https://user-images.githubusercontent.com/15919242/236219438-74e1e958-dec5-484b-a9f6-d558931320e3.png)  
+![image](https://user-images.githubusercontent.com/15919242/236219469-b3bdb044-9f5d-45db-89d9-5dc2f23b8fac.png)  
+new String[10] 하면 참조형이므로, string 개체를 담을 수 있는 공간을 10개 만들어 줌. 실제로 string 10개를 넣어주지 않음.  실제로 들어가는건 Null 10개. 실제 값 넣으려면 for loop 돌면서 인덱스 별로 넣어줘야 함.  
+
+다차원 배열 예  
+![image](https://user-images.githubusercontent.com/15919242/236220250-cab1f827-6a34-4776-8d0d-2994b98702e6.png)  
+![image](https://user-images.githubusercontent.com/15919242/236220338-9df5c1fc-7449-4621-8779-d0853f0727db.png)  
+Java는 다차원의 배열, 배열의 배열 문법적으로 구분은 안하고 있음.  
+
+열거험  
+![image](https://user-images.githubusercontent.com/15919242/236220644-4517576a-bfff-4a57-be88-64bffca07fce.png)  
+
+Java 열거형에서 못하는 것.  
+![image](https://user-images.githubusercontent.com/15919242/236220856-c261497b-f8c3-41a5-ad27-5a53ceb8f94f.png)  
+![image](https://user-images.githubusercontent.com/15919242/236221402-fdd8a766-8b73-451b-ab4b-ac41c81fb373.png)  
+정수형이 아니므로. 클래스이므로... 마지막에 ;도 찍어줘야 함.  
+![image](https://user-images.githubusercontent.com/15919242/236221638-9c1507a3-4a28-4d02-9983-7a15a6fe9e2d.png)  
+
+![image](https://user-images.githubusercontent.com/15919242/236221780-d30f5f58-000d-4b58-83b9-08dc6f9f220f.png)  
+![image](https://user-images.githubusercontent.com/15919242/236221846-647afbab-15a8-421a-8590-0f1b1e4c5a08.png)  
+![image](https://user-images.githubusercontent.com/15919242/236222068-f9d4ae44-641a-44db-b717-da5b5f1ad464.png)  
+
+var  
+![image](https://user-images.githubusercontent.com/15919242/236222159-3741514c-e8f6-4e0b-8fa7-165941e08be0.png)  
+
+var 사용 시 주의점!  
+![image](https://user-images.githubusercontent.com/15919242/236222327-841e677e-796e-4d96-ad18-a64ac9eb14eb.png)  
+
+
+## 람다  
+![image](https://user-images.githubusercontent.com/15919242/236223252-a02b2e79-ac93-4626-b366-0c4d6dabe53c.png)  
+이름없는 함수를 한번 쓰고 버린다는 개념.  
+가독성 해치긴 함.  
+
+
+## 모듈  
+기본 방식 : 패키지  
+패키지 방식의 제약점(런타임 크기가 너무 커지는)을 보완하는. 효율적인 관리 및 배포에 좋다네  
+![image](https://user-images.githubusercontent.com/15919242/236223992-7ef14a4b-e97f-4823-b50e-9b27134a3db4.png)  
+기존 패키지 시스템의 한계 1.  
+![image](https://user-images.githubusercontent.com/15919242/236224696-de4b9c57-5f49-4864-bc0f-cf75fb6915d1.png)  
+
+한계 2.  
+![image](https://user-images.githubusercontent.com/15919242/236225149-e9df4352-549c-4d80-8893-cfe8b10a9d7e.png)  
+
+새로운 방식 : 모듈  
+![image](https://user-images.githubusercontent.com/15919242/236225212-bba9e820-879e-4815-84fa-2b691c8f9529.png)  
+패키지 위에 새로운 그룹(초록색)을 만듦.  
+
+![image](https://user-images.githubusercontent.com/15919242/236225374-d290b5d9-1da3-42aa-a4b5-176ccfdc741f.png)  
+module-info.java 안에 어떤걸 필요로 하는지 등등 정보를 넣어둠.  
+모듈의 이름은 패키지와 마찬가지로 중복을 피해야 함.  
+여러 단어로 이룽어진 경우, 점(.)을 찍음. 단어 별로 폴더를 만들지 않음!  
+
+module-info.java  
+![image](https://user-images.githubusercontent.com/15919242/236227414-713f851c-1eb3-4f18-82b9-872803fa89be.png)  
+![image](https://user-images.githubusercontent.com/15919242/236227666-a86f8041-06ef-4d50-82a8-9791e994bf79.png)  
+
+
