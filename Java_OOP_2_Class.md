@@ -158,11 +158,199 @@ this가 다시 개체 생성을 지시함. 근데 3개짜리 매개변수를 받
 반환 값에 루트 씌우고 그러지 말자.  
 외부 클래스에서 클래스 내부 데이터를 알 필요가 없음 (데이터 추상화, 캡슐화의 일부이기도 함)  
 
+```java
+// Passenger.java
+Package academy.pocu.comp2500samples.w02.vehicle;
 
-## 접근 제어자
+public class Passenger {
+    public String name;
+    
+    public Passenger(String name) {
+        this.name = name;
+    }
+    
+    public void sayName() {
+        System.out.println(String.format("Hi, I'm %s!", this.name));
+    }
+}
+
+
+// VehicleType.java
+package academy.pocu.comp2500samples.w02.vehicle;
+
+public enum VehicleType {
+    MOTOCYCLE,
+    SEDAN,
+    MINIVAN
+}
+
+
+// Vehicle.java
+package academy.pocu.comp2500samples.w02.vehicle;
+
+import java.util.ArrayList;
+
+public class Vehicle {
+    public VehicleType type;
+    public ArrayList<Passenger> passengers;
+    public double fuelAmount;
+    public int mileage;
+    
+    public Vehicle(VehicleType type) {
+        this(type, new ArrayList<Passenger>(), 0.0);
+    }
+    
+    public Vehicle(VehicleType type, double fuelAmount) {
+        this(type, new ArrayList<Passenger>(), fuelAmount);
+    }
+    
+    public Vehicle(VehicleType type, ArrayList<Passenger> passengers, double fuelAmount) {
+        this.type = type;
+        this.passengers = passengers;
+        this.fuelAmount = fuelAmount;
+        this.mileage = 0;
+    }
+    
+    public void addPassenger(Passenger passenger) {
+        this.passengers.add(passenger);
+    }
+    
+    public void removePassenger(String name) {
+        for (Passenger p : this.passengers) {
+            if (p.name.equals(name)) {
+                this.passengers.remove(p);
+                break;
+            }
+        }
+    }
+    
+    public void addFuel(double fuelAmount) {
+        this.fuelAmount += fuelAmount;
+    }
+    
+    public void drive(int distance) {
+        System.out.println(String.format("Traveling %dkm.", distance));
+        
+        double gasMileadge = 100_000;
+        
+        switch (this.type) {
+            case MOTORCYCLE:
+                gasMileage = 0.05;
+                break;
+            case SEDAN:
+                gasMileage = 0.07;
+                break;
+            case MINIVAN:
+                gasMileage = 0.1;
+                break;
+            default:
+                assert (false) : "Unrecognized vehicle type: " + this.type;
+                break;
+        }
+        
+        double requiredFuel = gasMileage * distance + 0.01 * this.passengers.size();
+        
+        if (requiredFuel > this.fuelAmount) {
+            System.out.println("Not enough fuel to travel that far!");
+            return;
+        }
+        
+        this.fuelAmount -= requiredFeul;
+        this.mileage += distance;
+        
+        System.out.println(String.format("FuelAmount %.2fL.", this.fuelAmount));
+        System.out.println(String.format("Mileage %dkm.", this.mileage));
+    }
+}
+
+// Program.java
+package academy.pocu.comp2500sample.w20.vehicle;
+
+import java.util.ArrayList;
+
+public class Program {
+    
+    public static void main(String[] args) {
+        Passenger blackWidow = new Passenger("Natasha");
+        blackWidow.sayName();
+        
+        Vehicle motorcycle = new Vehicle(VehicleType.MOTORCYCLE);
+        motorcycle.addPassenger(blackWidow);
+        motorcycle.addFuel(22.0);
+        
+        ArrayList<Passenger> taxiPassengers = new ArrayList<Passenger>();
+        taxiPassenger.add(new Passenger("Tony"));
+        taxiPassenger.add(new Passenger("Thor"));
+        
+        Vehicle taxi = new Vehicle(VehicleType.SEDAN, taxiPassengers);
+        taxi.addFuel(60.0);
+        
+        ArrayList<Passenger> vanPassengers = new ArrayList<Passenger>();
+        vanPassengers.add(new Passenger("Steve"));
+        vanPassengers.add(new Passenger("Bucky"));
+        vanPassengers.add(new Passenger("Wanda"));
+        vanPassengers.add(new Passenger("Bruce"));
+        vanPassengers.add(new Passenger("Clint"));
+        
+        Vehicle van = new Vehicle(VehicleType.MINIVAN, vanPassengers, 70.5);
+        
+        System.out.println("Motorcycle:");
+        motorcycle.drive(50);
+        
+        van.removePassenger("Steve");
+        van.removePassenger("Bucky");
+        
+        System.out.println("Van:");
+        van.drive(1000);
+        
+        System.out.println("Van:");
+        van.addFuel(50.0);
+        van.drive(100);
+    }
+}
+```
+
+## 접근 제어자 (access modifier)  
+생성자로 올바르게 만들어도, 그 이후에 -1살 이런거 만들 수 있음.  
+이런 분탕질을 제한하기 위한 장치가 접근 제어자.  
+class수가 500개가 넘는 건 복잡한 수준이 아니래 .. ㄷㄷ 현업은 역시 빡세군.  
+몇천개 이상이 되어 복잡하다면, 실수발생 가능성 많음.  
+접근 제어 주체는 class 자체가 되면 좋음.  
+
+java의 접근제어자 4가지  
+![image](https://user-images.githubusercontent.com/15919242/236453217-cd2b1fcb-293a-4cfc-bc2c-8ca59896e943.png)  
+OOP에서 논하는 것은 주로 public, protected, private  
+
+1. public
+![image](https://user-images.githubusercontent.com/15919242/236453543-86e26ae8-c25c-42df-b972-f284ba0c79dc.png)  
+
+2. private
+![image](https://user-images.githubusercontent.com/15919242/236453599-c62cf0aa-8205-4bd7-b3da-4d5f010d22bb.png)  
+![image](https://user-images.githubusercontent.com/15919242/236453657-c35ed7b1-0e92-4fb7-8771-a7fec6e9b98b.png)  
+외부 접근은 컴파일 오류 뜸.  
+
+private method는 ?  
+![image](https://user-images.githubusercontent.com/15919242/236453763-568912aa-49e7-45c5-85f9-47713b5d7c72.png)  
+
 ### 일반적인 접근 제어자
+![image](https://user-images.githubusercontent.com/15919242/236453884-d30e3104-95fe-4324-9968-a2855dc704e8.png)  
 
-## private 메서드 용도
+캡슐화 : private으로 숨긴 멤버변수들 외부접근 막음.  
+추상화 : 그속에 데이터를 밖에서 볼 수 는 없지만, 있는지 없는지는 추측만 가능한데,  
+일단 getName호출하면 데이터는 주겠지. 가정은 할 수 있는 것.
+
+## private 메서드 용도?
+private method는 클래스 안에서만 호출할 수 있음.  고로 코드 중복을 막기위함.  
+![image](https://user-images.githubusercontent.com/15919242/236455035-8928170b-356f-4693-86e8-d1e65a83ff89.png)  
+![image](https://user-images.githubusercontent.com/15919242/236455219-9b8e7a55-6b0d-4c98-b9eb-6d1ebb8f86c0.png)  
+
+private과 생성자  
+![image](https://user-images.githubusercontent.com/15919242/236455303-3e56a97a-131f-4853-ae52-8a4573866d38.png)  
+생성자가 private하면 새로운 개체 생성하려고 하면 컴파일 오류 뜸.  
+그러나 쓰는 경우는 나중에 배움.  
+
+[내부]의 의미 !!  
+![image](https://user-images.githubusercontent.com/15919242/236455587-6784ac5f-7199-460f-b702-5023efe968f2.png)    
 
 
 ## 패키지 접근 제어자
