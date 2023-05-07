@@ -117,7 +117,7 @@ java vs C# vs C
 ![image](https://user-images.githubusercontent.com/15919242/235680799-3dfc0801-4337-40be-a259-c908cfaf7ffb.png)  
 class폴더에는 compile된 결과물이 들어간대.  
 
-``` hellopucu>javac -d class\ src\academy\pocu\*.java```  
+``` hellopcu>javac -d class\ src\academy\pocu\*.java```  
 이 명령어 치면 컴파일한 java클래스의 패키지 이름과 동일한 폴더들이 class 폴더 밑에 생성됨!  
 ![image](https://user-images.githubusercontent.com/15919242/235681822-88697209-2e14-4c7a-8b50-0bc2504d6ef4.png)  
 그리고 그 안에 HelloPocu.class라는 파일이 생김.  
