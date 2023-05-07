@@ -321,10 +321,10 @@ java의 접근제어자 4가지
 ![image](https://user-images.githubusercontent.com/15919242/236453217-cd2b1fcb-293a-4cfc-bc2c-8ca59896e943.png)  
 OOP에서 논하는 것은 주로 public, protected, private  
 
-1. public
+1. public  
 ![image](https://user-images.githubusercontent.com/15919242/236453543-86e26ae8-c25c-42df-b972-f284ba0c79dc.png)  
 
-2. private
+2. private  
 ![image](https://user-images.githubusercontent.com/15919242/236453599-c62cf0aa-8205-4bd7-b3da-4d5f010d22bb.png)  
 ![image](https://user-images.githubusercontent.com/15919242/236453657-c35ed7b1-0e92-4fb7-8771-a7fec6e9b98b.png)  
 외부 접근은 컴파일 오류 뜸.  
@@ -354,15 +354,67 @@ private과 생성자
 
 
 ## 패키지 접근 제어자
+사용하고자 하는 파일을 import하는거랑 접근제어자 권한이 설정되는 거랑은 상관 없음 !!  
+private / public / () : package접근제어 셋 중 하나가 어떻게 설정되는지 따로 고려해야함 !!  
 
+![image](https://user-images.githubusercontent.com/15919242/236666627-dc5ea1af-dc79-4b50-a776-f139cb658ca5.png)  
+접근제어자 안붙이면 적용되는 접근 범위.  
+![image](https://user-images.githubusercontent.com/15919242/236666638-e8ee6032-6152-487d-83fb-6c0d8e0ea518.png)  
+![image](https://user-images.githubusercontent.com/15919242/236666647-42f2dafb-8510-4e66-99b6-7f4ccf3903ef.png)  
+Application.java에서 happy.happiness를 제어하려고 하면 컴파일 에러 뜸.  
+근데, 같은 패키지에 있다는 이유 만으로 내 object의 속성을 마음대로 제어할 수 있는건 캡슐화에 위배되는 내용임.  
+
+그럼 패키지 접근 제어자는 언제 사용하면 좋을까?  
+![image](https://user-images.githubusercontent.com/15919242/236666911-400f01bf-b474-48cb-bd8c-b55375c7a441.png)  
 
 ## getter, setter
+getter  
+남에게 보여주고픈 정보를 보여주는건 좋은데, 남이 내 정보를 수정할 수 없게 하려면, 보여줄 때 method로 보여주게 하면됨.  
+![image](https://user-images.githubusercontent.com/15919242/236677832-9aa9cb6a-0432-43c5-a1dc-2d8752175372.png)  
+![image](https://user-images.githubusercontent.com/15919242/236677860-0ae95dd4-7f72-43c1-907e-291b8c4a3276.png)  
+setter  
+남이 변경도 할 수 있게 할 때  
+![image](https://user-images.githubusercontent.com/15919242/236677954-b5b2a544-47d3-4728-bcae-b1cb057c1c6c.png)  
+![image](https://user-images.githubusercontent.com/15919242/236677998-7a21e7a1-4dcd-4ece-a682-4a43424b0f94.png)  
+그냥 속성을 public으로 하면 되지 않냐 싶은데, 그러면 안된다고 함. 일반적으로 setter getter만듦.  
+클래스를 작성한 프로그래머가 그 클래스에 대해 가장 잘 안다. 반대로 다른 사람들은 그 클래스 내부 잘 모름.  
+그래서 getter, setter를 만드는 관례를 만듦. 보다 자세한 내용은 아래에:  
+![image](https://user-images.githubusercontent.com/15919242/236678080-8c789558-634f-4cde-b1fc-cf78f9655644.png)  
+* 트으윽수한 경우에 성능을 위해 getter/setter생략으로 함수 호출에 따른 오버헤드와 불필요한 리소스 소모를 줄이는 경우도 있다고 함.  
 
+!!! best practice:  
+![image](https://user-images.githubusercontent.com/15919242/236678471-ebfedaec-3d5e-4eab-9fcd-8be78bc1387f.png)  
+![image](https://user-images.githubusercontent.com/15919242/236678490-586a90c6-059f-4485-ac50-e6fd36a0f590.png)  
+![image](https://user-images.githubusercontent.com/15919242/236678509-672eaaf7-777a-437d-aee9-34335bf4f01d.png)  
+![image](https://user-images.githubusercontent.com/15919242/236678546-acf3a78d-3231-4190-85a1-b7084a0e2081.png)  
+위에 경우는 남에집 개를 가리키지만, 실제 내용을 바꾸려면 setter로 제어할 수 있으므로 setter의 중요성이 있긴 함.  
+참고로 C++은 getter에서 읽기전용 reference를 반환할 수 있어서 이런 문제가 없음.  
+
+![image](https://user-images.githubusercontent.com/15919242/236678658-bd6993dd-a4e9-4164-b697-3b19cb9d13d3.png)  
+![image](https://user-images.githubusercontent.com/15919242/236678677-f6f1cc38-4b55-4391-856a-ee215d41cc49.png)  
+![image](https://user-images.githubusercontent.com/15919242/236678746-db0f87c8-3141-4c64-98a0-e928fd6807bf.png)  
+내가 쉽게 소스코드 바꿀 수 있는 상황이면 setter나중에 추가하고, 외부 판매용? 이라 내 손을 떠나는 거면 setter넣어두기.  
 
 ## 캡슐화, 추상화
+OOP 4대 특성 : 캡슐화, (데이터)추상화, 상속, 다형성  
+클래스 만들기와 private 멤버 변수가 캡슐화.  
+private 멤버 변수와 getter/setter가 데이터 추상화.  
 
+캡슐화  
+![image](https://user-images.githubusercontent.com/15919242/236678905-ec8e991d-d8d2-4523-9dbf-ccb397ecaa62.png)  
 
+추상화  
+![image](https://user-images.githubusercontent.com/15919242/236678965-58849b9c-5941-40ff-bca2-c458d2a4ac82.png)  
+추상 자료형 관점이 캡슐화에 무게를 둔 다수설, 절차적 데이터 추상화가 소수설.  
+OOP에서 추상화 : 어떤 구체적인 것에 직접 손대지 않겠다는 의미. 그 이상 그 이하도 아님.  
 
+추상화의 단점 1  
+동작 없이 데이터만 있는 클래스는 쓸데없는 코드만 늘어남.  
+ex: 웹 프로그래밍에서 많이 볼 수 있는 data transfer object (DTO)  
+그래서 이런 경우에는 그냥 public 데이터를 쓰기도 함.  
 
-
-
+추상화 단점 2  
+어떻게 추상화를 해야 하는지 뚜렷한 객관적 기준이 없음  
+사람은 뚜렷한 실체가 없는 개념을 이해하기 어려워 함.  
+이해하더라도 각자 달리 이해하기 쉬움.  
+나중에 다형성, 상속, 인터페이스에서 나오는 추상화에서 특히 문제가 됨.  
