@@ -83,7 +83,7 @@ Pope Kim's answer:
 code sample : PocuTunes.  
 ```java
 // Song.java
-package academu.pocu.comp2500samples.w03.pocutunes;
+package academy.pocu.comp2500samples.w03.pocutunes;
 
 public class Song {
     private String artist;
@@ -126,7 +126,7 @@ public class Playlist {
     private String name;
     private ArrayList<Song> songs;
     
-    public PlayList(String name) {
+    public Playlist(String name) {
         this.name = name;
         this.songs = new ArrayList<Song>();
     }
@@ -151,7 +151,7 @@ public class Playlist {
             return false;
         }
         
-        this.song.remove(song);
+        this.songs.remove(song);
         return true;
     }
     
@@ -177,13 +177,13 @@ import java.util.ArrayList;
 
 public class PocuTunes {
     private ArrayList<Song> songs;
-    private ArrayList<PlayList> playlists;
+    private ArrayList<Playlist> playlists;
     
     public PocuTunes() {
-        this(new ArrayList<Song>(), new ArrayList<PlayList>());
+        this(new ArrayList<Song>(), new ArrayList<Playlist>());
     }
     
-    public PocuTunes(ArrayList<Song> songs, ArrayList<PlayList> playlists) {
+    public PocuTunes(ArrayList<Song> songs, ArrayList<Playlist> playlists) {
         this.songs = songs;
         this.playlists = playlists;
     }
@@ -211,6 +211,10 @@ public class PocuTunes {
         return true;
     }
     
+    public void addPlaylist(Playlist playlist) {
+        this.playlists.add(playlist);
+    }
+
     public boolean removePlaylist(String playlistName) {
         for (Playlist playlist : this.playlists) {
             if (playlistName.equals(playlist.getName())) {
@@ -218,6 +222,8 @@ public class PocuTunes {
                 return true;
             }
         }
+
+        return false;
     }
     
     public void playSong(String songName) {
@@ -231,9 +237,8 @@ public class PocuTunes {
         songOrNull.play();
     }
     
-    
     public void playPlaylist(String playlistName) {
-        Playlist playlist = findPlaylistOrNull(playlistNmae);
+        Playlist playlist = findPlaylistOrNull(playlistName);
         
         if (playlist == null) {
             System.out.println(String.format("Playlist %s not found!", playlistName));
@@ -245,7 +250,7 @@ public class PocuTunes {
     
     private Playlist findPlaylistOrNull(String playlistName) {
         for (Playlist playlist : this.playlists) {
-            if (playlistNmae.equals(playlist.getName())) {
+            if (playlistName.equals(playlist.getName())) {
                 return playlist;
             }
         }
