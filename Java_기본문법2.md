@@ -28,6 +28,10 @@ Java 탄생 시 유니코드 최댓값이 U+10FFFF여서 역사적 한계를 가
 ![image](https://user-images.githubusercontent.com/15919242/235926690-5c800a03-882c-4b26-942d-019c6dc5b54b.png)  
 ![image](https://user-images.githubusercontent.com/15919242/235926755-ade9076d-cd03-4f01-9cba-3dde9b55ba3b.png)  
 
+* ArrayList  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/54d0f76e-7fdd-498c-9dcd-912dcf4a4c14)  
+
+
 ## 리터럴
 정수 리터럴  
 ![image](https://user-images.githubusercontent.com/15919242/235927410-10d0eac0-8c82-41a7-bb95-a8ac70507728.png)  
