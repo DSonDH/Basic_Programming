@@ -92,6 +92,8 @@ public class StudentManager {
 // 오류 종류는 ? 컴파일 오류!
 ```
 
+* code sample : static logger 파일 읽고 빠르게 눈에 들어와야 함 !!  
+
 ## static에 대한 비판
 
 # 디자인 패턴
