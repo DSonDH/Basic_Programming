@@ -7,6 +7,8 @@ python은 primitive type이 존재하지 않는다. 모든 데이터는 object�
 
 sort(item, key = lambda x: f(x))
 
+## scope 내 변수들 확인 (local, global, ...)
+globals(), locals(), vars(), and dir()  
 
 ## python modules
 .
