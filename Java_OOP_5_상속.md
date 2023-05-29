@@ -538,11 +538,13 @@ public class Program {
         Class vectorClass = vector.getClass();
 
         System.out.printf("Package name: %s%s",
-                vectorClass.getPackageName(),
+                vectorClass.getPackageName(),  // 클래스 전체 패키지 이름 반환
+                // "academy.pocu.comp2500samples.w05.classinfo"
                 System.lineSeparator());
 
         System.out.printf("Type name: %s%s",
-                vectorClass.getTypeName(),
+                vectorClass.getTypeName(),  // 클래스 전체 이름 반환
+                // "academy.pocu.comp2500samples.w05.classinfo.Vector"
                 System.lineSeparator());
 
         Method[] methods = vectorClass.getMethods();
@@ -550,8 +552,10 @@ public class Program {
         System.out.printf("# methods: %d%s",
                 methods.length,
                 System.lineSeparator());
+        // 모든 부모 클래스의 메서드도 포함해서 14개가 출력됨.
 
         methods = vectorClass.getDeclaredMethods();
+        // 상속된 클래스의 메서드 제외하는 메서드: 5개 출력됨.
 
         System.out.printf("# declared methods: %d%s",
                 methods.length,
@@ -598,7 +602,7 @@ public class Program {
         }
 
         Field[] fields = vectorClass
-                .getDeclaredFields();
+                .getDeclaredFields();  // private 멤버 변수까지 출력함
 
         System.out.printf("# member vars: %d%s",
                 fields.length,
