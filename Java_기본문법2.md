@@ -227,9 +227,12 @@ JVM의 메모리 영역은 크게 메소드 영역, 힙 영역, 스택 영역으
 ```Java 
 Week holiday = Week.MONDAY
 ```
-처럼 열거형 변수가 열거 개체를 참조하면 ?  
+처럼 열거형 변수가 열거형 개체를 참조하면 ?  
 스택 영역은 메소드가 호출될 때 그 메소드와 관련된 로컬변수와 매개변수가 저장되는 곳.  
 메소드 영역에서 주소값만 복사해서 결국 같은 열거형 개체를 가리킴.  
+다른 예 : Human adam 은 Stack 메모리에,  
+adam이 저장하고 있는 new Human()을 통해서 만들어진 주소는 Heap 메모리에 저장  
+
 ```Java 
 System.out.println(holiday == Week.MONDAY) // true
 ```
