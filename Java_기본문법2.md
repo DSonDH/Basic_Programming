@@ -200,7 +200,7 @@ new String[10] 하면 참조형이므로, string 개체를 담을 수 있는 공
 ![image](https://user-images.githubusercontent.com/15919242/236220338-9df5c1fc-7449-4621-8779-d0853f0727db.png)  
 Java는 다차원의 배열, 배열의 배열 문법적으로 구분은 안하고 있음.  
 
-열거험  
+열거형  
 ![image](https://user-images.githubusercontent.com/15919242/236220644-4517576a-bfff-4a57-be88-64bffca07fce.png)  
 
 Java 열거형에서 못하는 것.  
@@ -212,6 +212,27 @@ Java 열거형에서 못하는 것.
 ![image](https://user-images.githubusercontent.com/15919242/236221780-d30f5f58-000d-4b58-83b9-08dc6f9f220f.png)  
 ![image](https://user-images.githubusercontent.com/15919242/236221846-647afbab-15a8-421a-8590-0f1b1e4c5a08.png)  
 ![image](https://user-images.githubusercontent.com/15919242/236222068-f9d4ae44-641a-44db-b717-da5b5f1ad464.png)  
+
+열거형의 메모리 위치  
+자바에서 열거형은 일종의 클래스이고, 상수 하나 당 인스턴스를 하니씩 만들어 public static final 필드로 공개한다.  
+또한 열거타입의 인스턴스는 클라이언트가 직접 생성할 수 없고, 인스턴스는 런타임에 단 한번만 생성된다.  
+이런 특징으로 Singleton을 보장할 때 사용되기도 한다.  
+
+JVM의 메모리 영역은 크게 메소드 영역, 힙 영역, 스택 영역으로 나뉜다.  
+메소드 영역 : class, class variable(Static Variable).  
+따라서 열거형 클래스도 메소드 영역에 올라감.  
+힙 영역에는 개체 인스턴스가 올라감.  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/f071e23a-afa0-4b75-af35-48409aaa5f69)  
+그런데 
+```Java 
+Week holiday = Week.MONDAY
+```
+처럼 열거형 변수가 열거 개체를 참조하면 ?  
+스택 영역은 메소드가 호출될 때 그 메소드와 관련된 로컬변수와 매개변수가 저장되는 곳. 
+메소드 영역에서 주소값만 복사해서 결국 같은 열어개체를 가리킴.  
+```Java 
+System.out.println(holiday == Week.MONDAY) // true
+```
 
 var  
 ![image](https://user-images.githubusercontent.com/15919242/236222159-3741514c-e8f6-4e0b-8fa7-165941e08be0.png)  
