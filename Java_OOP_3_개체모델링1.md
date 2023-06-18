@@ -17,6 +17,7 @@
 +기호 : public.  
 -기호 : private.  
 ~기호 : default/package  
+#기호 : protected  
 
 점선 화살표 : 의존관계  
 A->B면 A가 B를 사용한다는 뜻.  
