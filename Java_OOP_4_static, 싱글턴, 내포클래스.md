@@ -215,14 +215,30 @@ public class Outer {
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/a7e868e2-436e-46a1-a318-313d34fe041e)  
 
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/4aba1885-c888-4db7-92a1-63a009f4c468)  
- 
+ ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/73acb793-8efd-448b-a464-106923a9897c)  
+
+  
  정적 내포 클래스를 활용한 버전.  
  ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/b6d61fd6-b6d5-4310-b3a1-0ca1271e9133)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/9b85bb36-2ec3-4cee-8766-64d7f51cef75)  
+새로운 개체 생성할 때 코드가 좀 더 깔끔해짐. Record.new reader() 가 아니고 new Record.Reader()  
 
+  
 자바에는 static class가 없음.  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/e9603fcf-b2d6-41b3-859d-897954bb3123)  
 다른 언어도 이렇게 씀.  
+outer class의 레퍼런스가 없다는 의미는, 자동적으로 outer class의 멤버변수를 자동으로 불러올 수 없다는 뜻  
 
+Q: this를 반드시 써라는 말인가?  
+A: this.record를 해줘야 한다는 말은 this를 반드시 써야한다는 의미가 아니었습니다.  
+Record 안에 있는 멤버에 접근하려면 반드시 Reader 개체 안에 저장된  
+record 멤버 변수를 통해 접근해야 한다는 의미입니다.  
+그와 반대로 비정적 클래스에서는 이걸 생략해도 접근이 가능하거든요.  
+
+Q: 내포클래스를 사용하지 않고 쓰는거나, static nested class를 쓰는거나 같은거 아니냐?  
+A: 어느 계층적 구조에서나 마찬가지로 무엇의 주종관계를 나타내는 정도의 용도가 있습니다. (그 외에는 별 차이가 없죠)  
+  
+  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/a2990c61-146e-432e-a7db-02abd4da782c)  
 static은 자바에서 class하나당 하나만 생성할 수 있고, static아닌 변수는 클래스가 개체를 특정할 수 없으므로  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/c2990441-f7fd-44c2-b31f-bb83ef835e4f)  
