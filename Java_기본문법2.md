@@ -180,6 +180,43 @@ foreach 스타일 for문
 
 
 ## 참조형 인자, 열거형
+```java
+// Vector.java
+public class Vector {
+    public int x;
+    public int y;
+    public int z;
+    
+    public Vector(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+}
+
+// Main.java
+public class Main
+{
+    public static void main(String args[]) {
+        Vector v = new Vector(1, 1, 1);
+        
+        int x = 0;
+        foo(x, v);
+    }
+    
+    public static void foo(int x, final Vector v) {
+        x = 4;
+        
+        v.x = 5;
+        v.y = 7;
+        v.z = 6;
+    }
+}
+
+// Q : main 함수 실행 후 최종 x, v.x, v.y, v.z 값은?
+// A : 0, 5, 7, 6
+```
+
 
 함수  
 ![image](https://user-images.githubusercontent.com/15919242/236218126-a3e9ea42-b4f6-41c1-8283-fc244076ec24.png)  
