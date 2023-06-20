@@ -66,7 +66,7 @@ setSeconds도 수정됨. setHours는 수정할 필요 없음. 더 올릴 시간�
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/d69e7f7f-f976-4388-837d-76bf0d6f9c6e)  
 
 Q: 디지털은 24시간 체계, 아날로그는 12시간 체계로 바꾸려면?  
-![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/31febbc8-ae61-48b3-a75b-1d97037c785f)
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/31febbc8-ae61-48b3-a75b-1d97037c785f)  
 자식마다 캐스팅 해주고 써야 함.  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/a86321a3-d31f-48bf-95f2-5f531c438563)  
 
@@ -76,7 +76,7 @@ Q: 디지털은 24시간 체계, 아날로그는 12시간 체계로 바꾸려면
 7세그먼트 디스플레이  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/37a4c9ef-3edd-4e5a-be35-ec547cada0d9)  
 1. 불리언 요소 7개 가진 배열  
-2. 비트 플래그 : 자바의 enu,과 EnumSet이용
+2. 비트 플래그 : 자바의 enum,과 EnumSet이용
 3. SevenSegmentDisplay 클래스 만들기  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/f050debf-7e65-4dca-8cfb-4fb419543ed7)  
 * 이거 클래스 구현하는거 시험에 나올거 같은 느낌 ?  
@@ -103,11 +103,11 @@ C#도 지원 안함. C++만 한대.
 여러가지 특징을 상속으로 처리하려 하면 부자연스러워짐.  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/aa727532-dc84-49af-8dce-2a5f46a76dc2)  
 
-1. wear()와 mount()를 추상화
+1. wear()와 mount()를 추상화  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/4488768e-81bd-4b0c-b180-3159a4c5eac5)  
 
 
-2. 인터페이스(interface)
+2. 인터페이스(interface)  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/6181799b-f813-418f-8e90-09c30a435d84)  
 다중 상속이 아닌 점선의 뭔가가 있는데, 나중에 배운대.  
 
