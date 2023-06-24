@@ -111,10 +111,23 @@ boolean isSame2 = (name1 == name3);
 boolean isSame3 = (name1 == name4);
 boolean isSame4 = (name1 == "Nana");
 
+// 시험 출제된 문제 경우 ... ㅠ
+String dummy = "dummy";
+String dummy2 = "dummy";
+String s1 = dummy + "12";
+String s2 = "dummy12";
+System.out.println(s1 == s2);
+System.out.println(dummy == dummy2);
+System.out.println(s1.equals(s2));
+
 /* The answer is ...
 true
 false
 false
+true
+
+false
+true
 true
 */
 ```
