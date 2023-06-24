@@ -122,5 +122,47 @@ Best Practice : final은 기본적으로 붙인다 !!
 코드보기 : 해시값 계산  
 
 # 추상메서드/클래스
+다형성으로 추상화를 수행하면서 새로운 문제가 발생함.  
+어떤 문제인지 직접 모델링 해보면서 보자고 함. 
+
+오늘 할 모델링 : 맨날 싸우는 몬스터  
+* 몬스터를 만들어서 서로 공격하게 만들고 싶음.
+* 몬스터 종류는 오우거, 유령, 트롤
+* 공격하는 몬스터 종류에 따라 피해치 계산법이 다름.  
+  본인과 상대방의 상태를 피해치 계산에 사용.  
+  그 상태들을 합치는 방법이 몬스터에 따라 다름.  
+* 나중에 몬스터 종류를 더 추가할 수도 있음.  
+
+유일한 동작인 공격: 어떻게 구현할까?  
+때리는 몬스터A, 맞는 몬스터 B가 있다.  
+1. A에게 B를 공격하라 명령 : monsterA.attack(monsterB);
+2. A는 B의 공격력(attack)과 방어력(defense)을 읽어옴
+3. B로부터 읽어온 상태와 자신의 상태를 이용하여 피해량을 계산
+4. B에 피해량을 적용: monsterB.inflictDamage(damage);  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/7c0004b9-bf47-49b6-88da-550735108bf9)  
+일단 몬스터 마다 공격 방법이 달라서 메서드 비워둠.
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/60554743-49f8-4a9d-8c17-3f103dcfd53e)  
+inflictDamage() 메서드는 protected여야지 아무나 접근해서 몬스터 체력 깎지 않도록 함.  
+근데 ... !!! attack만 하고 inflictDamage() 호출을 안하는 문제가 생길 수 있음.
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/7e71b3a6-aff9-446d-8f76-cc94e65a4c96)  
+-> 3번만 다형성으로 구현하는게 적절한 범위였음.
+  ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/6b31ee16-f112-475c-a213-8dcc66781838)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/fd792e44-24a2-453e-9f4b-1c8370f4a853)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/783b5f6b-bf99-49fb-8563-dfcae0e9eec2)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/b127e6bc-6cc1-4ee6-9471-7d8ddd0df93c)  
+
+이렇게 설계 바꿔도, 메서드 구현을 안하면 말짱도루묵임.
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/89e0534f-7cfb-4575-8179-318bede821dd)  
+
+현재 Monster클래스의 문제점
+1. calculateDamage() 메서드는 다형성을 위해서만 존재함.  
+  자식이 구현을 안하면 원하는 기능이 안나옴.  
+2. 
+
+
+
 ## 다형성, 상속, 추상화의 관계
 ## 구체 클래스 vs 추상 클래스
+
+
+
