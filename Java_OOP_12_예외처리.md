@@ -56,13 +56,71 @@ try-with-resources : Java7 부터 사용 가능. 이 과목에서 다루지 않�
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/daeee812-d5c8-4de4-8e11-35a10998d5be)  
 
 ## 나만의 예외 만들기
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/92c99cb9-c7c9-4dc4-a82d-af2b52bc053e)  
+super()를 통해 RuntimeException의 생성자를 호출.  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/fa09bb59-3cba-471b-9da3-cd4f4493cdb3)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/e5867296-018c-4266-add6-618866ad5dc5)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/e85f1478-8584-480e-a1e9-05ee455421b4)  
+사실 Java에서도 Exception을 상속받아 커스텀 예외를 만들 수 있음. 옛날 방식인듯 ?  
+요즘은 RuntimeException을 쓰는 일이 많대.  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/87cf7ff6-fcad-47fe-b5c0-7133f2ec84a6)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/bf017a4d-ef5d-4c59-9cdd-0314a9b4cdde)  
 
 ### 오류를 방치하면 일어나는 일
+Java의 예외는 크게 두 분류로 나뉨.  
+다른 언어의 예외와 다른점이고, 역사적인 이유도, 정신적인 이유도 있음.  
+우선 JVM환경에서 도는 프로그램에서 발생한 예외를 전처 처리(catch)안하면 어떻게 될까 ?  
+예 : 분모가 0일 때 발생하는 예외.  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/1c30bd71-1fc7-462f-8873-b02e979a6705)  
+JVM에서 책임지고 프로그램을 종료시켜주기에 OS나 기계에는 아무 영향 없음.  
 
+옛날  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/f321c0b7-c8fe-460d-a365-004f6532ee1b)  
+근데, 웹서버 처럼 지속적인 조작 없이 알아서 실행돼야 하는 프로그램이면?  
+자다가 깨서 회사 가서 재부팅 해야하는 .. 공포가 생길 수 있었던 시절임.  
+
+요즘  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/7470c4c6-5e71-4c6b-817f-f976f1d2195b)  
+요즘은 재부팅도 자동으로 되게 세팅할 수 있다.  
+JVM이 보장해주던 안전성을 이제는 OS가 책임져주는 꼴!  
 
 ### 예외 처리를 제대로 하지 못하는 이유
+과거에는 컴퓨터 재부팅에 대한 귀찮음이 컷어서 예외처리가 최우선시 됬었던거 같음.  
+그래서,  
+"함수에서 오류코드를 반환해서 오류 상황을 알려주는건 절대 금지!
+함수에서 반환하는 것은 무조건 올바른 값  
+문제가 있으면 무조건 예외 던지기!, 호출자는 그 예외를 제대로 처리해야 함!"  
+같은 주장을 하는 사람이 있음...  
+
+근대 문제는 수십년이 지나도록 이걸 제대로 한 사람이 드뭄.  
+물론 시도는 했지만, 사람이 이해하기 힘들어서 실패 ...  
+왜냐하면 ...  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/051b3b8c-a47c-4d5d-88f7-8ed5ca2cdac4)  
+어떤 함수가 예외를 던지는지 알아야 하는데, 거의 불가능함!  
+그래서 함수 위 주석으로 표기하기도 하는데, 사람들이 주석을 잘 안읽음 ... ㅋㅋㅋ  
+인간에 대한 이해 없이 만든 방법론은 실패하기 마련...  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/74e4abf9-2cd8-4bcb-b37d-edc00c49bcda)  
 
 ## Java의 checked 예외
+Java는 이에 좀 더 대비되어 있었음!  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/bac242ba-6521-4441-9968-75a9fe76382d)  
+
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/80f72d5b-52fe-4be9-9ea1-fdb2c9d38e3a)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/af2a411b-d9a7-423a-ae31-a169ef3afb6d)  
+
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/e918ae13-a0a6-44d4-948a-7ca033bd12fc)  
+unckecked 예외는 throws UserNotFoundException 안붙여도 됨.  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/6c30c026-c54f-41bb-9c73-4920b45d8604)  
+
+만약 findUser()를 호출하는 메서드에서도 UserNotFoundException을 처리하고 싶지 않다면?  
+즉 예외를 상위 호출자로 던져버리고 싶으면?  
+try catch 빼고,  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/c13d89e1-0404-4c75-87b1-6d2b00e88fa1)  
+
+구분 방법  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/27bd2497-a902-4828-b1c6-33c2ec07344e)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/9c9740e8-a47b-44ee-9469-1c2b7e521393)  
+
 
 ### checked 예외의 존재 의의
 
