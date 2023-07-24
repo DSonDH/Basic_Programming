@@ -121,12 +121,53 @@ try catch 빼고,
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/27bd2497-a902-4828-b1c6-33c2ec07344e)  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/9c9740e8-a47b-44ee-9469-1c2b7e521393)  
 
-
 ### checked 예외의 존재 의의
+언제 어떨걸 쓸까? 과거에는 checked 예외를 선호했고, 의도는 좋았지만 다소 실패함.  
+API제작자가 이건 클라이언트가 반드시 처리해야 할 예외라고 알려주는 용도였거든.  
+근데, 처리하라는 의미가 다양함.  
+1. 프로그램을 그냥 종료?
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/a82f5699-c05f-44ed-b449-50bc15c9a524)  
+단계가 올라갈수록 수십 수백개 던져야함. 사람에 대한 이해가 부족한 것.
+오히려 unchecked 예외를 사용하면 메서드 시그내처가 간결해지므로 이 가정은 아님.  
+
+2. 예외를 무시(swallow)하고 진행?
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/82f20c9e-1945-4daa-bfdc-4b3583f6fec0)  
+이럴거면 예외를 던질 이유가 없음.  
+
+3. 어떻게든 프로그램을 장상상태로 회복하라!  
+과거 Java진영에서 굉장히 선호하던 방식.  
+최상위 클래스인 Exception이 checked 예외인 것도 이 때문일지도?  
+unchecked 예외(RuntimeException)이 기본이 아니다!  
+덕분에 Java를 접할 떄 unchecked예외가 있는지 모르는 사람도 있음.  
+나만의 예외를 만들 떄 언제나 Exception을 상속.  
+그 결과 무조건 throws절을 넣어야 한다고 생각할수 도 있음  
+프로그래밍 언어의 기본 동작이 중요한 이유!  
 
 ## 예외로부터 안전한 프로그래밍
+그런데, 회복이 쉽지 않다.  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/92653082-3210-4c23-8ad0-e67cd6a28f63)  
+정말 번거로움! 이걸 모든 코드에 적용하기 쉽지 않음.  
+그렇지만, 정~~말 필요한 곳에는 넣어야 함.  
+그렇지 않은 많은 코드 부부은 그냥 재부팅하도록 ...  
 
 ## 근래의 예외 처리 트렌드
+1. 그냥 unchecked 예외를 쓰자고 함.  
+다시 다른 언어와 똑같아짐.  
+그 결과 아까 호출 트리에서 봤던 문제는 못고침.  
+즉 누가 어떤 예외를 던지는지 한눈에 안보임.  
+
+2. 예외로부터 안전한 최선의 방법은 재부팅
+예외로부터 회복하지 않는다.  
+단, 디버깅에 필요한 정보를 최대한 남기고 프로그램 종료.  
+이런 변화에 따라 예외를 얼마나 세분화해서 처리해야 하는가? (exception granularity)  
+이 질문에 대한 의견도 바뀌기 시작함.
+
+예전 :  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/256646d3-4e4f-4342-a9f1-15fa9684cd4c)  
+
+요즘 : 
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/f05bf6fa-bfb4-4539-b9e3-c7c9b5619400)  
+
 
 ## 제어 흐름용으로 예외를 사용하지 말 것
 
