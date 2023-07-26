@@ -4,6 +4,8 @@ primitive는 이용 가능한 가장 단순한 요소들이다.
 덧셈, 뺄셈 같은 가장 단순하고 원초적인 연산을 primitive operation이라고 함..  
 python은 primitive type이 존재하지 않는다. 모든 데이터는 object나 object산의 관계로 표현된다.  
 
+## 변수 명 규칙
+[under bar 관련 변수명 규칙](https://eine.tistory.com/entry/%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C-%EC%96%B8%EB%8D%94%EB%B0%94%EC%96%B8%EB%8D%94%EC%8A%A4%EC%BD%94%EC%96%B4-%EC%9D%98-%EC%9D%98%EB%AF%B8%EC%99%80-%EC%97%AD%ED%95%A0)
 
 sort(item, key = lambda x: f(x))
 
