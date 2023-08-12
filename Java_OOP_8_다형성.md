@@ -119,7 +119,7 @@ Best Practice : final은 기본적으로 붙인다 !!
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/95fbb7a9-6d21-4360-be5d-4079361cb0bd)  
 
 !!! HashSet 의 key에 들어갈 자료형으로 커스텀 클래스를 쓸때는, 커스텀 클래스에  
-Hashmap을 오버라이딩해서 구현해야지 커스텀 클래스 개체의 내가 원하는 방식으로의  
+HashCode()를 오버라이딩해서 구현해야지 커스텀 클래스 개체의 내가 원하는 방식으로의  
 같음을 자바가 판단하게 됨. 그렇지 않으면, 단순히 주소가 같은 개체만 같다고  
 자바가 판단하여 내가 원하지 않은 결과가 나올 수 있음. !!!!  
 
