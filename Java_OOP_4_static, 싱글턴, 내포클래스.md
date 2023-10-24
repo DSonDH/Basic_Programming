@@ -180,6 +180,7 @@ Java의 static은 프로그램 실행 시에 초기화 됨.
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/d17212c1-b216-4180-bbfb-fb102c1d3c0d)  
 기존 싱글턴으로 구현이 어려운 점이 발생하기도 함.  
 따라서 다른 변형을 사용하기도 함.  
+아래의 예는 getInstance호출할때 매번 다른 클래스 인자 두개를 세트로 넣어서 호출하는게 불편해서 이를 우회하는 방법으로 해결하는 방법을 소개하는 것임.  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/306e0ef2-784e-40e0-a6cd-a03c2ecaf36d)  
 create, get이 분리됨.  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/fba8a3f4-ca27-43e1-9afc-cf180398a964)  
