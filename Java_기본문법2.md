@@ -131,6 +131,8 @@ true
 true
 */
 ```
+* 문자열이 내부적으로 어떻게 메모리에 저장되고 취급되는지 분석한 블로그 [링크](https://c-king.tistory.com/242)  
+
 문자열은 참조형 !  
 ![image](https://user-images.githubusercontent.com/15919242/235934003-b8017449-b955-4db9-b6a7-309edbcda823.png)  
 근데 주소를 공유하는 경우가 있음.  
