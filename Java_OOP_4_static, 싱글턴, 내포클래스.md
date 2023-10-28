@@ -136,8 +136,12 @@ public class Program {
     private static void magic(Vector vector0, Vector vector1) {
         vector0 = new Vector(4, 5);
         vector1 = vector0;
+
+        boolean isEqual = vector0 == vector1;
+        System.out.println("in static method: " + isEqual);  // true !!
     }
 }
+
 ```
 java는 call by reference없다는 설명한 [블로그](https://kghworks.tistory.com/85)
 
