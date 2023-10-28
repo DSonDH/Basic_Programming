@@ -94,6 +94,53 @@ public class StudentManager {
 
 * code sample : static logger 파일 읽고 빠르게 눈에 들어와야 함 !!  
 
+
+``` java
+// Vector.java
+package src_excercise.q9;
+
+public class Vector {
+    private int x;
+    private int y;
+
+    public Vector(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+}
+
+// Program.java
+package src_excercise.q9;
+
+public class Program {
+    public static void main(String[] args) {
+        Vector vector0 = new Vector(1, 2);
+        Vector vector1 = new Vector(2, 3);
+
+        magic(vector0, vector1);
+
+        boolean isEqual = vector0 == vector1;
+        System.out.println(isEqual);  // false !!
+        System.out.println(vector0.getX() == vector1.getX());  // false !!
+        System.out.println(vector0.getY() == vector1.getY());  // false !!
+    }
+
+    private static void magic(Vector vector0, Vector vector1) {
+        vector0 = new Vector(4, 5);
+        vector1 = vector0;
+    }
+}
+```
+java는 call by reference없다는 설명한 [블로그](https://kghworks.tistory.com/85)
+
 ## static에 대한 비판
 개체지향이 지양하고자 했던 바 이므로.  
 OO의 개념이 멀다.  
