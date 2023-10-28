@@ -61,6 +61,7 @@ pulic Student() {
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/d44a15d3-9d5a-48f3-b555-503896ca549e)  
 
 super()는 무조건 첫줄에 해야함. 아랫줄에 하는 순간 부모 생성자 호출 안되서 컴파일 오류 뜸.  
+근데, 다른 생성자에게 super()호출을 떠넘기는건 됨. 무조건 처음 호출되는 생성자가 super()해야하는 건 아님.  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/24960404-d1b4-47c1-9109-25b0c5192117)  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/e2c3b55b-ad09-42c3-a142-2210ec031b61)  
 
