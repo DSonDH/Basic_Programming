@@ -115,7 +115,25 @@ public class Vector {
     public int getY() {
         return y;
     }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void whiteMagic(Vector vector0, Vector vector1) {
+        vector0 = new Vector(40, 50);
+        vector1 = vector0;
+
+        boolean isEqual = vector0 == vector1;
+        System.out.println("in whiteMagic method: " + isEqual); // true !!
+    }
+
+    public void whiteMagic2(Vector vector0, Vector vector1) {
+        vector0.setY(100); // 함수 외부에서 생성된 변수 그대로면 값 변경 됨 !
+        vector1.setY(1000);
+    }
 }
+
 
 // Program.java
 package src_excercise.q9;
@@ -128,9 +146,24 @@ public class Program {
         magic(vector0, vector1);
 
         boolean isEqual = vector0 == vector1;
-        System.out.println(isEqual);  // false !!
-        System.out.println(vector0.getX() == vector1.getX());  // false !!
-        System.out.println(vector0.getY() == vector1.getY());  // false !!
+        System.out.println(isEqual); // false !!
+        System.out.println(vector0.getX() == vector1.getX()); // false !!
+        System.out.println(vector0.getY() == vector1.getY()); // false !!
+
+        System.out.println("static return test");
+        Vector vector2 = blackMagic(vector0, vector1);
+        System.out.println(vector2.getX() == 4); // true !!
+        System.out.println(vector2.getY() == 5); // true !!
+
+        System.out.println("non-static test (object generated in scope)");
+        vector2.whiteMagic(vector0, vector1);
+        boolean isEqual2 = vector0 == vector1;
+        System.out.println(isEqual2); // false !!
+
+        System.out.println("non-static test (object not generated in scope)");
+        vector2.whiteMagic2(vector0, vector1);
+        System.out.println(vector0.getY() == 100); // true !!
+        System.out.println(vector1.getY() == 1000); // true !!
     }
 
     private static void magic(Vector vector0, Vector vector1) {
@@ -138,10 +171,15 @@ public class Program {
         vector1 = vector0;
 
         boolean isEqual = vector0 == vector1;
-        System.out.println("in static method: " + isEqual);  // true !!
+        System.out.println("in static method: " + isEqual); // true !!
+    }
+
+    private static Vector blackMagic(Vector vector0, Vector vector1) {
+        vector0 = new Vector(4, 5);
+        vector1 = vector0;
+        return vector0;
     }
 }
-
 ```
 java는 call by reference없다는 설명한 [블로그](https://kghworks.tistory.com/85)
 
