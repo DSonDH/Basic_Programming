@@ -56,47 +56,6 @@ pulic Student() {
 ## 부모 클래스의 독립성, 클래스 다이어그램  
 자식이 부모를 호출할 수는 있지만, 부모는 자식 호출할 수 없음.  
 전자는 부모를 특정할 수 있지만, 후자는 자식을 특정할 수 없으므로.  
-!!! 실제로는 자식 메서드를 가지고 있더라도, 부모 클래스로 캐스팅 되었으면,  
-부모 클래스 개체로 자식 클래스 메서드를 호출하려는 순간 컴파일에러 뜸.  
-실제 개체가 어떤 자료를 가지던지, 현재 캐스팅된 타입으로 적합성이 판단됨.  
-``` java
-    // Animal.java
-    package src_excercise.q8;
-    
-    public class Animal {
-        protected String name;
-    
-        public Animal(String name) {
-            this.name = name;
-        }
-    
-        public void sayName() {
-            System.out.println("Animal" + this.name);
-        }
-    }
-
-    // Cat.java
-    package src_excercise.q8;
-    
-    public class Cat extends Animal{
-        public Cat(String name) {
-            super(name);
-        }
-    
-        public void sayCatName() {
-            System.out.println("Cat" + this.name);
-        }
-    
-        public void introduce() {
-            System.out.println("Hi! I'm a cat!");
-        }
-    }
-
-    // main.java
-    Animal cat0 = new Cat("Honey");
-    cat0.sayName();  // ok
-    cat0.introduce();  // complie error
-```
 
 여전히 Person 개체도 만들 수 있음.  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/d44a15d3-9d5a-48f3-b555-503896ca549e)  
@@ -161,6 +120,48 @@ student.setMajor(Major.INFORMATION_TECHNOLOGY);
 Person person = student;  // 형 변환, casting임
 person.getMajorOrNull();  // 자식의 메서드 호출
 // 앞과의 같은이유로 컴파일 안됨 !!
+```
+
+!!! 실제로는 자식 메서드를 가지고 있더라도, 부모 클래스로 캐스팅 되었으면,  
+부모 클래스 개체로 자식 클래스 메서드를 호출하려는 순간 컴파일에러 뜸.  
+실제 개체가 어떤 자료를 가지던지, 현재 캐스팅된 타입으로 적합성이 판단됨.  
+``` java
+    // Animal.java
+    package src_excercise.q8;
+    
+    public class Animal {
+        protected String name;
+    
+        public Animal(String name) {
+            this.name = name;
+        }
+    
+        public void sayName() {
+            System.out.println("Animal" + this.name);
+        }
+    }
+
+    // Cat.java
+    package src_excercise.q8;
+    
+    public class Cat extends Animal{
+        public Cat(String name) {
+            super(name);
+        }
+    
+        public void sayCatName() {
+            System.out.println("Cat" + this.name);
+        }
+    
+        public void introduce() {
+            System.out.println("Hi! I'm a cat!");
+        }
+    }
+
+    // main.java
+    Animal cat0 = new Cat("Honey");
+    cat0.sayName();  // ok
+    cat0.introduce();  // complie error
 ```
 
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/c0e5fc7b-8308-4519-bee3-2bd526fc2252)  
