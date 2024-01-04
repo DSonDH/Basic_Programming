@@ -126,5 +126,35 @@ NP-완전 문제 중 하나라도 다항식 시간 안에 풀 수 있다면 이 
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/4a5be64f-59d6-4033-8a93-3fb59db39b75)  
 
 # Search Algorithm
+어떤 데이터 구조 안에 저장되어있는 정보를 구해오는 알고리듬. 엄청 많은 종류가 있다.  
+선형 탐색 알고리듬(첨부터 끝까지 훑기), 해시맵을 이용한 탐색이 있다.  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/eb477bbb-a4f0-4dbd-9357-4f7a70a7dfec)  
+근데, 용량은 N인데 더 빨라질 수 있음! 특정 조건하에 !!  
 
 ## binary search
+0. 오름차순으로 정렬된 배열을 준비.  
+1. 가운데 위치를 확인  
+2. 왼쪽이나 오른쪽을 선택.
+3. 1번 반복하면서 찾으면 끝!
+O(logN)  
+
+정렬된 배열에서 어떤 값의 위치를 찾는 알고리듬.  
+한 단계 진행할 때마다 탐색 범위를 절반으로 줄임.  
+분할 정복(divide-and-conquer) 알고리듬 중 하나.  
+재귀함수로 쉽게 작성 가능  
+binarySearchRecursive(int nums[], int l, int r, int value)  
+1. L = 0, R = N -1
+2. if L > R : 알고리듬 종료 (찾기 실패)
+3. m = (L + R) / 2 (무조건 내림)
+4. if nums[m] < value : L = m + 1하고 2번으로 돌아감
+5. if nums[m] > value : R = m - 1하고 2번으로 돌아감
+6. nums[m] == value이니 종료!
+
+### 정렬된 데이터와 알고리듬
+정렬된 데이터에 사용할 수 있는 효율적인 알고리듬이 많다.  
+어떤 값의 위치 찾기: O(logN)  
+최솟값/최댓값 찾기 : O(1)  
+정렬안됬으면 ? 정렬알고리듬으로 정렬한 뒤에 효율적인 알고리듬 쓰자.  
+단, 배열에 새 요소 추가하면 매번 다시 정렬해야하는데, 이런 업데이트가 빈번하면 비추.  
+
+코드보기 : 회전된 배열에서의 검색  
