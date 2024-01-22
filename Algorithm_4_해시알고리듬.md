@@ -76,6 +76,93 @@ No! 비슷한 내용을 가진 데이터끼리 충돌하는게 좋을 때가 있
 
 
 ## 비암호학적 해시 함수
+암호학적으로 사용하기에 안전하지 않은 해시 함수들  
+보안적으로 문제없는 용도에 주로 사용.  
+ - 데이터 저장 및 찾기 (해시 테이블)
+ - 저장/전송 중에 생긴 데이터 오류 탐지
+ - 고유한 ID생성 등등
+
+!!! 모든 데이터에 대해 최고의 결과를 보장하는 해시 함수는 없다.  
+입력값에 따라 다른 해시 함수를 사용하는 확률적 알고리듬은 존재 (Universal hashing)  
+따라서 용도에 맞는 해시 함수를 사용하는 게 중요.  
+심지어 bit-packing도 해시 함수로 사용 가능 (단, 균일성이 높지 않을 수 있음)  
+
+비트 패킹  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/f63aa968-d7c1-4e5d-8968-4557230b89ce)  
+age 부분은 7비트 정도 사용(최상위 비트는 사용 안함)  
+order는 아래 한 4비트 정도 사용 (각 나이별로 최대 16명 뽑을 때 기준)  
+
+올바른 해시 함수를 고르는 법  
+제한된 데이터를 사용하는 경우 정도반 해시 함수를 직접 발명함.  
+그 외에는 이미 존재하는 해시 알고리듬 사용함.  
+1. 실제 가지고 있는 데이터로 테스트 하면서 측정한다.  
+(속도, 해시 충돌 수, 메모리(보통 크게 중요하지 않음), 균일성(실무에서는 잘 안함))    
+2. 구글링 한다 (내 데이터 들이 일반적인 테이터인 경우)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/cbc6897e-bd0b-430a-bad8-8041b0334096)  
+
+### Lose Lose 해시
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/f0fd926e-2e28-4f61-8fb9-c28e233a13cd)  
+
+### Murmur, FNV-1해시 
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/7cbd01f6-e5b5-415e-86ee-016412e3afcd)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/ab7eb327-8865-42c0-8916-c3b65867acf8)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/6e114a5b-4ba9-473b-8830-1c6436c39a7a)  
+cpu에서 xor는 매우매우매우 빠른 연산 중 하나.  
+
+### 체크섬과 CRC
+여러 데이터로 도출한 작은 크기의 데이터 하나.  
+보통 데이터에 있는 모든 바이트를 어떤 방식으로든 합함.  
+해시 함수랑 매우 비슷한 개념! 출력값의 크기가 고정되어 있으면 해시 함수.  
+용도: 저장 혹은 전송 중 발생한 오류 찾아냄.  
+ - 처음 데이터를 저장할 때 체크섬을 계산해 저장
+ - 나중에 데이터를 읽을 때 다시 체크섬 계산
+ - 처음 저장한 체크섬과 다르면 오류가 난 것!
+
+ex: ISBN 유효성 검사 (책에 있는 그 코드), 신용카드 마지막 숫자  
+
+체크섬 알고리듬은 매우 간단!  
+보통 간단한 산술 연산으로 계산이 빠르고 추가 메모리가 거의 불필요.  
+-> 네트워크 프로토콜에서 사용, 하드웨어로도 구현하기 쉬움.  
+단, 모든 오류를 찾지는 못함.  
+문자열 순서가 뒤바껴도 같다고 처리해주는 알고리즘도 있음  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/18c0f485-4549-4cb8-9159-34343d45c644)  
+
+* 체크섬과 미러 사이트
+웹사이트에서 유용한 프로그램을 배포할 경우 미러를 사용하기도 함.  
+요용한 프로그램이라 매우 많은 사람들이 다운도르 한다고 하자.  
+한 웹사이트에서 트래픽 감당이 안되서 다른 웹사이트에서 대신 파일을 호스팅.  
+근데, 미러 사이트에서 내 프로그램에 스파이웨어를 넣으면?  
+그걸 알아낼 수 있도록 내 웹사이트에 체크섬 알고리듬을 돌림  
+그 둘이 일치하지 않으면 누군가 변조한 프로그램!  
+주의: 미러 사이트에 공개해 놓은 체크섬 값과 비교하는 건 도움 안 됨!  
+
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/dcf5bdec-f630-47db-9ef3-89ccbf5ba2a8)  
+
+* 순환 중복 검사 (Cyclic Redundancy Check)
+체크섬 알고리듬 중 하나.  
+다항식의 나머지 연산을 이용하여 검사값을 만듦.  
+검사값은 보통 고정된 길이, 따라서 CRC함수를 해시 함수로 사용하기도 함.  
+이진수 하드웨어에서 구현하기 쉽고, 최신 CPU는 CRC-32C 명령어를 탑재함!  
+
+다항식의 최고차항에 따라 CRC에 사용하는 비트 수가 달라짐.  
+각 차항의 계수는 1 아님 0.  
+최고차항의 계수는 언제나 1.  
+x^3 + x + 1은 1011이 됨.  
+하지만 최고차항의 계수는 언제나 1이니깐 무시하고 011 3개 비트만 있음 됨.  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/b434bb7b-c388-4441-bcac-12d1b511837c)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/54b649d4-5c5c-4a32-bf5e-bf4444492306)  
+1비트 쉬프트 해서 계산하는데, 위 숫자가 0이면 스킵함. 즉 1일때만 계산 함.  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/2de3901e-787a-4c8d-a926-248836dcc3e0)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/03c1f893-66c2-4c7d-8247-3690ffbd146a)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/4d53b5b0-e185-4fce-9d70-65e1cea1e9a9)  
+
+매애애애우 긴 문서를 String.equals()하기에는 무리가 있음.  
+이 때 두 스트림을 직접비교하지 않고, 체크섬을 비교하는게 좋음.  
+몇 바이트 씩 끊어와서 비교하는 방식임.  
+부분적으로 String 비교하는거랑 뭐가 다른지는 모르것네  
+
+코드보기 : CRC-32 체크섬  
+
 
 ## 암호학적 해시 함수
 
