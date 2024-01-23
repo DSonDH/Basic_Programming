@@ -165,4 +165,88 @@ x^3 + x + 1은 1011이 됨.
 
 
 ## 암호학적 해시 함수
+해시값에서 원본 값을 찾는 게 사실상(너무 오래걸려서) 실행 불가능한 알고리듬.  
+one-way function  
+수학적 지식이 많이 요구됨. 따라서 이미 있는 해시 함수를 주로 사용함.  
+원본 값 찾으려면 모든 조합을 모두 시도해봐야 함.  
+보안 분야에서 다양한 용도로 사용함.
+
+용도 예:  
+메시지나 파일의 무결성 검사 (미러 사이트에서 파일 다운로드 하기)  
+디지털 서명 생성 및 검증  
+비밀번호 검증  
+작업증명(proof-of-work, PoW): 블록체인 등에서 서비스 거부 공격(DoS)를 어렵게 하기 위해.  
+일반 해시 알고리듬 대신으로 사용 가능 (대신 느림)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/23176679-beea-4c59-b025-8bda6013fe7b)  
+어떻게 작동하고, 뭘 보장하려고 하는지 알면 됨.  
+
+* 암호학적 해시 알고리듬의 추가 속성
+1. 역상 저항성 (pre-image resistance)
+2. 제 2 역상 저항성 (second pre-image resistance)
+3. 충돌 저항성 (collision resistance)
+
+* 역상 저항성
+해시값으로 부터 원본 데이터를 찾기가 어려워야 함.  
+즉, 원본 데이터를 같이 저장하지 않는 용도에 적합. (예: 비밀번호 저장)  
+내가 저장한 거는 해시값이고, 그걸로 원본 복원하기 어려워야 함.  
+비보안학적 해시 함수에서 본 비트 패킹은 역상 저항성이 거의 없음.  
+낮은 역상 저항성을 이용하는 게 역상 공격(pre-image attack)  
+무차별 대입 공격을 통해서만 해시값을 찾을 수 있는 것이 이상적!  
+즉, 해시값으로 부터 패턴을 보기 어려워야 함.  
+좋은 알고리듬이 필요한 이유(예: 산사태 효과), 해시값의 길이가 길수록 좋다.
+
+* 제 2 역상 저항성
+똑같은 해시값이 나오는 다른 입력값을 찾기 어려워야 함.  
+(입력값, 해시값) 쌍을 이미 가지고 있을 때  
+이 저항성이 낮으면 제 2 역상 공격에 취약  
+즉, 내 계정의 해시값을 알 때, 유사한 비번도 알기 쉬우면 안됨.  
+
+역상 저항성 보다 한 가지 정보가 더 있는 경우  
+역상저항성은 해시값만 있는데, 제 2 역상 저항성은 입력값도 알고 있음.  
+
+* 충돌 저항성
+내가 가진 데이터 없어서 아무 문구나 해시 함수 돌려서,  
+해시값이 똑같은 두 입력값을 찾기가 어려워야 함.  
+해시값도 입력값도 주어지지 않은 경우  
+이 저항성이 낮으면 충돌 공격에 취약.  
+
+충돌 공격은 역상 공격들 보다 쉬움.  
+이미 MD5와 SHA-1에 대해 실행 가능한 충돌 공격이 발견됨.  
+MD5는 일반 컴퓨터로 몇 초면 될지도...   
+모든 암호학적 해시 함수는 생일 공격(birthday attack)이 가능하기 때문.  
+생일 공격은 무차별 대입 공격보다 빠름 (이유: 생일 문제)  
+
+* 생일 문제 (birthday problem)
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/cd783d42-f91b-490b-a789-d0674087b86a)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/8980a8cf-7cc6-478a-9112-a23d242544ad)  
+
+보안 이야기  
+비번을 해시로 저장해야 하는 이유  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/5c9643f1-bbe1-4d5d-8d45-dba8c4afa1a0)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/d5e79ddf-7ca4-48d2-8fb3-b9f31c8abee7)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/4290bbcd-9394-4f3c-9ba7-25b84113f410)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/cc54c1ee-b264-49ac-b5d0-ec8827dcd454)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/6dcf8c9e-6d75-4382-aab2-ae41929aa07c)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/3e687804-dce5-4a39-a1f5-efca96204cc9)  
+
+비밀번호 덜 털리는 법  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/d761e8b8-86d6-4f50-92ed-897e15a0c0d0)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/60084753-8dff-4540-98cc-106abbd44dea)  
+다른 사람은 다른 랜덤한 스트링을 추가로 부여받음  
+더 이상 레인보우 테이블에서 찾을 수 없음.  
+각 비번마다 무차별 대입 공격 및 사정 공격을 해야 함.  
+몇천만번 돌려서 N명중 한 명 알 수 있는거에서 1명당 몇천만번 돌려야 알 수 있게 제한됨.  
+
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/de923aae-8671-4609-b87b-8cd7987d3e78)  
+웹서버에서 메모리에만 들어가 있는 값임! 디비 털려도 안나옴!  
+해커가 안가지고 있어서 거의 모든 공격을 무력화.  
+단, 디비 털릴 때 웹 서버 메모리 까지 털리면 도루묵..  
+
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/3eca46dc-1338-482d-a86d-fba08ef205ab)  
+
+마지막 조언!  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/ca886001-6082-49f5-8aec-d28a2ca5e98b)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/1fc04fd9-927e-4196-9e17-df67df8adf6f)  
+
+코드보기: 비밀번호 해시 만들기  
 
