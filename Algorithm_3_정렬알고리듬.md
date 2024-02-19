@@ -67,7 +67,7 @@ for (int i = 0; i < nums.size(); ++i) {
 for (int i = 0; i < nums.size(); ++i) {
     j = i - 1;
     while(j >= 0) {
-        if (nums[j] < nums[j + 1]) {
+        if (nums[j] > nums[j + 1]) {
             int tmp = nums[j + 1];
             nums[j + 1] = nums[j];
             nums[j] = tmp;
