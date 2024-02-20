@@ -148,6 +148,49 @@ return pivotPos;
 안정성 보장됨!  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/e7569438-7b07-48dc-b52f-a1a85ee8bdb0)  
 
+ ```java
+    private void mergeSortRecursive(final Player[] players, int left, int right) {
+        int mid;
+        if (left < right) {
+            mid = (left + right) / 2;
+            mergeSortRecursive(players, left, mid);
+            mergeSortRecursive(players, mid + 1, right);
+            merge(players, left, mid, right);
+        }
+    }
+
+    private void merge(final Player[] players, int left, int mid, int right) {
+        int leftIndex = left;
+        int rightIndex = mid + 1;
+        int sortedIndex = left;
+        Player[] tmpSortedArray = new Player[right + 1];
+
+        while (leftIndex <= mid && rightIndex <= right) {
+            // ascending order
+            if (players[leftIndex].getRating() <= players[rightIndex].getRating()) {
+                tmpSortedArray[sortedIndex++] = players[leftIndex++];
+            } else {
+                tmpSortedArray[sortedIndex++] = players[rightIndex++];
+            }
+        }
+
+        // merge remains
+        if (leftIndex > mid) {
+            for (int i = rightIndex; i <= right; i++) {
+                tmpSortedArray[sortedIndex++] = players[i];
+            }
+        } else {
+            for (int i = leftIndex; i <= mid; i++) {
+                tmpSortedArray[sortedIndex++] = players[i];
+            }
+        }
+
+        // overwrtie into original array
+        for (int i = left; i <= right; i++) {
+            players[i] = tmpSortedArray[i];
+        }
+    }
+```
 
 ## 힙 정렬
 안정성 보장 안됨!  
