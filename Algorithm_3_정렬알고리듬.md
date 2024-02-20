@@ -46,7 +46,7 @@ for (int i = 0; i < nums.size(); ++i) {
 for (int i = 0; i < nums.size(); ++i) {
     int minIdx = i;
     for (int j = 0; j < nums.size() - i - 1; ++j) {
-        if (min > nums[j + 1]) {
+        if (nums[minIdx] > nums[j + 1]) {
             minIdx = j + 1;
         }
     }
