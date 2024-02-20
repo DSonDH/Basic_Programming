@@ -43,17 +43,18 @@ for (int i = 0; i < nums.size(); ++i) {
 시간/공간 복잡도 : 버블정렬과 동일, 안정성 보장 "안"됨!  
 ``` java
 // public static void selectiveSort(int[] nums)
-for (int i = 0; i < nums.size(); ++i) {
-    int minIdx = i;
-    for (int j = 0; j < nums.size() - i - 1; ++j) {
-        if (nums[minIdx] > nums[j + 1]) {
-            minIdx = j + 1;
-        }
-    }
-    int tmp = nums[minIdx];
-    nums[minIdx] = i;
-    nums[i] = tmp;
-}
+    for (int i = 0; i < nums.length - 1; ++i)  
+    {  
+        int index = i;  
+        for (int j = i + 1; j < nums.length; ++j){  
+            if (nums[j] < nums[index]){  
+                index = j;
+            }  
+        }  
+        int tmp = arr[index];   
+        arr[index] = arr[i];  
+        arr[i] = tmp;  
+    }  
 ```
 
 ## 삽입정렬
