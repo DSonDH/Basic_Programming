@@ -88,17 +88,255 @@ C가 두번 출력됨! 뭔가 잘못됨 ㅠㅠ
 ## 후위 순회 (DFS)
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/af13b167-2629-443e-87a5-cf1434406aa4)  
 
-QnA: 정용훈님
+QnA: 정용훈님  
+각 노드마다 방문했는지 여부를 기억하는걸 true false로 하지 않고 변수 하나를 두고  
+해당값을 +1씩 해가면서 해당 값일경우를 true로 판단하고 아닐경우  
+오버플로우시 버그가 발생할 수 있기 때문에 false일경우는 그 값 -1로 바꿔가면서  
+판단하면 시작하기전에 각 노드를 한번 순회를 안해도 되겠군요!  
 
-그래프 DFS의 시간 복잡도
+그래프 DFS의 시간 복잡도  
+O(N+E)  
+각 노드는 최대 한 번 처리됨: O(N)  
+각 변은 최대 두 번 고려됨 : O(E)  
 
 ### 위상 정렬
-DFS를 사용한 위상 정렬
+topological sort  
+그래프의 노드를 선형 (일직선)으로 정렬하는 방법  
+우선순위가 바뀌지 않음  
+(예: B노드를 가리키던 모든 노드들이 B 보다 전에 나옴)  
+DAG만 유효한 위상 정렬이 가능  
+순환하는 노드가 있다면 우선순위 판단이 불가능!  
+시작점이 존재해야 함  
+해답이 여럿일 수 있음!  
 
-강한 결합 요소
-위상 정렬과 강한 결합 요소
-코사라주 알고리듬
-코사라주 알고리듬의 이해
+(참고) 위상 정렬 알고리듬  
+몇 가지 알고리듬이 존재!  
+깊이 우선 탐색(DFS), 칸 알고리듬 (Kahn's algorithm)  
+실제로 위상 정렬을 함  
+위상 정렬 가능한 그래프인지 판단  
 
-## 그래프의 너비 우선 탐색
-그래프 BFS의 시간 복잡도
+(참고) DFS를 사용한 위상 정렬  
+전위 순회? 후위 순회? 전위 순회는 말이 안됨!  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/1855f56c-550c-4b59-a2a2-1bd81ade838e)  
+후위 순회는 역순으로 따라하면 됨!  
+
+위상 정렬의 용도  
+관계에서 순서를 정하는 매우 많은 곳에서 사용 가능  
+프로젝트 일정 만들기  
+CPU 명령어 실행 순서 결정  
+스프레드 시트 셀 평가 순서 결정  
+컴파일 순서 결정  
+DB테이블 로딩 순서 결정  
+선수 순위 결정  
+(대부분 누군가 미리 만들어 놓은 함수들을 우리가 쓰던것들임)  
+
+코드보기: POCU 수강 순서  
+``` java
+// Course.java
+package academy.pocu.comp3500samples.w11.topologicalsort;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public final class Course {
+    private final String title;
+    private final ArrayList<Course> nextCourses = new ArrayList<>();
+
+    public Course(final String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public List<Course> getNextCourses() {
+        return Collections.unmodifiableList(this.nextCourses);
+    }
+
+    public void addNext(final Course course) {
+        this.nextCourses.add(course);
+    }
+}
+
+// Program.java
+package academy.pocu.comp3500samples.w11.topologicalsort;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
+
+public class Program {
+    public static void main(String[] args) {
+        ArrayList<Course> courses = createCourseGraph();
+
+        LinkedList<Course> sortedCourses = sortTopologically(courses);
+
+        for (Course course : sortedCourses) {
+            System.out.println(course.getTitle());
+        }
+
+        System.out.println("=======================================");
+
+        Collections.shuffle(courses);
+
+        sortedCourses = sortTopologically(courses);
+
+        for (Course course : sortedCourses) {
+            System.out.println(course.getTitle());
+        }
+    }
+
+    private static LinkedList<Course> sortTopologically(ArrayList<Course> courses) {
+        HashSet<Course> discovered = new HashSet<>();
+        LinkedList<Course> sortedList = new LinkedList<>();
+
+        for (Course course : courses) {
+            if (discovered.contains(course)) {
+                continue;
+            }
+
+            topologicalSortRecursive(course,
+                    discovered,
+                    sortedList);
+        }
+
+        return sortedList;
+    }
+
+    private static void topologicalSortRecursive(Course course, HashSet<Course> discovered, LinkedList<Course> linkedList) {
+        discovered.add(course);
+
+        for (Course nextCourse : course.getNextCourses()) {
+            if (discovered.contains(nextCourse)) {
+                continue;
+            }
+
+            topologicalSortRecursive(nextCourse,
+                    discovered,
+                    linkedList);
+        }
+
+        linkedList.addFirst(course);
+    }
+
+    private static ArrayList<Course> createCourseGraph() {
+        final Course comp0000 = new Course("0000: Intro to Programming for Novices and Hobbyists (C#)");
+        final Course comp1500 = new Course("1500: Intro to Professional Programming with C#");
+        final Course comp1000 = new Course("1000: Math for Software Engineers");
+        final Course comp1600 = new Course("1600: Visual Programming with C#");
+        final Course comp2200 = new Course("2200: Unmanaged Programming with C");
+        final Course comp2500 = new Course("2500: Object Oriented Programming and Design with Java");
+        final Course comp4700 = new Course("4700: Database Programming with C#");
+        final Course comp2300 = new Course("2300: Assembly");
+        final Course comp3200 = new Course("3200: Unmanaged Programming with C++");
+        final Course comp3500 = new Course("3500: Algorithm & Data Structure with Java");
+        final Course comp3000 = new Course("3000: Computer Architecture (C or Assembly)");
+        final Course comp4000 = new Course("4000: Operating Systems (C)");
+        final Course comp4100 = new Course("4100: Data Comm (C or C++");
+
+        comp0000.addNext(comp1500);
+
+        comp1500.addNext(comp1000);
+        comp1500.addNext(comp1600);
+        comp1500.addNext(comp2200);
+        comp1500.addNext(comp2500);
+
+        comp1000.addNext(comp1600);
+        comp1000.addNext(comp2200);
+        comp1000.addNext(comp2500);
+
+        comp1600.addNext(comp4700);
+
+        comp2200.addNext(comp2300);
+        comp2200.addNext(comp3200);
+        comp2200.addNext(comp3000);
+
+        comp2500.addNext(comp4700);
+        comp2500.addNext(comp3200);
+        comp2500.addNext(comp3500);
+
+        comp2300.addNext(comp3000);
+
+        comp3200.addNext(comp4000);
+        comp3200.addNext(comp4100);
+
+        comp3000.addNext(comp4000);
+
+        ArrayList<Course> courses = new ArrayList<>();
+
+        courses.add(comp0000);
+        courses.add(comp1000);
+        courses.add(comp1500);
+        courses.add(comp1600);
+        courses.add(comp2200);
+        courses.add(comp2300);
+        courses.add(comp2500);
+        courses.add(comp3000);
+        courses.add(comp3200);
+        courses.add(comp3500);
+        courses.add(comp4000);
+        courses.add(comp4100);
+        courses.add(comp4700);
+
+        return courses;
+    }
+}
+```
+
+강한 결합 요소  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/2965664a-0de6-49d2-8249-e8966ffa2f3a)  
+여기서 순환하는 부분이 있음!  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/c45c33ad-c5cb-455c-a696-5d08554d372b)  
+그래서, 노드4랑, 보라색 클러스터, 빨간 클러스터 3개 부분으로 나뉜 모양이 됨!  
+그럼 클러스터 빨강에 연결하면 끝!  
+
+강한 결합 요소 (Strongly Connected Component)  
+방향 그래프에서 끈끈한 관계를 가지는 노드들의 최대 그룹!  
+그 그룹에 속한 두 노드는 어떻게든 연결되어 있음  
+반드시 이웃은 아님  
+주 용도는 최적화! 고려해야 할 정점 수를 줄여줌  
+다른 예)  
+  그래프를 여러 SCC로 분리  
+  각 SCC에 대해 알고리듬 실행  
+  그 결과 합침  
+실제 문제를 풀기 위해 SCC를 사용하는 경우도 있음  
+위상 정렬과 강한 결합 요소  
+위상 정렬은 순환을 해결할 수 없으므로, 순환하는 부분을 묶어서 위상 정렬하기도 함  
+
+DFS 기반 알고리듬  
+Kosaraju's algorithm  
+Tarzan's algorithm  
+경로 기반 알고리듬  
+도달 가능성 기반 알고리듬 (분할 정복)  
+
+코사라주 알고리듬  
+1. 그래프 G를 DFS 후위 순회 (역순) 한다
+2. 전치 그래프 G^T를 계산한다 (변의 방향이 반대인 그래프)  
+3. G^T의 각 노드에서 DFS를 실행한다  
+(1에서 찾은 순서대로, 각 DFS 실행에서 얻은 목록이 강한 결합 요소!)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/38905d0b-3960-4500-a5b7-bf6b5693c7b0)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/2fed3313-198f-4ec7-b7e1-41fcd03102fe)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/e0d2bbba-c1e5-4c0b-92a1-2784c11d648f)  
+
+코사라주 알고리듬의 이해 (증명은 각자 찾기)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/8842ad7d-0ff7-4df4-999c-d256c16f7184)  
+두 번째 단계 (transpose하는 것) : component사이의 연결 방향만 바뀜.  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/e52a5010-ef21-430c-885c-70da6b1b97ed)  
+
+강한 결합 요소의 용도? 주로 복잡한 네트워크 관계 관련, 신경과학에서도 사용  
+방대한 양의 데이터에서 연관된 그룹 찾기에 유용!  
+예:  
+여전히 진입이 가능하게 보장하면서 일방 통행로 봉쇄하기  
+한 도시에서 다른 도시로 비행기 여행이 가능한지 확인  
+SNS에서 직장동료, 학교 동기 찾기  
+SNS에서 취미나 성향이 같은 사람 찾기  
+
+## 그래프의 너비 우선 탐색  
+트리에서 봤던 너비 우선 탐색. 단, 그래프에서는 방문한 노드를 기억해야 함  
+실제로는 발견한 노드를 기억. 깊이 우선 탐색에서 한 대로!  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/0c00322f-734e-4b87-973b-336cbf4e9ee8)  
+
+시간 복잡도 O(N + E)  
