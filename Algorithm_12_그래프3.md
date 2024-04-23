@@ -307,7 +307,55 @@ DNA 염기서열 분석
 물론 P=NP면 다른 얘기!  
 
 # 흐름 네트워크와 최대 유량
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/58e34d83-3aa8-4d87-816f-9362b8311789)  
 
-## 에드몬드-카프 알고리듬
+네트워크 유량 문제: 어떤 흐름 네트워크에서 유량을 결정하는 문제  
+- 최대 유량(maximum flow) 문제
+- 최소 비용 유량(minimum-cost flow) 문제
+- 다중 상품 흐름(multi-commodity flow) 문제
+- 0일 곳이 없는 흐름(nowhere-zero flow) 문제
 
+## maximum flow 문제
+어떤 노드에서 다른 노드까지 보낼 수 있는 최대 양을 결정하는 문제  
+최고 데이터 전송 속도, 최대 교통량 등등  
+병렬연결로 유량이 늘어날 수 있음  
+병목으로 유량이 줄 수도 있음  
 
+수요와 유통 문제  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/40a3059a-4b73-4f3b-8331-d0e419bc26ef)  
+여러 알고리듬이 있음. 가장 단순한 방법은 brute force (간단한 BFS)  
+효율적인 대표 알고리듬: 포드풀커슨(Ford-Fulkerson) 알고리듬, 에드몬드-카프(Edmonds-Karp) 알고리듬  
+
+## 에드몬드-카프 알고리듬  
+각 변마다 용량이 0인 back edge 추가  
+모든 변의 유량을 0으로 초기화  
+- 용량이 남아있는 변둘 즁에 시작점 -> 도착점까지의 최단 경로를 찾음 (BFS)
+  - 최단 경로에 있는 각 변의 잔여 용량 중 최솟값을 취함
+  - 그 값을 경로 상에 있는 각 변의 유량에 더함
+  - 대칭 변에서 그만큼의 유량을 뺌
+- 아직도 찾을 최단경로가 있다면 BFS과정으로 돌아감
+- 도착점으로 들어오는 모든 유량의 합을 반환!
+
+back edge (역방향 변)이라는 개념을 도입하여 위 알고리듬 돌리면 최적의 해법 구할 수 있음!  
+유량을 분산시키기 위해 사용하는 멋진 꼼수!  
+이미 존재하는 변과 방향이 반대인 가상의 변  
+용량은 0임: 의도치 않게 역류하는 경우 방지, 용량에 여유가 있는 다른 변에 유량을 분산시키기 위해서만 존재  
+유량의 대칭성이랑 개념을 이용! u->v가 유량 3이면 v->u 유량은 -3  
+
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/aa708fb0-f7f9-418e-86ac-0c6bf6f291f9)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/97edb76f-31b8-4864-bf3f-29c6cb0e4676)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/995805fc-70dd-4613-82c3-0fe7307fa3a5)  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/e698da2c-1553-4255-8eae-fd339f687ad5)  
+이제 갈 수 있는 경로 없음!  
+![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/4ff6d35f-6cdd-43bf-9724-611be01423f3)  
+
+최대 유량 문제 예  
+순환-수요 문제  
+야구 탈락 문제  
+단체 미팅 문제  
+항공운행 스케줄 짜기 문제  
+프로젝트 선택 문제  
+이미지 segmentation 등  
+
+* 기타 그래프 문제들
+clique, graph coloring, independent set, bipartite graph, vertex cover, matching, etc ..
