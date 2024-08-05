@@ -19,6 +19,24 @@ globals(), locals(), vars(), and dir()
 
 ## python modules
 .
+
+### subprocess
+현재 소스코드 안에서 다른 프로세스를 실행하게 해줌. 그 과정에서 데이터 입출력을 제어함  
+![image](https://github.com/user-attachments/assets/85b07d00-ffcc-47ff-9a7e-92ee5c1682a2)  
+
+subprocess.run() : subprocess의 기본이되는 메서드, python 3.5부터 사용가능  
+arguments:  
+args: 이곳에 써있는 명령어를 실행  
+stdin, stdout, stderr: 표준입력, 출력, 오류를 설정 (데이터를 중간에 가로채서 다른 곳으로 보낼 수 있음)  
+input: 입력데이터를 설정  
+shell: 쉘 화면에 출력을 할 것인지 (윈도우 쉘 명령어를 쓰려면 반드시 True여야 함)  
+cwd: 현재 실행중인 디렉토리 반환  
+check: True면 CalledProcessError 예외 발생함. run()으로 해당 프로세스가 정상종료되면 CompletedProcess가 선언되서  
+결과가 0으로 리턴되야하는데, 이를 0 아닌 값으로 만들겠다는 뜻. 선언된 예외처리에 run()의 입력값과 데이터가 보관됨.  
+text: True면 결과값을 string형태로 출력  
+등등 ...  
+
+
 ### select module
 소켓 프로그래밍에서 I/O multiplexing을 가능하게 하는 모듈.  
 I/O multiplexing: 하나의 전송로로 여저 종류의 데이터를 송수신하는 방식.  
