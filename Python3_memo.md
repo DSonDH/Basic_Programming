@@ -174,7 +174,27 @@ list(map(lambda x:x*x, range(1,6)))
 
 >>> list(filter(lambda x: x < 5, range(10))) # 파이썬 2 및 파이썬 3
 [0, 1, 2, 3, 4]
+
+
+# int함수를 unpacking에 일괄 적용하는 경우
+# for loop 쭉 풀어쓰는 것 보다는 list comprehension으로 처리가능한 간단한 경우
+# 함수명이 date_cnvrt보다 to_days로 직관적인 경우.
+def to_days(date):
+    year, month, day = map(int, date.split("."))
+    return year * 28 * 12 + month * 28 + day
+
+def solution(today, terms, privacies):
+    months = {v[0]: int(v[2:]) * 28 for v in terms}
+    today = to_days(today)
+    expire = [
+        i + 1 for i, privacy in enumerate(privacies)
+        if to_days(privacy[:-2]) + months[privacy[-1]] <= today
+    ]
+    return expire
+
 ```  
+
+
 
 * collection module  
 ```python3
