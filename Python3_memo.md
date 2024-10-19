@@ -12,7 +12,14 @@ python은 primitive type이 존재하지 않는다. 모든 데이터는 object�
 ## 변수 명 규칙
 [under bar 관련 변수명 규칙](https://eine.tistory.com/entry/%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C-%EC%96%B8%EB%8D%94%EB%B0%94%EC%96%B8%EB%8D%94%EC%8A%A4%EC%BD%94%EC%96%B4-%EC%9D%98-%EC%9D%98%EB%AF%B8%EC%99%80-%EC%97%AD%ED%95%A0)
 
-sort(item, key = lambda x: f(x))
+## sort 함수
+sort(item, key = lambda x: f(x))  
+item = sorted(item)
+
+sorted() : 내장함수, 정렬된 결과를 반환  
+item.sort() : item리스트의 메서드, item원본 배치를 바꿈.  
+a.sort()의 리턴값은 None이므로 주의!  
+
 
 ## scope 내 변수들 확인 (local, global, ...)
 globals(), locals(), vars(), and dir()  
