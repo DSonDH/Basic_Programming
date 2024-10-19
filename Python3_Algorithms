@@ -1,0 +1,7 @@
+
+
+def gcd(a,b):
+""" 유클리드 호제법이라 하며, O(log(N))임. 탐색할 b 범위가 계속 나눠지므로"""
+    while b!= 0:
+        a,b = b, a%b
+    return a
