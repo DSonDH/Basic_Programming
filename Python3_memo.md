@@ -14,7 +14,8 @@ python은 primitive type이 존재하지 않는다. 모든 데이터는 object�
 
 ## sort 함수
 sort(item, key = lambda x: f(x))  
-item = sorted(item)
+item = sorted(item)  
+item = sorted(item, reverse=True)  
 
 sorted() : 내장함수, 정렬된 결과를 반환  
 item.sort() : item리스트의 메서드, item원본 배치를 바꿈.  
