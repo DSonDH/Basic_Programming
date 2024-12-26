@@ -13,7 +13,12 @@ def gcd(a,b):
 ## Permutation non-recursive way
 ```Python3
 def permutations(iterable, r=None):
-    # Convert iterable to a tuple to ensure immutability 
+    """
+    iterable을 리스트로 변환하여 인덱스를 조작하기 쉽게 만듦.
+    indices는 순열을 생성하기 위해 요소의 인덱스를 관리.
+    cycles는 각 자리에 대해 회전 횟수를 기록.
+    """
+
     pool = tuple(iterable)
     n = len(pool)
     r = n if r in None else r
@@ -44,7 +49,12 @@ def permutations(iterable, r=None):
 ### Permutation non-recursive way; not using yield
 ```Python3
 def permutations(iterable, r=None):
-    # Convert the iterable to a list
+    """
+    iterable을 리스트로 변환하여 인덱스를 조작하기 쉽게 만듦.
+    indices는 순열을 생성하기 위해 요소의 인덱스를 관리.
+    cycles는 각 자리에 대해 회전 횟수를 기록.
+    """
+
     pool = list(iterable)
     n = len(pool)
     r = n if r is None else r
@@ -84,7 +94,11 @@ def permutations(iterable, r=None):
 ## Permutation recursive way
 ```Python3
 def permutation(iteravle, r = None):
-    # Convert iterable to a tuple to ensure immutability
+    """
+    iterable을 리스트로 변환하여 인덱스를 조작하기 쉽게 만듦.
+    indices는 순열을 생성하기 위해 요소의 인덱스를 관리.
+    cycles는 각 자리에 대해 회전 횟수를 기록.
+    """
     pool = tuple(iterable)
     n = len(pool)
     r = n if r is None else r
@@ -107,7 +121,11 @@ def permutation(iteravle, r = None):
 ### Permutation recursive way; not using yield
 ```Python3
 def permutations(iterable, r=None):
-    # Convert the iterable to a tuple
+    """
+    iterable을 리스트로 변환하여 인덱스를 조작하기 쉽게 만듦.
+    indices는 순열을 생성하기 위해 요소의 인덱스를 관리.
+    cycles는 각 자리에 대해 회전 횟수를 기록.
+    """
     pool = tuple(iterable)
     n = len(pool)
     r = n if r is None else r
