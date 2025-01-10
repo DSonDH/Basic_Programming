@@ -67,24 +67,20 @@ public final class BoundingRect {
         assert (height >= 0);
 
         this.topLeft = topLeft;
-        this.bottomRight = new Point(topLeft.getX() + width,
-                topLeft.getY() + height);
+        this.bottomRight = new Point(
+                topLeft.getX() + width, topLeft.getY() + height);
     }
 
     public int getWidth() {
-        final int x1 = this.topLeft
-                .getX();
-        final int x2 = this.bottomRight
-                .getX();
+        final int x1 = this.topLeft.getX();
+        final int x2 = this.bottomRight.getX();
 
         return Math.abs(x1 - x2);
     }
 
     public int getHeight() {
-        final int y1 = this.topLeft
-                .getY();
-        final int y2 = this.bottomRight
-                .getY();
+        final int y1 = this.topLeft.getY();
+        final int y2 = this.bottomRight.getY();
 
         return Math.abs(y1 - y2);
     }
@@ -199,11 +195,9 @@ public final class Quadrant {
     }
 
     public boolean insert(final GameObject gameObject) {
-        final Point position = gameObject
-                .getPosition();
+        final Point position = gameObject.getPosition();
 
-        if (!this.boundingRect
-                .contains(position)) {
+        if (!this.boundingRect.contains(position)) {
             return false;
         }
 
@@ -228,28 +222,20 @@ public final class Quadrant {
             return this.gameObjects;
         }
 
-        if (this.topLeft.boundingRect
-                .contains(rect)) {
-            return this.topLeft
-                    .getGameObjects(rect);
+        if (this.topLeft.boundingRect.contains(rect)) {
+            return this.topLeft.getGameObjects(rect);
         }
 
-        if (this.topRight.boundingRect
-                .contains(rect)) {
-            return this.topRight
-                    .getGameObjects(rect);
+        if (this.topRight.boundingRect.contains(rect)) {
+            return this.topRight.getGameObjects(rect);
         }
 
-        if (this.bottomRight.boundingRect
-                .contains(rect)) {
-            return this.bottomRight
-                    .getGameObjects(rect);
+        if (this.bottomRight.boundingRect.contains(rect)) {
+            return this.bottomRight.getGameObjects(rect);
         }
 
-        if (this.bottomLeft.boundingRect
-                .contains(rect)) {
-            return this.bottomLeft
-                    .getGameObjects(rect);
+        if (this.bottomLeft.boundingRect.contains(rect)) {
+            return this.bottomLeft.getGameObjects(rect);
         }
 
         return this.gameObjects;
