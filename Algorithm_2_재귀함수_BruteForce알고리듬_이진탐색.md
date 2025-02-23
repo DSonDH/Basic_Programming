@@ -58,6 +58,71 @@ int factorialRecursive(int n, int fac) {
 언어에서 최적화 지원 안해도, 꼬리 재귀는 반복문으로 쉽게 변경가능하므로 쓰는 실익이 있긴 함.  
 
 * 코드보기 : 재귀함수로 총합 구하기
+``` java
+package academy.pocu.comp3500samples.w02.sumrecursive;
+
+public class Program {
+    public static void main(String[] args) {
+        int sum = sumRecursive(10);
+
+        System.out.println(sum); // 55
+
+        sum = sumRecursive(100);
+
+        System.out.println(sum); // 5050
+
+        sum = sumRecursive(1000);
+
+        System.out.println(sum); // 500500
+
+        sum = sumRecursive(100000); // ??
+
+        System.out.println(sum);
+    }
+
+    private static int sumRecursive(int n) {
+        if (n <= 1) {
+            return n;
+        }
+
+        return n + sumRecursive(n - 1);
+    }
+}
+
+//
+
+package academy.pocu.comp3500samples.w02.sumtailrecursive;
+
+public class Program {
+    public static void main(String[] args) {
+        int sum = sumTailRecursive(10, 0);
+
+        System.out.println(sum); // 55
+
+        sum = sumTailRecursive(100, 0);
+
+        System.out.println(sum); // 5050
+
+        sum = sumTailRecursive(1000, 0);
+
+        System.out.println(sum); // 500500
+
+        sum = sumTailRecursive(100000, 0); // ??
+
+        System.out.println(sum);
+    }
+
+    private static int sumTailRecursive(int n, int sum) {
+        if (n <= 0) {
+            return sum;
+        }
+
+        return sumTailRecursive(n - 1, sum + n);
+    }
+}
+
+```
+
 
 # Brute Force Algoritm
 모든 가능한 경우의 수를 시도하는 알고리듬. 모로가도 서울만 가면 된다!  
