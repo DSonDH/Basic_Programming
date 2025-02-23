@@ -328,7 +328,7 @@ public class Program {
         int leftIndex = left;
         int rightIndex = mid + 1;
         int sortedIndex = left;
-        Player[] tmpSortedArray = new Player[right + 1];
+        Player[] tmpSortedArray = new Player[right - left + 1];
 
         while (leftIndex <= mid && rightIndex <= right) {
             // ascending order
