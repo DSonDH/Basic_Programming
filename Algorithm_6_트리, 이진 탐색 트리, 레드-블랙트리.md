@@ -192,6 +192,149 @@ public static void traverseInorder(Node node) {
 
 코드보기 : 전위 순회, 깊은 트리 복사  
 
+``` java
+package academy.pocu.comp3500samples.w06.copytree;
+
+public class Node {
+    private int data;
+    private Node left;
+    private Node right;
+
+    public Node(final int data) {
+        this.data = data;
+    }
+
+    public int getData() {
+        return this.data;
+    }
+
+    public void setData(final int data) {
+        this.data = data;
+    }
+
+    public Node getLeft() {
+        return this.left;
+    }
+
+    public Node getRight() {
+        return this.right;
+    }
+
+    public static Node insertRecursive(final Node node, int data) {
+        if (node == null) {
+            return new Node(data);
+        }
+
+        if (data < node.data) {
+            node.left = insertRecursive(node.left, data);
+        } else {
+            node.right = insertRecursive(node.right, data);
+        }
+
+        return node;
+    }
+
+    public static Node copyRecursive(final Node node) {
+        if (node == null) {
+            return null;
+        }
+
+        Node newNode = new Node(node.data);
+        newNode.left = copyRecursive(node.left);
+        newNode.right = copyRecursive(node.right);
+
+        return newNode;
+    }
+
+    public static void traverseInOrderRecursive(final Node node) {
+        if (node == null) {
+            return;
+        }
+
+        traverseInOrderRecursive(node.left);
+        System.out.println(node.data);
+        traverseInOrderRecursive(node.right);
+    }
+}
+```
+
+``` java
+package academy.pocu.comp3500samples.w06.preorder;
+
+import java.util.Stack;
+
+public class Node {
+    private final int data;
+    private Node left;
+    private Node right;
+
+    public Node(final int data) {
+        this.data = data;
+    }
+
+    public int getData() {
+        return this.data;
+    }
+
+    public Node getLeft() {
+        return this.left;
+    }
+
+    public Node getRight() {
+        return this.right;
+    }
+
+    public static Node insertRecursive(final Node root, int data) {
+        if (root == null) {
+            return new Node(data);
+        }
+
+        if (data < root.data) {
+            root.left = insertRecursive(root.left, data);
+        } else {
+            root.right = insertRecursive(root.right, data);
+        }
+
+        return root;
+    }
+
+    public static void traversePreOrderRecursive(final Node node) {
+        if (node == null) {
+            return;
+        }
+
+        System.out.println(node.data);
+        traversePreOrderRecursive(node.left);
+        traversePreOrderRecursive(node.right);
+    }
+
+    public static void traversePreOrder(final Node root) {
+        if (root == null) {
+            return;
+        }
+
+        Stack<Node> nodes = new Stack<>();
+
+        nodes.push(root);
+
+        while (!nodes.empty()) {
+            Node node = nodes.pop();
+
+            System.out.println(node.data);
+
+            if (node.right != null) {
+                nodes.push(node.right);
+            }
+
+            if (node.left != null) {
+                nodes.push(node.left);
+            }
+        }
+    }
+}
+```
+
+
 ## 레드-블랙 트리
 각 노드가 레드 혹은 블랙. 노드에 저장하는 데이터가 아님.  
 그냥 1비트짜리 추가 정보 (굳이 빨/검이 아니어도 됨)  
