@@ -150,6 +150,61 @@ binarySearchRecursive(int nums[], int l, int r, int value)
 5. if nums[m] > value : R = m - 1하고 2번으로 돌아감
 6. nums[m] == value이니 종료!
 
+``` java
+    private static int binarysearchPointsPerGame(
+            final Player[] players, int left, int right, int value) {
+        // pointsPerGame 이 같은 값인 경우는 없다고 가정!
+        // dist가 같을 수는 있음
+        int index = (left + right) / 2;
+        if (left > right) {
+            return -index - 1; // 0 ~ lehgth -> -1 ~ -length - 1
+        }
+
+        if (players[index].getPointsPerGame() == value) {
+            return index;
+        } else if (players[index].getPointsPerGame() < value) {
+            return binarysearchPointsPerGame(players, index + 1, right, value);
+        } else {
+            return binarysearchPointsPerGame(players, left, index - 1, value);
+        }
+    }
+
+    public static Player findPlayerPointsPerGame(final Player[] players, int targetPoints) {
+        // 경기당 득점수가 인자로 전달된 값과 가장 가까운 선수를 반환
+
+        if (players == null || players.length == 0) {
+            return null;
+        }
+        if (players.length == 1) {
+            return players[0];
+        }
+
+        int index = binarysearchPointsPerGame(
+                players, 0, players.length - 1, targetPoints);
+
+        // 중복 POintsPerGame이 없다고 가정
+        // dist가 같은 두 개라면 pointPerGame이 더 큰 것 (index 큰 것 ) 반환
+
+        if (index < 0) { // not found flag
+            // 못찾은 index이므로 index 좌우 모두 검사해봐야 함.
+            // 근데 right < left인 상황에 소숫점이 사라진 상황이므로, 무조건 오른쪽을 봐야함
+            index = -index - 1; // index recovery
+            // right edge case : 그냥 통과
+            // left edge case, 그 외 : index, index + 1을 봐야함
+            if (index != players.length - 1) {
+                int distThis = Math.abs(players[index].getPointsPerGame() - targetPoints);
+                int distRight = Math.abs(players[index + 1].getPointsPerGame() - targetPoints);
+                if (Math.abs(distThis) >= Math.abs(distRight)) {
+                    index = index + 1;
+                }
+            }
+        }
+        return players[index];
+    }
+
+```
+
+
 ### 정렬된 데이터와 알고리듬
 정렬된 데이터에 사용할 수 있는 효율적인 알고리듬이 많다.  
 어떤 값의 위치 찾기: O(logN)  
