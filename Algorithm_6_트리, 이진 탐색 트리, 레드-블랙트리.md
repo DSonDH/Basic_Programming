@@ -115,7 +115,7 @@ public class Node {
         if (data < node.data) {
             node.left = insertRecursive(node.left,
                     data);
-        } else {
+        } else {  // FIXME: data > node.data 조건 없으면 어떻게 되나? 중복 허용하는 코드인가
             node.right = insertRecursive(node.right, data);
         }
 
@@ -227,7 +227,7 @@ public class Node {
 
         if (data < node.data) {
             node.left = insertRecursive(node.left, data);
-        } else {
+        } else {  // FIXME: data > node.data 조건 없으면 어떻게 되나? 중복 허용하는 코드인가
             node.right = insertRecursive(node.right, data);
         }
 
