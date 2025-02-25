@@ -9,6 +9,8 @@ tree의 계층적 구조를 표현
 깊이(depth): 노드부터 루트까지 경로의 길이.  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/d43447be-541b-450b-9f46-d417c5f9c5ea)  
 높이(height): 노드부터 리프경로들 중 최대 길이  
+5번, 7번의 높이는 2이다.  
+
 하위 트리(subtree): 어떤 노드 아래의 모든 것을 포함하는 트리  
 !! 재귀적: 하위 트리 그 자체가 트리임!  
 
