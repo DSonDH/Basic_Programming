@@ -79,8 +79,8 @@ O(1). 새로 추가한 배열 없음!
 안정성 있음!  
 ``` java
 // public static void bubbleSort(int[] nums)
-for (int i = 0; i < nums.size(); ++i) {
-    for (int j = 0; j < nums.size() - i - 1; ++j) {
+for (int i = 0; i < nums.length; ++i) {
+    for (int j = 0; j < nums.length - i - 1; ++j) {
         if (nums[j] > nums[j + 1]) {
             int tmp = nums[j + 1];
             nums[j + 1] = nums[j];
@@ -116,7 +116,7 @@ for (int i = 0; i < nums.size(); ++i) {
 그 위치에 swap, 맨 처음요소까지 swap 반복해야 할수도 있음.  
 
 ``` java
-for (int i = 0; i < nums.size(); ++i) {
+for (int i = 0; i < nums.length; ++i) {
     j = i - 1;
     while(j >= 0) {
         if (nums[j] > nums[j + 1]) {
