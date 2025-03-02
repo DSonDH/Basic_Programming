@@ -146,6 +146,19 @@ public class Node {
 3. 두 값을 교환
 4. 리프 노드를 삭제  
 
+아래 트리에서 89를 삭제하면 나오는 경우 2가지  
+![image](https://github.com/user-attachments/assets/8c2a4c78-80fa-4163-bbda-4bfb3ea307ca)  
+in-order predecessor  
+![image](https://github.com/user-attachments/assets/cf3dd750-d03e-4fa3-a8c0-733d155621a9)
+
+  
+in-order successor  
+![image](https://github.com/user-attachments/assets/e60ff013-7035-4394-a1ba-834f66698b76)
+
+  
+
+
+
 BST 삭제 시간 복잡도?  
 1, 2번 과정이 O(logN). 3, 4번 과정이 O(1)  
 
