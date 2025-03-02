@@ -315,6 +315,8 @@ public class Program {
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/75e2199b-5ec2-433f-aa00-8cc2da70c8d1)  
 힙 속성에 맞게 제거하다보면 정렬된 새로운 배열이 완성됨 !!  
 
+삽입은 breadth first search순서대로 층별로 왼쪽에서 오른쪽으로 쭉 순서대로 넣고 넣을 때 마다 힙속성 만족하도록 재정렬 함.  
+제거는 root를 하나씩 빼내고, breadth first search순서의 마지막 아이를 root에 다시 채우고, 힙속성 만족하도록 재정렬 함.  
 
 코드보기 : 배열 요소의 최소 차이 찾기  
 정렬이 빈번히 필요하지 않으면 정렬 한번 하고 탐색알고리즘 돌리면 빠르게 찾을 수 있음.  
