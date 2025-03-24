@@ -119,6 +119,7 @@ DAG만 유효한 위상 정렬이 가능
 전위 순회? 후위 순회? 전위 순회는 말이 안됨!  
 ![image](https://github.com/DSonDH/Basic_Programming/assets/15919242/1855f56c-550c-4b59-a2a2-1bd81ade838e)  
 후위 순회는 역순으로 따라하면 됨!  
+13번 부터 첫 순서대로! (stack을 쓰던, linked-list를 쓰던)  
 
 위상 정렬의 용도  
 관계에서 순서를 정하는 매우 많은 곳에서 사용 가능  
