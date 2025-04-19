@@ -23,6 +23,38 @@
 부모/자식 관계를 요하지 않음.  
 탐색을 수행할 때, 인접행렬에 방문했던 노드를 기억함.  
 
+```
+"깊이 우선 vs 너비 우선" 강의 질문
+DFS가 병렬처리에 더 적합한지에 관해 질문입니다.
+public static void searchDepthFirstRecursive(Node node) {
+    if (node == null) {
+        return;
+    }
+
+    System.out.println(node.data);
+
+    for (Node child : node.childern) {
+        searchDepthFirstRecursive(child);
+    }
+}
+예를 들면 위 코드에서 child 별로 병렬 처리를 한다는 말인가요?
+정확히 어떤 점에서 유리한지 추가적인 설명 부탁드립니다.
+https://stackoverflow.com/questions/10602392/why-is-bfs-better-suited-to-parallelization-than-dfs
+인터넷에는 오히려 BFS가 병렬처리에 좋다는 말도 있어서..
+
+[강사] 포프
+사실 그래프의 경우 BFS가 병렬처리에 더 적합합니다. 그래프 탐색에서는 방문한 노드를 기억해야 하므로
+ DFS에서 병렬 처리를 하기가 쉽지 않죠. 하지만 트리의 경우에는 BFS와 DFS 모두 병렬 처리가 가능합니다. 
+다만, BFS에서 동일한 깊이에 있는 모든 노드를 병렬적으로 처리하려면 그 노드들을 다시 어떤 큐에 넣고 
+관리하는 추가적인 작업이 필요하며, 여러 쓰레드에서 이 큐를 접근해야 하기 때문에 thread-safe한 처리가 필요합니다.
+반면, DFS에서는 각 자식 노드를 개별적으로 병렬 처리할 수 있기 때문에(말씀해주신 코드처럼), 별도의 
+자료구조를 추가하지 않고도 자연스럽게 병렬 처리를 적용할 수 있는 장점이 있습니다. 즉, DFS는 트리 구조 
+자체를 그대로 활용하여 병렬 처리를 할 수 있기 때문에 구현이 간단해지는 경향이 있습니다.
+따라서 강의에서 제가 드린 말씀은 자료구조 변경 없이 병렬 처리를 하기에 무엇이 더 편한지에 대한 설명으로 
+봐주시면 좋을 것 같습니다.
+```
+
+
 코드보기: 디렉터리 트리 출력하기
 ``` java
 package academy.pocu.comp3500samples.w09.directorytree;
