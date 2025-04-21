@@ -212,6 +212,15 @@ set()
 * dictionary
 <br>
 <br>
+
+``` python3
+# dictionary 처음에 list로 기록하는 간단한 방법
+nums = [1, 2, 2, 3, 4, 5, 6, 8]
+count_dict = {}
+for num in nums:
+    count_dict[num] = count_dict.get(num, 0) + 1
+```
+
 ## 주의사항
 * python for loop iterable data type change cause unexpected behavior  
 for loop 돌도록 하는 변수를 loop 내에서 바꾸면 다음 루프에서 바뀐 아이로 실행되서 코딩이 어려워질 수 있음
