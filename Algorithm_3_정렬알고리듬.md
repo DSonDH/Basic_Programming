@@ -276,7 +276,7 @@ public class Program {
     private void merge(final Player[] players, int left, int mid, int right) {
         int leftIndex = left;
         int rightIndex = mid + 1;
-        int sortedIndex = left;
+        int sortedIndex = 0;
         Player[] tmpSortedArray = new Player[right - left + 1];
 
         while (leftIndex <= mid && rightIndex <= right) {
@@ -300,8 +300,9 @@ public class Program {
         }
 
         // overwrtie into original array
+        int idx = 0
         for (int i = left; i <= right; i++) {
-            players[i] = tmpSortedArray[i];
+            players[i] = tmpSortedArray[idx++];
         }
     }
 ```
