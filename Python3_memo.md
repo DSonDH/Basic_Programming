@@ -5,6 +5,16 @@ primitive는 이용 가능한 가장 단순한 요소들이다.
 python은 primitive type이 존재하지 않는다. 모든 데이터는 object나 object산의 관계로 표현된다.  
 
 
+## method 정리
+
+divmod
+``` python3 
+>>> (8 // 2, 8 % 2)
+(4, 0)
+>>> divmod(8, 2)
+(4, 0)
+```
+
 ## module import 관리
 [상대경로, 절대경로, __init__.py와의 관계](https://daco2020.tistory.com/62)
 
