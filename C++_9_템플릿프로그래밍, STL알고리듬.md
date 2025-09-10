@@ -281,3 +281,6 @@ copy() 구현
 코드보기: find() 알고리듬  
 
 STL 알고리듬 목록은 많은데, 필요하면 쓰기.  
+
+<img width="617" height="358" alt="image" src="https://github.com/user-attachments/assets/cbd0884a-446c-4012-8017-ee4561a7ce79" />
+
