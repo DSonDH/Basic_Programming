@@ -13,22 +13,11 @@ Java만큼 제한적이지는 않음.
 Call by value, call by reference, pointer  
 
 32비트 컴파일러라 가정  
-Call by value 예시  
-<img width="814" height="490" alt="image" src="https://github.com/user-attachments/assets/ad0378c4-4a04-43d9-b809-2c53920e0571" />  
-<img width="809" height="507" alt="image" src="https://github.com/user-attachments/assets/52fe010c-4260-4c1a-a57a-8662eb8112ad" />  
-swap함수 탈출하면 원본은 안바뀐다  
-
 Call by reference (C)  
 int* arg1: 주소를 받아온다. &num1은 주소를 반환해준다.  
-<img width="775" height="516" alt="image" src="https://github.com/user-attachments/assets/3c178173-39a2-487e-88d3-2805981ad027" />  
-실제 주소가 가리키는 메모리공간의 값을 읽어서 swap이 원본을 바꾼다.  
-<img width="777" height="508" alt="image" src="https://github.com/user-attachments/assets/433a60a0-0029-4c71-b1d7-8b3ceb656225" />  
 
-Java는? dtype별로 다름.  
-primitive type이 아닌 자료는 reference를 받으므로 원본 바뀜.  
-<img width="843" height="405" alt="image" src="https://github.com/user-attachments/assets/9ea58a7d-37c5-461e-a03c-2741022090cb" />  
-
-C, C++의 경우는... 둘 다 가능, 함수 시그내쳐로 볼 수 있음  
+Java는? dtype별로 다름. primitive type이 아닌 자료는 reference를 받으므로 원본 바뀜.  
+C, C++의 경우는... call by valu, reference 둘 다 가능, 함수 시그내쳐로 볼 수 있음  
 값에 의한 호출  
 <img width="942" height="522" alt="image" src="https://github.com/user-attachments/assets/7267c85b-c461-436c-90fa-d72086c625ec" />  
 <img width="927" height="513" alt="image" src="https://github.com/user-attachments/assets/196481ac-5a05-4fb9-bb1d-d6a504e23d44" />  
@@ -42,7 +31,6 @@ C, C++의 경우는... 둘 다 가능, 함수 시그내쳐로 볼 수 있음
 ``` cpp
 int number = 100;  
 int& reference = number;  
-
 int& reference = NULL; // error: NULL이 될 수 없음.  
 
 //초기화 중에 반드시 선언되어야 함
@@ -113,48 +101,11 @@ int y = *p;      // p를 역참조 → x의 값 10을 가져옴
 C에는 없지만, C++에 있는 기능은 다른 프로그래머가 구현한것!  
 
 코드보기: 참조를 사용한 swap  
-```cpp
-#pragma once
-
-namespace samples
-{
-	void SwapExample();
-	void Swap(int& number1, int& number2);
-}
-===========
-#include <iostream>
-#include "Swap.h"
-
-using namespace std;
-
-namespace samples
-{
-	void SwapExample()
-	{
-		cout << "+------------------------------+" << endl;
-		cout << "|         Swap Example         |" << endl;
-		cout << "+------------------------------+" << endl;
-		int number1 = 1;
-		int number2 = 2;
-
-		cout << "Before swap: " << number1 << ", " << number2 << endl;
-		Swap(number1, number2);
-		cout << "After swap: " << number1 << ", " << number2 << endl;
-	}
-
-	void Swap(int& number1, int& number2)
-	{
-		int temp = number1;
-		number1 = number2;
-		number2 = temp;
-	}
-}
-```
 
 ## 코딩표준
 <img width="829" height="380" alt="image" src="https://github.com/user-attachments/assets/a8e9d759-1b9f-43cf-8981-c1c007fdbbc2" />  
-c#에서는 'out'키워드를 사용해서 명시할 수 있음.  
 
+c#에서는 'out'키워드를 사용해서 명시할 수 있음.  
 
 # String
 std::string 클래스
@@ -252,6 +203,7 @@ fstream: 파일 입출력
 
 ### open()  
 <img width="750" height="416" alt="image" src="https://github.com/user-attachments/assets/a7e4526d-45c2-44c4-a45f-2a64d95eac28" />  
+
 open 두번째 인자가 비트플래그임.  
 ate: at the end.  
 app: appende  
@@ -263,10 +215,12 @@ trunc: truncate (파일 읽고 내용 다 지우고 새로 시작)
 
 ### 파일 닫기  
 <img width="913" height="241" alt="image" src="https://github.com/user-attachments/assets/70b549e0-1c04-4ec9-b638-45d15620dc5f" />  
+
 fin이 object.  
 
 ### stream 상태 확인하기  
 <img width="852" height="302" alt="image" src="https://github.com/user-attachments/assets/192642e2-8670-4e9e-9d0b-ba5e49bfb4d7" />  
+
 C에서는 상태 부적절하면 NULL들어왔었음.  
 
 close(): 각 스트림마다 close() 메서드가 있음. fin.close(); 처럼  
@@ -275,6 +229,7 @@ is_open(): 파일이 열려있는지 확인. if (fs.is_open()) {...}
 
 ## 한 문자, 한 줄, 한 단어 읽기
 <img width="859" height="429" alt="image" src="https://github.com/user-attachments/assets/15543fd7-ac80-45be-8748-02f14368e4de" />  
+
 fin.fail()인 경우는 eof만난 경우. 나머지는 숫자던 문자던 읽을 수 있음.  
 <img width="871" height="362" alt="image" src="https://github.com/user-attachments/assets/ba17028c-237f-4166-bb8e-44f060d3975b" />  
 
@@ -304,12 +259,12 @@ fin.close();
 아무 내용도 없는데 빈 줄이 나옴...  
 
 파일에서 한 단어씩 읽기 (완벽하지 않은 코드)  
-``` c++
-ifstream fin:
+``` C++
+ifstream fin;
 fin.open("Hello World.txt);
 
 string name;
-flaot balance;
+float balance;
 while (!fin.eof())
 {
     fin >> name >> balance;  // space 하나까지 읽음
