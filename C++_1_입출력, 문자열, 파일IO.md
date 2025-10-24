@@ -1,11 +1,18 @@
 # 출력
 Hello World!  
-<img width="962" height="382" alt="image" src="https://github.com/user-attachments/assets/d89064c3-5955-4e02-b7db-8c7948e93006" />  
+C의 경우 printf("Hello, "%s%d\n", "World", 123); 이렇게 해야했음.  
+사용하기, 읽기 어려운 방법.  
+그러나 C++에서는
+```cpp
+std:cout << "Hello, " << "world" << 123 << std::endl;
+```
+이렇게 사용하기도, 읽기도 더 쉽게 바꿈.  
 
 ## namespace
 Jave의 패키지, C# 네임스페이스와 비슷: 함수, 클래스, 기타 등등 이름 충돌 피하려고 만듦 네임스페이스 소문자로 시작함.  
 
 <img width="765" height="467" alt="image" src="https://github.com/user-attachments/assets/5848903e-784a-4a9b-bed1-305773d8fa79" />  
+
 콜론콜론으로 네임스페이스 내에 어떤 함수/클래스 등을 불러올건지 정함  
 using 지시문: Jave의 import나 c#의 using과 비슷. 타이핑 양 줄이는 방법일 뿐.  
 <img width="877" height="285" alt="image" src="https://github.com/user-attachments/assets/8cf5fe2e-1839-43c0-91b8-19ceb5b9f6e4" />  
@@ -21,7 +28,7 @@ c++에서는 프로그래머가 연산자의 동작을 바꿀 수 있다!
 16진수 출력 - printf()  
 ```c
 int number = 10;
-printf9"%#x\n", number);
+printf("%#x\n", number);
 ```
 를 Manipulator(조정자)로 읽기 쉽게 포매팅 함  
 ```cpp
@@ -114,9 +121,9 @@ namespace samples
 		const size_t nameColumnLength = 20;
 		const size_t priceColumnLength = 10;
 
-		cout << left << fixed << showpoint << setprecision(2);
+		cout << left << fixed << showpoint << setprecision(2);  // 아래 모든 코드가 이런 포맷 영향을 받게된다!!!
 
-		cout << setfill('-') << setw(nameColumnLength + priceColumnLength) << "" << endl << setfill(' ');
+		cout << setfill('-') << setw(nameColumnLength + priceColumnLength) << "" << endl << setfill(' ');  // 마지막에 다시 setfill옵션을 빈칸은 빈칸으로 채우도록 -로 채워지게 설정된걸 다시 건든것임. 
 		cout << setw(nameColumnLength) << "Name" 
 			<< setw(priceColumnLength) << "Price" << endl;
 		cout << setfill('-') << setw(nameColumnLength + priceColumnLength) << "" << endl << setfill(' ');
@@ -137,13 +144,13 @@ namespace samples
 
 # 입력
 ## Input Stream
-<img width="1011" height="347" alt="image" src="https://github.com/user-attachments/assets/4bf98948-b46b-4e83-b9eb-51176ab96fe2" />  
+기존 c에서는 scanf()로 읽어서 안전하지 않았음 (char firstName[20]; scanf("%s", firstName);)  
+이를 c++에서는 cin()으로 읽어서 scanf()를 어느 정도 대체함. (char fisrtName[20]; cin >> firstName;)  
 '>>' : extraction 연산자.  
-
 ```cpp
 int hours;
 cin >> hours;
-cout << "Today I studied for " << hour << " hours." << endl;
+cout << "Today I studied for " << hours << " hours." << endl;
 ```
 
 부동소수점 읽기  
@@ -186,6 +193,7 @@ c에선 이렇게 했는데 c++에서는 setw()로 이렇게 함
 
 ## Stream States
 <img width="896" height="320" alt="image" src="https://github.com/user-attachments/assets/d6d4ac53-d307-4218-9efd-fabe47b39e58" />  
+
 예전 C스타일 NULL인지 검사하는게 직관적이지 않아서 c++에서 바뀐것.  
 istream: input stream  
 istream상태 (클래스: ios_base)  
