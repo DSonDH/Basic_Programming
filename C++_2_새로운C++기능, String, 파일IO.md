@@ -42,10 +42,18 @@ int& reference = n1;
 reference = n2;  // 모든 값이 200이 됨...!
 ```
 <img width="1009" height="494" alt="image" src="https://github.com/user-attachments/assets/1ff21841-b813-445f-98d8-a69e968712ca" />  
+
 왼쪽 포인터는 NULL에 의한 오류가 생길 수 있지만, 참조는 NULL체크 안해도 됨.  
 포인터에서는 포인터 연산으로 이상한 메모리 접근이 되는데,  
 참조는 새로운 메모리 접근이 안되서 좋다.  
 (오른쪽 참조 방법에서는 NULL검사할 방법이 전혀 없다고 함...)  
+
+즉, 포인터랑 참조의 차이는  
+포인터랑 달리 반드시 선언과 동시에 초기화, 이후 다른 변수로 바꿀 수 없음  
+NULL 불가능 (항상 실제 변수 참조)  
+포인터는 주소값만큼 (보통 8바이트) 메모리 차지하지만, 참조는 별도 메모리 사용 X (컴파일러가 원본 변수로 치환)  
+포인터는 주소연산 가능하지만 (주소 이동 등) 참조는 연산 불가  
+함수 전달 시 포인터는 원본의 주소를 넘겨주지만, 참조는 별칭으로 넘겨져서 원본 직접 접근  
 
 ```cpp
 // 포인터 버전
@@ -74,7 +82,7 @@ int main() {
 
 // call by value
 void Refer(int p) {
-    p = 100;   // 참조는 자동으로 원본에 연결
+    p = 100;
 }
 
 int main() {
@@ -118,14 +126,18 @@ std::string 클래스를 사용하면 된다.
 즉, string형 내부에 총 용량과, 현재 몇 자가 저장되어있는지 기록한다.  
 ``` cpp
 #include <string>
-std:string::string firstName;
+std::string firstName;
 str::cin >> firstName;
 ```
 <img width="915" height="329" alt="image" src="https://github.com/user-attachments/assets/e875014a-0d9b-4488-b939-475731ece29c" />  
+
 string array로 사용하던 것들을, 좀 더 쉽게 사용할 수 있게됨.  
 안전해지기도 함!  
+
 <img width="995" height="322" alt="image" src="https://github.com/user-attachments/assets/7d12b71c-0d4a-441d-b734-dd02678c2ac8" />  
 <img width="873" height="405" alt="image" src="https://github.com/user-attachments/assets/9638190a-2ebe-473a-95c2-97b19c234086" />  
+
+size()는 \n를 제외한 길이를 반환해줌.  
 <img width="942" height="528" alt="image" src="https://github.com/user-attachments/assets/4c647960-7b3e-4630-8a95-a18dcdf6051d" />  
 c는 옛날방식이고 c++는 c와 호환되도록 되어있어서, char*를 고려한 함수를 만든것.  
 
@@ -142,20 +154,29 @@ firstName[2] = 'P';
 at(): n번째 인덱스의 문자를 참조로 반환  
 
 <img width="907" height="391" alt="image" src="https://github.com/user-attachments/assets/b04006f3-1404-424a-b386-98fc84a5cc41" />  
+
 <sstream>: string stream  
 <img width="621" height="325" alt="image" src="https://github.com/user-attachments/assets/0ddba57e-8c36-4ec7-a83c-64c83688d67c" />  
 
-C헤더를 써도 되나?  
-<img width="855" height="321" alt="image" src="https://github.com/user-attachments/assets/e96b8f15-bb4c-4f3a-a348-3612922aae67" />  
+Q: C헤더를 써도 되나?  
+A: 네. 현업 C++애플리케이션에서는 여전히 성능상의 이유로 많은 C함수들이 사용되고 있음.  
+"이건 C++스럽지 않아서 틀림"이라 하는 사람은 그냥 무시하기!  
+``` cpp
+C: <string.h>, <stdio.h>, <ctype.h>  
+cpp: <cstring>, <cstdio>, <cctype>  
+```  
+std::string은 문자 배열 길이 고민을 할 필요가 없지만,... 메모리 썻다 지웠다 하면서 작업이 이뤄짐.  
+- heap 메모리 할당은 느림
+- memory fragmentation 문제도 있음
+- 내부 버퍼의 증가는 멀티 쓰레드 환경에서 안전하지 않을수도 있음
+- 여전치 C++를 쓰는 업계가 어디인지 생각해보면 ..
+- 그래서 여전히 sprintf와 char[]를 많이 쓰고 있다.
+(memory fragmentation: 메모리 전체는 충분하지만, 연속된 블록이 부족하여 요청한 크기의 메모리를 할당할 수 없는 상태)  
 
-std::string이 좋은가? 문자 배열 길이에 관해 고민할 필요가 없지만, ...  
-메모리 썻다 지웠다 하면서 작업이 이뤄짐.  
-<img width="847" height="312" alt="image" src="https://github.com/user-attachments/assets/830869e4-4b08-4b0e-af4c-12211b293580" />  
-memory fragmentation: 메모리 전체는 충분하지만, 연속된 블록이 부족하여 요청한 크기의 메모리를 할당할 수 없는 상태.  
-
+참고  
 const pointer읽는법: 오른쪽에서 왼쪽으로  
-const char* : pointer to const char : pointer는 바꿀 수 있고, character를 바꿀 수 없다.  
-char* const : pointer가 const. const to char pointer. character는 바꿀 수 있다.  
+const char* : pointer to const char : pointer는 바꿀 수 있고 (주소변경 가능), character를 바꿀 수 없다 (읽기전용).  
+char* const : pointer가 const. const to char pointer. 주소변경 불가능, character는 바꿀 수 있다 (원본수정 가능).  
 
 코드보기: 문자열 미러링  
 ```c++
@@ -202,12 +223,15 @@ fstream: 파일 입출력
 <img width="1013" height="435" alt="image" src="https://github.com/user-attachments/assets/7a024bc3-3526-4c08-8fce-cfbe86f5ba76" />  
 
 ### open()  
-<img width="750" height="416" alt="image" src="https://github.com/user-attachments/assets/a7e4526d-45c2-44c4-a45f-2a64d95eac28" />  
+각 스트림마다 open() 메서드가 있음  
+``` cpp
+fin.open("HelloWorld.txt", ios_base::in | ios_base::binary);
+```
+모드 플래그(mode flags)
+  - ios_base 네임스페이스
+  - in, out, ate(at the end라는 뜻), app(append라는 뜻), trunc, binary가 있음  
 
 open 두번째 인자가 비트플래그임.  
-ate: at the end.  
-app: appende  
-trunc: truncate (파일 읽고 내용 다 지우고 새로 시작)  
 모드 플래그 별 유효하지 않은 조합들이 있다고 함.  
 
 파일 열기 모드의 예  
@@ -231,10 +255,18 @@ is_open(): 파일이 열려있는지 확인. if (fs.is_open()) {...}
 <img width="859" height="429" alt="image" src="https://github.com/user-attachments/assets/15543fd7-ac80-45be-8748-02f14368e4de" />  
 
 fin.fail()인 경우는 eof만난 경우. 나머지는 숫자던 문자던 읽을 수 있음.  
-<img width="871" height="362" alt="image" src="https://github.com/user-attachments/assets/ba17028c-237f-4166-bb8e-44f060d3975b" />  
+
+get(), getline(), >> : 어떤 스트림(ex: cin, istringstream)을 넣어도 동일하게 동작함 (추상화!)  
+``` cpp
+fin.get(character);
+
+fin.getline(firstName, 20);  // 파일에서 문자 20개를 읽음
+getline(fin, line);          // 파일에서 한 줄을 읽음
+fin >> word;                 // 파일에서 한 단어를 읽음
+```  
 
 파일에서 한 줄씩 읽기 (완벽하지 않은 코드)  
-``` c++
+``` cpp
 ifstream fin:
 fin.open("Hello World.txt);
 
@@ -289,7 +321,7 @@ fin.close();
 eof앞에 \n 있는 경우  
 <img width="651" height="409" alt="image" src="https://github.com/user-attachments/assets/216a0c29-0b48-40c0-aa4a-f2a6655eddf3" />  
 <img width="808" height="440" alt="image" src="https://github.com/user-attachments/assets/4dcc4bfc-77eb-4c5e-a2e0-6560a06efd52" />  
-eofbit이 flase로 유지되서 다시 읽어버림!  
+eofbit이 false로 유지되서 다시 읽어버림!  
 <img width="826" height="443" alt="image" src="https://github.com/user-attachments/assets/3958c9b0-e35c-4b60-b020-6f492e5776bf" />  
 <img width="802" height="426" alt="image" src="https://github.com/user-attachments/assets/3b110189-4095-440a-834b-3616cbd8f253" />  
 300 들어간게 다시 출력되고, 끝남.  
@@ -329,11 +361,9 @@ eof 잘못 처리 하면 무한 반복 초래. clear() 쓸 때는 두 번 생각
 **훌륭한 테스트 케이스**  
 <img width="747" height="529" alt="image" src="https://github.com/user-attachments/assets/2196ec2e-236b-422f-87f5-fdb66cc2462e" />  
 
-
-
 ## 파일 쓰기, 바이너리 파일 읽기/쓰기, 파일 안에서의 탐색(seek)
 <img width="871" height="360" alt="image" src="https://github.com/user-attachments/assets/77401a5c-5d51-4274-8400-30fa7bca7c97" />  
-endl: stream flush하고 '\n'은 steram flush안하고 차이 있음.  
+endl: stream flush하고 '\n'은 stream flush안하고 차이 있음.  
 
 put(): 문자를 써 넣음 fout.put(character);  
 <<: 밀어넣기 (ex: fout << line << endl);)  
@@ -377,7 +407,7 @@ fout.seekg(-10, ios_base::end); // 읽기포인터 파일 끝에서 10바이트 
 <img width="637" height="309" alt="image" src="https://github.com/user-attachments/assets/15e8cb7d-6f91-414a-8d06-e6174c513e17" />  
 std::ws를 생략해서 ws라고 쓴거임.  
 
-코드보이: 파일 입출력  
+코드보기: 파일 입출력  
 ```cpp
 #pragma once
 
