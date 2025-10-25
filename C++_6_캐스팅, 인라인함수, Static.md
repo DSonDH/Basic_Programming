@@ -306,6 +306,7 @@ namespace samples
 
 ## 정적 멤버 함수
 <img width="830" height="368" alt="image" src="https://github.com/user-attachments/assets/7a5913e2-fa51-4eab-99eb-2847c60c2d72" />  
+
 논리적인 scope에 제한된 전역함수  
 해당 클래스의 정적 멤버에만 접근 가능  
 개체없이도 정적함수 호출 가능. Math::Square(10);  
