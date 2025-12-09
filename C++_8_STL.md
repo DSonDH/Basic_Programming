@@ -255,22 +255,52 @@ string(capacity 4바이트, size 4바이트, c_str 주소 4바이트)
 여기서 string은 컨테이너에서 나온 개념.  
 16바이트가 4개 : 64바이트  
 
-**코드보기: 개체 벡터 (생각할거 좀 있어서 중요한듯. 동영상 다시 봐보기)**  
+**코드보기: 개체 벡터**  
 
 포인터 벡터  
 <img width="811" height="291" alt="image" src="https://github.com/user-attachments/assets/5cfa05c5-a66e-4cc5-b685-9d4ea63ad545" />  
+
 개체를 직접 보관하는 벡터의 문제점은 복사에 어마어마한 리소스가 쓰일 수 있다.  
 그러면 포인터로 저장하면 해결될듯?  
-<img width="438" height="290" alt="image" src="https://github.com/user-attachments/assets/eb05bc96-608c-4bd3-bb75-9d9918737c4b" />  
+
+``` cpp
+std::vector<Score*> scores;
+
+scores.reserve(2);
+
+scores.push_back(new Score(30, "C++");
+scores.push_back(new Score(87, "Java");
+scores.push_back(new Score(41, "Android");
+
+scores.clear();
+```  
+
 포인터 저장의 문제점?  
 <img width="814" height="302" alt="image" src="https://github.com/user-attachments/assets/7c9000b8-6304-4d4e-a621-6db62e5f589a" />  
+
 재할당이 필요하면,  
 <img width="799" height="263" alt="image" src="https://github.com/user-attachments/assets/2029dcb0-de72-4b0e-aeec-c494fd183e1c" />  
+
 기존 10이랑 "C++"을 다시 할당한게 아니라서 빨라짐.  
 그러나, 모든 요소에 대해 delete꼭 호출할 일이 늘어남.  
-<img width="781" height="341" alt="image" src="https://github.com/user-attachments/assets/28a15eea-19bd-42ae-b28c-3fcfeb0190fd" />  
 
-코드보기: 포인터 벡터 동영상강의 다시 봐보기  
+``` cpp
+std::vector<Score*> scores;
+
+scores.reserve(2);
+
+scores.push_back(new Score(30, "C++");
+scores.push_back(new Score(87, "Java");
+
+for (vector<Score*>::iterator it = scores.begin(); it != scores.end(); ++iter)
+{
+	delete *it;
+}
+
+scores.clear();
+```
+
+코드보기: 포인터 벡터  
 
 벡터의 장단점  
 : 순서 상관없이 요소에 임의적으로 접근 가능  
@@ -282,8 +312,25 @@ string(capacity 4바이트, size 4바이트, c_str 주소 4바이트)
 key, value 쌍으로 요소를 만듦. (해쉬맵이 아님!!!!!)  
 키는 중복될 수 없음.  
 C++ 맵은 자동정렬되는 컨테이너... (이진탐색트리 기반 오름차순)  
-<img width="642" height="305" alt="image" src="https://github.com/user-attachments/assets/ee92e80f-a456-4980-82e1-88479ce8f442" />  
+``` cpp
+#include <map>
+
+int main()
+{
+	std::map<std::string, int> simpleScoreMap;
+
+	simpleScoreMap.insert(std::pari<std::string, int>("Mocha", 100));
+	simpleScoreMap.insert(std::pari<std::string, int>("Coco", 60));
+
+	simpleScoreMap["Mocha"] = 0;
+
+	std::cout << "Current size: " << simpleScoreMap.size() << std::endl;
+
+	return 0;
+}
+```  
 <img width="678" height="292" alt="image" src="https://github.com/user-attachments/assets/6c436463-a2a2-47ed-97ed-dffc70b71514" />  
+
 복사생성자 호출함.  
 
 ## std::pair, 요소 삽입
