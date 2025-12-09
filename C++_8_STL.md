@@ -8,7 +8,22 @@ Standard Template Library (STL)컨테이너 중 하나.
 그 안에 저장된 모든 요소들이 연속된 메모리 공간에 위치.  
 요소수가 증가하면서 자동으로 메모리 관리해줌.  
 어떤 요소에도 임의로 접근(random access) 가능  
-<img width="683" height="332" alt="image" src="https://github.com/user-attachments/assets/1b7d2062-5b64-4739-9ddd-ea7e44da44a5" />  
+``` cpp
+#include <iostream>
+#include <vector>
+int main()
+{
+	std::vector<int> scores;
+	scores.reserve(2);
+
+	scores.push_back(30);
+	scores.push_back(50);
+	scores.pop_back();
+
+	std::cout << "Current capacity : " << scores.capacity() << std::endl;
+	std::cout << "Current size : " << scores.size() << std::endl;
+}
+```
 vector<int>라는게 템플릿 이라고 함  
 <img width="551" height="264" alt="image" src="https://github.com/user-attachments/assets/d498173e-dd8f-4443-aa98-3d1052e57d68" />  
 <img width="653" height="274" alt="image" src="https://github.com/user-attachments/assets/0f5bb23b-3211-499e-95c8-7e09ccfb4dd7" />  
@@ -127,7 +142,6 @@ begin(), end(), rbegin(), rend()
 <img width="773" height="262" alt="image" src="https://github.com/user-attachments/assets/c20b9aaa-225d-45e4-b6a1-5181282cdc53" />  
 
 특정 위치에 요소 삽입하기  
-<img width="769" height="250" alt="image" src="https://github.com/user-attachments/assets/8279a991-2411-43b8-8c28-579037b8b65d" />  
 ``` cpp
 std::vector<int> scores;
 
