@@ -192,7 +192,18 @@ auto max = []() { return score1 > score2 ? score1 : score2; }; // 람다식에 �
 
 예: 값에 의한 캡쳐  
 <img width="822" height="397" alt="image" src="https://github.com/user-attachments/assets/0ff0e621-371c-4e96-a0bb-5e6eefe35f32" />  
-<img width="738" height="323" alt="image" src="https://github.com/user-attachments/assets/b6a29ca4-e848-48a3-b538-1be9f320c39a" />  
+``` cpp
+float score1 = 80.f;
+float score2 = 20.f;
+
+auto changeValue = [=]()
+{
+  score1 = 100.f;  // 컴파일 에러, score1 수정 불가
+};
+
+changeValue();
+// ...
+```
 이 사례는 궂이 값복사를 해도, 값 못바꾸도록 컴파일오류 나게 구현되있다는걸 말해줌.  
 
 예: 참조에 의한 캡쳐  
@@ -201,7 +212,19 @@ auto max = []() { return score1 > score2 ? score1 : score2; }; // 람다식에 �
 외부 변수도 바뀌어있는거임.  
 
 예: 캡쳐 옵션 섞기  
-<img width="609" height="345" alt="image" src="https://github.com/user-attachments/assets/b7d91401-845a-48fb-b056-f3f91035ac0c" />  
+``` cpp
+float score1 = 80.f;
+float score2 = 20.f;
+
+auto changeValue = [=, &score1]()  //올바름
+{
+  score1 = 100.f;  // 참조에 의한 캡쳐
+  std::cout << score2; //값에 의한 캡쳐
+};
+
+changeValue();
+// ...
+```
 
 ## 매개변수 목록  
 <img width="902" height="457" alt="image" src="https://github.com/user-attachments/assets/2d50ef7d-3c99-4a6f-9a3a-93eab1186915" />  
