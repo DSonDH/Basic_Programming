@@ -6,8 +6,26 @@ std::array
 ## 정렬 안된 맵(unordered_map)  
 std::map은 자동으로 정렬되는 컨테이너.  
 요소 삽입/제거가 빈번하면 성능이 저하됨.  
-<img width="684" height="345" alt="image" src="https://github.com/user-attachments/assets/65a7ca90-4452-4042-9c64-7a50eaca80c1" />  
+``` cpp
+#include <iosteam>
+#include <string>
+#include <unordered_map>
 
+int main()
+{
+  std::unordered_map<std::string, int> scores;
+  scores["Nana"] = 60;
+  scores["Mocha"] = 70;
+  scores["Coco"] = 100;
+
+  for (auto it = scores.begin(); it != scores.end(); ++it)
+  {
+    std::cout << it->first << ": " << it->second << std::endl;
+    // 알파벳 순이 아닌, Coco, Nana, Mocha순서로 출력됨.
+  }
+  return 0;
+}
+```
 key, value 쌍을 저장  
 키는 중복 불가  
 자동으로 정렬되지 않는 컨테이너  
@@ -41,10 +59,15 @@ container아니어도 돈다!
 왼쪽은 값으로 복사 (원본 안바뀜), 오른쪽은 참조로 가져옴(원본 바꿀수 있음)  
 for 반복문을 더 간단하게 쓸 수 있고 가독성 높아짐  
 auto키워드도 쓸 수 있음. 컨테이너/배열 역순회는 안됨  
-
-[<img width="639" height="322" alt="image" src="https://github.com/user-attachments/assets/83e8adeb-3502-4f45-87e2-d548e351b645" />  
 <img width="825" height="363" alt="image" src="https://github.com/user-attachments/assets/9496af14-64e8-45e8-82b0-e67d89434cd8" />  
 <img width="819" height="363" alt="image" src="https://github.com/user-attachments/assets/d732965b-2d2f-499a-8237-c9f3352fcef1" />  
+
+참고) for_each()
+- C++03에 들어옴
+- 컨테이너 각 요소마다 함수를 실행하는 알고리듬
+- 범위기반 for만큼 가독성 좋진 않음
+- 좀 이상함: 다른 언어들은 알고리듬 말고 언어 문법 자체에 있음
+- 그러니 이거 말고 범위기반 for를 쓰자 ^_^/
 
 # Smart 포인터
 unique_ptr, shared_ptr, weak_ptr 세 종류가 있음.  
@@ -60,44 +83,56 @@ unique_ptr가 매우매우 좋고 중요함
 <img width="809" height="226" alt="image" src="https://github.com/user-attachments/assets/f5a8a791-3326-473e-8f17-a10d91668542" />  
 
 std::unique_ptr  
-<img width="645" height="287" alt="image" src="https://github.com/user-attachments/assets/763758ff-9bff-4f8c-981b-7902a7c15fce" />  
+- 포인터(원시 포인터라 부르자)를 단독으로 소유함
+- 원시(naked) 포인터는 누구랑도 공유하지 않음
+- 따라서 복사나 대입 불가
+- unique_ptr가 scope벗어날 때, 원시포인터는 자동으로 delete됨
+``` cpp
+std::unique_ptr<Vector> myVector(new Vector(10.f, 30.f);
+std::unique_ptr<Vector> copiedVector1 = myVector; // 컴파일 에러
+std::unique_ptr<Vector> copiedVector2(myVector); // 컴파일 에러
+```
 
 다음의 세 경우에 적합함!  
-클래스에서 생성자/소멸자  
+1. 클래스 생성자/소멸자 (소멸자 귀찮게 짜던거 안해도 됨.)  
 <img width="831" height="368" alt="image" src="https://github.com/user-attachments/assets/a4901bab-9357-46cb-8ea1-a2144005bcbf" />  
 
-소멸자 귀찮게 짜던거 안해도 됨.  
-
-지역변수  
+2. 지역변수 (scope 밖으로 가면 자동으로 지워지므로)  
 <img width="831" height="337" alt="image" src="https://github.com/user-attachments/assets/22165faa-e9eb-443f-a96b-69bb1380da9a" />  
 
-scope 밖으로 가면 자동으로 지워지니깐.  
-
-STL벡터에 포인터 저장하기  
+3. STL벡터에 포인터 저장하기 (for문으로 모든 요소 일일히 clear호출도 안해도 됨)  
 <img width="824" height="347" alt="image" src="https://github.com/user-attachments/assets/a6238802-46b0-4608-a7a6-f535b369de9f" />  
 
-오른쪽에서 clear호출도 안해도 됨.  
-
 ### 유니크 포인터 만들기 (C++14이후)
-문제: 원시 포인터 공유  
+문제: 원시 포인터 공유가 되서, 한 유니크 포인터를 바꾸면 다른 유니크 포인터가 나도 모르는 새 바뀜.  
 <img width="609" height="363" alt="image" src="https://github.com/user-attachments/assets/545b5ef4-3c70-44d9-bfef-34dc5101561f" />  
 <img width="603" height="360" alt="image" src="https://github.com/user-attachments/assets/86c9b0a1-1e95-49df-89a6-65fcc143a42c" />  
 <img width="599" height="334" alt="image" src="https://github.com/user-attachments/assets/88a52800-66ec-44ad-8f7b-d1b067be93d5" />  
 
 이를 해결하고자, 언어에 새로운 기능을 넣음  
 std::make_unique<Vector>(10.f, 10.f); 이렇게 만들어서 대입하도록.  
-<img width="696" height="252" alt="image" src="https://github.com/user-attachments/assets/1139e7f9-7e94-4611-9292-1e5c7448b321" />  
-
+``` cpp
+#include <memory>
+#include "Vector.h"
+int main()
+{
+  // 힙할당 불필요. 사용법 보여주려고 함.
+  std::unique_ptr<Vector> myVector = std::make_unique<Vector>(10.f, 30.f);
+  myVector->Print();
+  return 0;
+}
+```
 주어진 매개변수와 자료형으로 new키워드를 호출해줌. 따라서 원시포인터와 같음.  
 둘 이상의 std::unique_ptr이 원시 포인터를 공유할 수 없도록 막는게 전부.  
-<img width="696" height="135" alt="image" src="https://github.com/user-attachments/assets/fc926e13-ea70-4a35-8598-7c38b705df40" />
+<img width="696" height="135" alt="image" src="https://github.com/user-attachments/assets/fc926e13-ea70-4a35-8598-7c38b705df40" />  
 
 위 코드에 세가지 방법 전부 컴파일오류 남!!  
+즉, 이미 만들어진 개체는 절대 make_unique할 수 없다.  
+(인자로 개체 생성하도록 넘겨주는거면 make_unique안해도 되는건데, 추가 이득이 좀 더 있다고 함)  
 
 <img width="716" height="337" alt="image" src="https://github.com/user-attachments/assets/fb97aa20-c383-4ae0-9c3d-66fa41e7db05" />  
 
-가변인자 템플릿, r-value 개념이 들어간 개념임.  
-
+가변인자 템플릿(... 이 부분), r-value 개념이 들어간 개념임.  
 
 ### 유니크 포인터 재설정, 원시 포인터 가져오기, 원시 포인터 소유권 박탈하기
 <img width="713" height="357" alt="image" src="https://github.com/user-attachments/assets/6b1229ce-726c-4c71-9b65-4fa8999ff51a" />  
