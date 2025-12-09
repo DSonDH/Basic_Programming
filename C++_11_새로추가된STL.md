@@ -135,47 +135,83 @@ int main()
 가변인자 템플릿(... 이 부분), r-value 개념이 들어간 개념임.  
 
 ### 유니크 포인터 재설정, 원시 포인터 가져오기, 원시 포인터 소유권 박탈하기
-<img width="713" height="357" alt="image" src="https://github.com/user-attachments/assets/6b1229ce-726c-4c71-9b65-4fa8999ff51a" />  
+유니크 포인터 재설정하기  
+<img width="757" height="285" alt="image" src="https://github.com/user-attachments/assets/5fbf3641-0deb-47b9-890c-b31e2e5580a3" />  
+<img width="713" height="357" alt="image" src="https://github.com/user-attachments/assets/ef84f9b0-c1b7-48de-87eb-279f13cb06a0" />  
 <img width="772" height="356" alt="image" src="https://github.com/user-attachments/assets/5ec64bde-e977-4fc8-a735-0ae3abd19ce9" />  
 <img width="720" height="385" alt="image" src="https://github.com/user-attachments/assets/a2811332-67f5-4ffc-b001-23fc27040318" />  
 
 reset은 nullptr와 같다.  
-<img width="771" height="259" alt="image" src="https://github.com/user-attachments/assets/a37b3cda-aa6b-41c4-8204-8d2ec202bdc0" />  
-
-유니크 포인터 재설정하기  
-<img width="757" height="285" alt="image" src="https://github.com/user-attachments/assets/5fbf3641-0deb-47b9-890c-b31e2e5580a3" />  
-<img width="713" height="357" alt="image" src="https://github.com/user-attachments/assets/ef84f9b0-c1b7-48de-87eb-279f13cb06a0" />  
-
+- vector.reset();, vector = nullptr; 두 코드는 같다.  
+- nullptr이 가독성이 더 높음
+- 하지만 reset()은 vector가 원시포인터가 아님을 분명하게 보여줌
+- 포프님은 개인적으로 nullptr선호
 
 get()  
-naked 포인터를 반환한다.  
+naked 포인터 반환  
 <img width="860" height="327" alt="image" src="https://github.com/user-attachments/assets/bc5cb0cd-2461-4538-848f-3c48c0f7d8b3" />  
 
 release()  
 naked 포인터 소유권을 다른 포인터에 넘겨줌. 좋은 함수는 아님.  
-<img width="617" height="168" alt="image" src="https://github.com/user-attachments/assets/5eb0c79c-8979-4ca4-80ab-d4f8501fbe58" />  
-
+``` cpp
+std::unique_ptr<Vector> vector = std::make_unique<Vector>(10.f, 30.f);
+Vector* vectorPtr = vector.release();
+// ...
+```
 release()호출 후 get() 호출하면 nullptr반환됨.  
 
 ### 소유권 이전하기
 유니크 포인터를 복사는 못해도, 소유권을 이전해줄 수만 있음.  
 <img width="726" height="364" alt="image" src="https://github.com/user-attachments/assets/ff7ccf26-353b-4018-acb0-00e3364d870d" />  
-std::movoe();  
 <img width="718" height="386" alt="image" src="https://github.com/user-attachments/assets/60c74468-215e-4e6e-b033-e443d5d1464c" />  
 
 대입x 복사x 이전o  
 const면 당연히 못옮기니 컴파일 에러  
 
 std::move()  
-<img width="704" height="300" alt="image" src="https://github.com/user-attachments/assets/9f145d7b-8a90-492e-a348-fccd9edaeeba" />  
+- 개체A의 모든 멤버를 포기하고 그 소유권을 B에 준다
+- 메모리 할당, 해제가 일어나지 않음
+- A에 있는 모든 포인터를 B에 대입하고 A에는 nullptr넣는것
+- "난 멤버변수를 옮기고 있다(MOVING)"
+- 어떻게 도는지 알려면 r-value, 이동(move)생성자를 배워야 함: 나중에 나옴
+
+* release(), move()차이
+| 구분 | release() | std::move() |
+| - | - | - |
+| 소유권          | 포기함                        | "다른 unique_ptr 에게" 이전함 |
+| 반환값          | raw pointer                | 없음                     |
+| 이후 delete 책임 | 사용자                        | unique_ptr 자동 관리       |
+| 위험성          | 매우 높음                      | 안전함                    |
+| 사용 의도        | 스마트 포인터 → 생 포인터로 넘기는 특수 상황 | unique_ptr 간 소유권 이전    |
+
 
 예시: STL벡터에 요소 추가하기  
-<img width="599" height="152" alt="image" src="https://github.com/user-attachments/assets/e43a246e-a8d1-499d-a362-5ef454b25ff4" />  
+``` cpp
+std::vector<std::unique_ptr<Player>> players;
+std::unique_ptr<Player> coco = std::make_unique<Player>("Coco");
+players.push_back(std::move(coco));
+
+std::unique_ptr<Player> lulu = std::make_unique<Player>("Lulu");
+players.push_back(std::move(lulu));
+```
 
 ### BP
 std::unique_ptr의 비밀 공개  
-<img width="598" height="312" alt="image" src="https://github.com/user-attachments/assets/50d8a811-192e-4cdc-9bac-fbc3ad11c249" />  
-
+``` cpp
+// 매우 단순화시킨 코드
+tmeplate<typename T>
+class unique_ptr<T> final
+{
+public:
+  unique_ptr(T* ptr) : mPtr(ptr) {}
+  ~unique_ptr() { delete mPtr; }
+  T* get() { return mPtr };
+  unique_ptr(const unique_ptr&) = delete;
+  unique_ptr& operator=(const unique_ptr&) = delete;
+private:
+  T* mPtr = nullptr;
+}
+```
 이제 다들 이걸 씀. 직접 메모리 관리하는 것만큼 빠름.  
 RAII(Resource Acquisition Is Initialization) 원칙에도 잘 맞음.  
 실수하기 어려우니까 모든 곳에 쓰자!!  
