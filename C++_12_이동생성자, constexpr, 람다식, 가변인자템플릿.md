@@ -21,7 +21,22 @@ rvalue: lvalue가 아닌 개체. 지속되지 않는 일시적인 값, 주소가
 rvalue 참조 (&&)  
 C++11이후에 새로 나온 연산자, 기능상 &연산자와 비슷.  
 &연산자는 lvalue참조에, &&연산자는 rvalue참조에 사용  
-<img width="866" height="350" alt="image" src="https://github.com/user-attachments/assets/2f3d120d-0532-42db-adc4-0ee2336acfe2" />  
+``` cpp
+float CalculateAverage()
+{
+  float average;
+  // ...
+  return average;
+}
+
+int main()
+{
+  int number = 10;
+  int&& rNumber = number;  // Error! number는 lvalue
+  int&& rNumber1 = 10;     // OK, 10은 rvalue
+  float&& rAverage = CalculateAverage();  // OK, CalculateAverage()는 rvalue
+}
+```
 
 std::move()  
 rvalue참조를 반환, lvalue를 rvalue로 변환  
@@ -51,7 +66,14 @@ STL컨테이너용 이동문법: C++11이후, 따로 구현할 필요는 없음.
 <img width="975" height="441" alt="image" src="https://github.com/user-attachments/assets/26eeaf3b-7c7b-4dea-b12a-ab5127af8b45" />  
 
 rvalue 최적화  
-<img width="924" height="408" alt="image" src="https://github.com/user-attachments/assets/c65ebd31-06a1-47a3-be55-46ea223c9301" />  
+- 한때 잘못 사용한 또 다른 C++ 프로그래밍 유행어
+- 이동생성자와 이동대입연산자는 아직 유효함
+- 포인터 대신 개체 자체를 반환하는 함수
+  - 함수에서 rvalue를 반환하는건 실제로 매우 느림
+  - 반환값 최적화 (Return Value Optimization)이라 하는 컴파일러 최적화를 깨뜨림
+- BP
+  - 기본적으로 그냥 개체 반환
+  - 더 빨라진다고 입증된 경우에만 함수가 rvalue를 반환하도록 바꾸자
 
 코드보기: 이동생성자와 이동대입연산자  
 
@@ -65,13 +87,31 @@ rvalue 최적화
 constexpr함수, 변수  
 위 템플릿 메타프로그래밍의 핵을 해결하기위해 나온것.  
 그러면 컴파일시, 실행시 둘 다 값을 평가할 수 있게 됨.  
-<img width="914" height="182" alt="image" src="https://github.com/user-attachments/assets/9c421f79-ccb0-470c-8994-27397c3d6b3d" />  
+``` cpp
+constexpr unsigned int fibonacci(unsigned int i)
+{
+  return (i <= 1u) ? i : (fibonacci(i - 1) + fibonacci(i - 2));
+}
+```
 constexpr가 프로그래머의 의도를 보여주는 더 나은 방법임: 컴파일 도중에 값을 평가  
 컴파일러가 컴파일 도중에 변수들을 결정지어줌. 못하면 컴파일오류  
 함수는 최대한 결정하려 노력. 결정못해도 조용히 넘어가고, 실행 시 그 함수가 호출됨  
 
 예: 함수와 constexpr  
-<img width="629" height="414" alt="image" src="https://github.com/user-attachments/assets/c850f50f-edbc-45fd-91d8-d63e6720e462" />  
+``` cpp
+constexpr int Factorial(int n)
+{
+  return n <= 1? 1: n * Factorial(n - 1);
+}
+
+int main()
+{
+  int value = 3;
+  int result1 = Factorial(value);  // OK
+  constexpr int result2 = Factorial(value);  // 컴파일 에러
+  constexpr int result3 = Factorial(3);  // OK
+}
+```
 판단안되는걸 판단하라고 하니 컴파일 에러.  밑에는 3이 들어왔으니 평가가능.  
 
 컴파일 도중 평가 vs 실행중 평가  
@@ -83,14 +123,33 @@ constexpr가 프로그래머의 의도를 보여주는 더 나은 방법임: 컴
 constexpr활용  
 <img width="944" height="371" alt="image" src="https://github.com/user-attachments/assets/49e83963-fa68-4fef-b9f1-da66b12b2a23" />  
 이때, 해쉬함수에 활용할 수 있다!  
-<img width="762" height="322" alt="image" src="https://github.com/user-attachments/assets/38c38fb2-8c9b-4470-a82e-229ba20b3672" />  
-<img width="902" height="193" alt="image" src="https://github.com/user-attachments/assets/0409748c-48d2-4e70-b37a-5d6f64e77774" />  
-문자열 해쉬 만드는데 문자열 계속 훑어야되니까(O(N)) 이걸 컴파일 과정으로 돌리려는거임.  
+- 코드가 문자열 참조하는 경우 문자열을 비교해야 함
+- 문자열 비교에는 O(N)의 비용이 듦
+- 비용을 절감하려면
+  - 문자열 해쉬 생성: O(N)
+  - 그 후에 해쉬값(정수) 비교: O(1)
+- 문자열 해쉬를 컴파일 도중에 만들 수 있면, 문자열 비교에 드는 런타임 비용은 언제나 O(1)이다!
+- constexpr로 컴파일 타임에 문자열 해쉬를 만들 수 있게됨!
 <img width="918" height="393" alt="image" src="https://github.com/user-attachments/assets/02740651-2526-42ae-8216-6064b95c9df7" />  
 
-const vs constexpr변수  
+const vs constexpr변수: 결국 둘 다 const임  
 컴파일 시 결정된 값이니, 당연히 실행 시 바뀌지 않는 cosnt  
-<img width="475" height="407" alt="image" src="https://github.com/user-attachments/assets/373d1923-7950-4a70-8dd5-97fe9d6e2d65" />  
+``` cpp
+const int num = 1;   // OK
+num = 10;  // 컴파일 에러
+
+constexpr int num1= 2;   // OK
+num1 = 10;  // 컴파일 에러
+
+int num2 = 3;
+constexpr int num3 = num2;  // 컴파일 에러
+
+const int num4 = 4;
+constexpr int num5 = num4;  // OK
+
+constexpr int num6 = 6;  // OK
+constexpr int num7 = num6;  // OK
+```
 <img width="966" height="550" alt="image" src="https://github.com/user-attachments/assets/09f4f526-6f46-4ec0-a9fb-7a7e5624ceec" />  
 
 코드보기: 간단한 해쉬맵. 동영상 강의 다시 보기  
@@ -104,10 +163,32 @@ const vs constexpr변수
 ## 캡쳐 블록  
 람다 식을 품는 scope안에 있는 변수를 람다 식에 넘겨둘 때 사용  
 캡쳐의 종류  
-<img width="553" height="406" alt="image" src="https://github.com/user-attachments/assets/132e3738-f942-4c07-ac08-eec3cb9dc3ff" />  
+```
+[]
+: 비어있음. 캡쳐하지 않음
+
+=
+: 값에의한 캡쳐. 모든 외부변수를 캡쳐함
+: 람다식 안에서 수정 불가
+
+&
+: 참조에 의한 캡쳐. 모든 외부변수 캡쳐
+
+<변수이름>
+: 특정 변수를 값으로 캡쳐
+: 람다식 안에서 수정 불가
+
+&<변수이름>
+: 특정 변수를 참조로 캡쳐
+```
 예: 외부 변수 사용하기  
-<img width="874" height="260" alt="image" src="https://github.com/user-attachments/assets/061af078-dc9f-4e83-9240-a3a267472797" />  
-람다식에 넘겨준게 없고, scope달라서 컴파일 에러남.  
+``` cpp
+float score1 = 80.f;
+float score2 = 20.f;
+
+auto max = []() { return score1 > score2 ? score1 : score2; }; // 람다식에 넘겨준게 없고, scope달라서 컴파일 에러
+// ...
+```
 
 예: 값에 의한 캡쳐  
 <img width="822" height="397" alt="image" src="https://github.com/user-attachments/assets/0ff0e621-371c-4e96-a0bb-5e6eefe35f32" />  
