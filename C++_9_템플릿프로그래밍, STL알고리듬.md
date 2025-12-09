@@ -11,7 +11,7 @@ STL컨테이너도 템플릿. **덕분에 코드를 자료형마다 중복작성
 <img width="741" height="334" alt="image" src="https://github.com/user-attachments/assets/81481389-3080-4b67-b8de-db9a3a3cea55" />  
 
 함수 템플릿 호출할 때 템플릿 매개변수 생략 가능.  
-Add<int>(3, 10);을 Add(3, 10);으로  
+Add\<int\>(3, 10);을 Add(3, 10);으로  
 
 typename vs class 차이: 사실상 없음. 그냥 typename을 사용하자.  
 
@@ -40,9 +40,9 @@ MyArray.h로는 오직 MyArray클래스 선언만 볼 수 있음.
 따라서 템플릿 프로그래밍에선 헤더에 구현을 옮기는게 일반적이다.  
 <img width="275" height="377" alt="image" src="https://github.com/user-attachments/assets/f738d82f-ffbb-4c4b-8be9-0c10ec3f1227" />  
 
-개체를 선언할때는 템플릿 매개변수를 명시해야함: MyArray<int> scores;  
+개체를 선언할때는 템플릿 매개변수를 명시해야함: MyArray\<int\> scores;  
 함수 템플릿에는 생략해도 됬는데, 클래스 템플릿은 안됨.  
-컴파일러가 알 수 있는 방법이 없음. 함수 템플릿은 컴파일러가 추측하는데, 여긴 방법이 없음  
+컴파일러가 알 방법이 없음. 함수 템플릿은 컴파일러가 추측하는데, 여긴 방법이 없음  
 
 코드보기: 템플릿 배열  
 ``` C++
@@ -233,28 +233,48 @@ MyPair 예시
 <img width="784" height="224" alt="image" src="https://github.com/user-attachments/assets/24a6a97d-2e3b-4b32-941f-2efdbfdf9bf3" />  
 
 코드보기: Math (동영상 강의 한번 더 보기)  
-질의응답  
-<img width="715" height="271" alt="image" src="https://github.com/user-attachments/assets/0010f1ea-b300-4b74-88dc-3dbec4af8a79" />  
+질의응답: Q: Math안에 템플릿함수에 static 붙은이유? 어차피 namespace에 의해 가려져서 안써도 될거같은데..  
+A: 여러 cpp파일에서 math.h include시 중복함수 구현이 생겨서 그거 막으려고 그런것.. 좀 더 올바른 방법은 inline사용하는 것.  
 
 # 템플릿 특수화(Specialization) (안중요함)
 일반화 하다보니, 한두개만 좀 튀는 애들이 있음. 얘네를 위한 개념임.  
 특정 템플릿 매개변수를 받도록 템플릿 코드를 커스터마이즈할 수 있다.  
-특수화 쓸 일이 거의 없긴함.  
-
-예1 bool  
-<img width="627" height="200" alt="image" src="https://github.com/user-attachments/assets/d1185869-0b1b-4f38-a308-ab2303d4ba56" />  
-T가 아니라 bool로 되어있음. bool로 특수화된건데 왜 bool만?  
-메모리가 쪼들리는 플랫폼이라면 가치가 좀 있음.  
+특수화 쓸 일이 거의 없긴한데, 
+예1: 메모리가 쪼들리는 플랫폼 같은 특수한 경우엔 좋다.  
 예2 Power(): 우리가 알던대로 구현하면 좀 이상한데, 특수한 방법이 필요함  
 
 템플릿 특수화 2가지  
-<img width="707" height="339" alt="image" src="https://github.com/user-attachments/assets/b89a2365-72af-4be0-b411-7523a03cd559" />  
+1. 전체 템플릿 특수화
+   - 템플릿 매개변수 리스트가 비어있음
+``` cpp
+template <typename VAL, typename EXP>
+VAL Power(const VAL value, EXP exponent) {} // 모든 형을 받는 제네릭 power()
+
+template <>
+float Power(float value, float exp) // float을 받도록 특수화된 power()
+```
+2. 부분 템플릿 특수화
+```cpp
+template <class T, class Allocator>
+class std::vector<T, Allocator> {} // 모든형을 받는 제네릭 vector
+
+template <class Allocator>
+class std::vector<bool, Allocator> {} // bool형을 받도록 특수화된 vector
+// bool은 특수하게 만들 가치가 있음!
+```
+
 클래스 템플릿 특수화  
 <img width="616" height="389" alt="image" src="https://github.com/user-attachments/assets/129f1d7b-89d5-407b-a472-7702e9a6b779" />  
 
 # 장단점, BP  
-<img width="703" height="333" alt="image" src="https://github.com/user-attachments/assets/984a222d-8593-47c4-b2df-38089af0ac2b" />  
-<img width="715" height="339" alt="image" src="https://github.com/user-attachments/assets/f7b44d6d-ebbb-4f42-b806-ed9aeab567d9" />  
+- 컴파일러가 컴파일 도중에 각 템플릿 인스턴스에 대한 코드를 만들어줌.  
+  - 컴파일 타임은 비교적 느리고, 템플릿 매개변수를 추가할수록 더 느려짐...  
+  - 하지만 런타임 속도는 더 빠를 수 있다만, 실행파일 크기가 커져서 항상 그런건 아님.  
+  - C#과 Java도 어느정도 해당되는 말 (그래서 ArrayList사용 비추천)  
+- 자료형만 다른 중복 코드를 없애는 훌륭한 방법
+- 하지만 쓸모없는 템플릿 변형을 막을 방법이 없다
+  - 최대한 제네릭 함수를 짧게 유지하자
+  - 제네릭 아니어도 되는 부분은, 별도의 함수로 옮기는것도 좋다. 이 함수가 인라인이 될 수 도 있음
 <img width="813" height="359" alt="image" src="https://github.com/user-attachments/assets/158049ee-b2ca-4750-a84a-045daba09caa" />  
 
 Best Practice  
@@ -276,11 +296,26 @@ STL알고리듬 유형
 copy()  
 <img width="647" height="310" alt="image" src="https://github.com/user-attachments/assets/6204bdfc-3a6e-4cff-89e0-6b16c476b88f" />  
 copy() 구현  
-<img width="496" height="231" alt="image" src="https://github.com/user-attachments/assets/b79df9ee-936c-4dc8-81f8-d649662fc233" />  
+``` cpp
+template<class _InIt, class _OutIt>
+_OutIt copy(_InIt _First, _InIt _Last, _OutIT _Dest)
+{
+	for (; _First != _Last; ++_Dest, (void)++_First)
+	{
+		*_Dest = *_First;
+	}
+	retrun (_Dest);
+}
+```
 (for loop ; 다음 마지막에 _Dest, _First 둘 다 넣어서 둘 다 증가시킴)  
 코드보기: find() 알고리듬  
 
 STL 알고리듬 목록은 많은데, 필요하면 쓰기.  
 
-<img width="617" height="358" alt="image" src="https://github.com/user-attachments/assets/cbd0884a-446c-4012-8017-ee4561a7ce79" />
-
+* 축하합니다!
+  * C++03을 끝마쳤습니다!
+  * C++03은 C++을 Java에 가깝게 만들려던 시도였음
+  * 하지만 사실상 컨테이너만 살아남음
+    * 많은 기능들이 충분한 고려없이 나왔고
+    * 그래서 이 중 대부분이 C++1x 에서 은퇴 당함
+    * 아마 이것 정리하는 데 8년이다 걸린듯? ㅋㅋ
