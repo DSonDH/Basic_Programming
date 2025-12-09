@@ -319,8 +319,8 @@ int main()
 {
 	std::map<std::string, int> simpleScoreMap;
 
-	simpleScoreMap.insert(std::pari<std::string, int>("Mocha", 100));
-	simpleScoreMap.insert(std::pari<std::string, int>("Coco", 60));
+	simpleScoreMap.insert(std::pair<std::string, int>("Mocha", 100));
+	simpleScoreMap.insert(std::pair<std::string, int>("Coco", 60));
 
 	simpleScoreMap["Mocha"] = 0;
 
@@ -345,16 +345,42 @@ insert
 
 operator[]  
 <img width="617" height="294" alt="image" src="https://github.com/user-attachments/assets/5214abf8-ee1c-4c8f-9e57-91fe4907c5ea" />  
-원본 바뀌게 할려고 keydp 대응하는 값을 참조로 반환받음.  
+원본 바뀌게 할려고 key에 대응하는 값을 참조로 반환받음.  
 이 방식은 이미 있는 key의 value를 바꿔버림.  
 없는 key값을 불러오면, 갑자기 기본값인 0으로 (k, v)삽입해서 없는걸 불러와버림..;;;  
 
 자동 정렬  
-<img width="848" height="243" alt="image" src="https://github.com/user-attachments/assets/6a96e4cb-ef0c-4125-8d51-b878181b5ded" />  
+``` cpp
+simpleScoreMap.insert(std::pair<std::string, int>("Mocha", 100));
+simpleScoreMap.insert(std::pair<std::string, int>("Coco", 60));
+
+for (std::map<std::string, int>::iterator it = simpleScoreMap.begin(); it != simpleScoreMap.end(); ++it)
+{
+	std::cout << "(" << it->first << ", " << it->second << ")" << std::endl;
+}
+// ("Coco", 60)  (키값 알파벳순으로 자동정렬되서 C먼저 그 다음 M 출력)
+// ("Mocha", 100)
+```
 
 ## 요소 찾기, 두 맵 교환, 맵 비우기, 요소 제거, 두 키를 비교하는 함수  
 요소 찾기  
-<img width="668" height="313" alt="image" src="https://github.com/user-attachments/assets/5b6d96a4-b4b9-4e7e-be10-f1dce119cca9" />  
+``` cpp
+# include <map>
+
+int main()
+{
+	std::map<std::string, int> simpleScoreMap;
+	simpleScoreMap.insert(std::pair<std::string, int>("Mocha", 100));
+
+	std::map<std::string, int>::iterator it = simpleScoreMap.find("Mocha");
+	if (it != simpleScoreMap.end())
+	{
+		if->second = 80;
+	}
+
+	return 0;
+}
+```
 end면 못찾은거임 (모든 종류의 컨테이너 호환하려고)  
 find()  
 <img width="754" height="201" alt="image" src="https://github.com/user-attachments/assets/e4354c1d-03f1-40af-9d0a-82ff1f9430a0" />  
@@ -367,6 +393,7 @@ erase()
 
 예: 개체를 키로 사용  
 <img width="823" height="242" alt="image" src="https://github.com/user-attachments/assets/2aa99114-9d51-4ab6-8a7c-ad333e8e24e5" />  
+
 : 뭔가 컴파일이 안됨. STL맵은 항상 정렬된다.   
 이는 두 키를 비교하는 함수가 필요한 것임 operator<()  
 <img width="553" height="182" alt="image" src="https://github.com/user-attachments/assets/6addd0cb-a427-45e8-a866-0bf0a25c2101" />  
@@ -378,7 +405,12 @@ map만들 때 comparer넣어줄수도 있음
 저 커스텀 클래스를 내가 건드릴 권한이 없으면 이렇게 하고,  
 내가 만든거라면 oop에 더 가까운 위에 방법 (클래스 내에 operator추가)이 좋음.  
 
-**코드보기: 사용자 정의 자료형을 키로 사용 (시험문제 내기 좋은듯.. 다시 보기)**  
+**코드보기: 사용자 정의 자료형을 키로 사용**  
+: StudentiInfo 클래스에 bool operator<(const StudentInfo& object) const; 를 구현해서  
+이름이랑 StudentID가 다르면 false, 같으면 true를 반환하도록 구현해놨기에 key 비교를 내부적으로 할 수 있음.  
+위 함수를 구현하지 않으면 컴파일오류. 항상 true면 중복 key들어오면 컴파일오류. 항상 false면, 2개 이상 key를 받아들이지 않음.  
+메서드 만드는거 아니면, 아예 클래스를 따로 구현해서 map 생성 시 세번째 인자로 넣기 가능.  
+map<StudentInfo2, int, StudentInfo2Comparer> studentScores;  
 
 질의응답  
 <img width="707" height="701" alt="image" src="https://github.com/user-attachments/assets/474334c8-bef3-4bb2-9616-2a73aeb6faec" />  
@@ -410,17 +442,49 @@ int main()
 
     return 0;
 }
-// ("Lulu", 0)먼저 들어가고, else에서 100으로 업데이트됨.
+// ("Lulu", 0)먼저 들어가고, else 실행됨
+// 그러나 이미 map에 Lulu가 있으므로, ("Lulu", 100) 가 업데이트 되지 않고, ("Lulu", 0)으로 유지됨.
 ```
 
 # 셋(Set)  
 정렬되는 컨테이너. 중복되지 않는 키를 요소로 저장함. (키 이자 value)  
 역시 오름차순 이진탐색트리 기반, 맵과 거의 같다  
-<img width="735" height="334" alt="image" src="https://github.com/user-attachments/assets/9a9f6d68-9d5a-4517-96e9-c291ecc88ee7" />  
+``` cpp
+#include <set>
+
+int main()
+{
+	std::set<int> scores;
+	scores.insert(20);
+	scores.insert(100);
+
+	for (std::set<int>::iterator it = scores.begin(); it != scores.end(); ++it)
+	{
+		std::cout << *it << std::endl;  // 20\n 100\n
+	}
+	return 0;
+}
+```
 
 # 큐(Queue)  
 first in first out (FIFO) 구조, Push, Pop  
-<img width="758" height="334" alt="image" src="https://github.com/user-attachments/assets/9f220fcc-0f4e-4b46-b847-25fddceba092" />  
+``` cpp
+#include <queue>
+
+int main()
+{
+	std::queue<std::string> studentNameQueue;
+	studentNameQueue.push("Coco");
+	studentNameQueue.push("Mocha");
+
+	while (!studentNameQueue.empty())
+	{
+		std::cout << "Waiting student: " << studentNameQueue.front() << std::endl;
+		studentNameQueue.pop();
+	}
+	return 0;
+}
+```
 C++은 pop해서 개체를 반환하지 않는다. 따로 변수로 저장하고 있어야 한다.  
 
 front(), back()  
@@ -430,8 +494,23 @@ size(): 들어있는 요소 수 반환, empty(): 비어있으면 true 아니면 
 
 # 스택(Stack)  
 last in first out (LIFO) 구조, Push, Pop  
-<img width="526" height="325" alt="image" src="https://github.com/user-attachments/assets/5de45593-69ef-4d15-82b2-dc2c03ccca18" />  
+``` cpp
+#include <stack>
 
+int main()
+{
+	std::stack<std::string> studentNameStack;
+	studentNameStack.push("Coco");
+	studentNameStack.push("Mocha");
+
+	while (!studentNameStack.empty())
+	{
+		std::cout << studentNameStack.top() << std::endl;
+		studentNameStack.pop();
+	}
+	return 0;
+}
+```
 top(): stack 가장 마지막에 저장된 요소를 참조로 반환  
 bottom()함수 없음.  
 
@@ -469,4 +548,13 @@ std 알고리듬 (standard algorithm)은 많은 컨테이너에서 작동
 극단적으로 oop를 추구한 사례.  
 빈번한 메모리 재할당은 메모리 단편화를 초래함: 앱 뻗을수도 있음, 디버깅 및 수정이 어렵다  
 그래서, 자신만의 STL을 만들어서 쓰는 회사들이 있음  
-<img width="716" height="308" alt="image" src="https://github.com/user-attachments/assets/79bb7062-6cf4-4f22-8e66-23a4445779c9" />  
+- 많은 회사들의 커스텀 컨테이너를 만들어서 STL대체함
+  - EA
+    - EASTL
+    - STL과 호환되고, 메모리 문제 등을 고친 컨테이너
+  - Eic Games (언리얼 엔진4)
+    - TArray, TMap, TMultiMap, TSet
+    - STL보다 나은 인터페이스로 구현한 언리얼만의 컨테이너
+- EASTL과 언리얼엔진4는 오픈소스니 살펴보길 권장!!
+- 또한, 직접 컨테이너 만들어보면 메모리관리 이해도를 높이는데 좋다 :)
+  
