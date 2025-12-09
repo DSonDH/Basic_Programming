@@ -176,13 +176,14 @@ std::move()
 - 어떻게 도는지 알려면 r-value, 이동(move)생성자를 배워야 함: 나중에 나옴
 
 * release(), move()차이
-| 구분 | release() | std::move() |
-| - | - | - |
-| 소유권          | 포기함                        | "다른 unique_ptr 에게" 이전함 |
-| 반환값          | raw pointer                | 없음                     |
-| 이후 delete 책임 | 사용자                        | unique_ptr 자동 관리       |
-| 위험성          | 매우 높음                      | 안전함                    |
-| 사용 의도        | 스마트 포인터 → 생 포인터로 넘기는 특수 상황 | unique_ptr 간 소유권 이전    |
+
+| 구분 | release() | std::move() |  
+| - | - | - |  
+| 소유권          | 포기함                        | "다른 unique_ptr 에게" 이전함 |  
+| 반환값          | raw pointer                | 없음                     |  
+| 이후 delete 책임 | 사용자                        | unique_ptr 자동 관리       |  
+| 위험성          | 매우 높음                      | 안전함                    |  
+| 사용 의도        | 스마트 포인터 → 생 포인터로 넘기는 특수 상황 | unique_ptr 간 소유권 이전    |  
 
 
 예시: STL벡터에 요소 추가하기  
