@@ -185,7 +185,6 @@ std::move()
 | 위험성          | 매우 높음                      | 안전함                    |  
 | 사용 의도        | 스마트 포인터 → 생 포인터로 넘기는 특수 상황 | unique_ptr 간 소유권 이전    |  
 
-
 예시: STL벡터에 요소 추가하기  
 ``` cpp
 std::vector<std::unique_ptr<Player>> players;
@@ -226,17 +225,13 @@ RAII(Resource Acquisition Is Initialization) 원칙에도 잘 맞음.
 매 주기마다 GC는 root를 확인함 (전역변수, 스택, 레지스터)  
 힙에 있는 개체에 루트를 통해 접근할 수 있는지 판단  
 접근할 수 없다면 가비지로 간주해서 해제  
-<img width="687" height="362" alt="image" src="https://github.com/user-attachments/assets/474709e9-6257-4a93-accb-0ab3048bea0d" />  
-<img width="697" height="358" alt="image" src="https://github.com/user-attachments/assets/e4c4c148-fdac-48a9-976c-6d6f9c5b585e" />  
-
 (이 과정을 최적화 하는게 seasonal GC임)  
 (generation gc인거같은데, 0세대, 1세대, 2세대 ... 이렇게 구분해서  
 세대별로 컬렉팅 수행해서 모든 메모리를 훑지 않도록 한거라고 함)  
-
 GC의 문제점: 사용되지 않는 메모리를 즉시 정리하지 않음  
 GC가 메모리 해제판단하는 동안 앱이 멈추거나 버벅일 수 있다  
 
-### 참조 카운팅
+### 참조 카운팅 (Ref. Counting)
 개체에 대한 참조가 없을 때 개체가 해제됨.  
 참조 횟수를 활용해서 특정 개체가 몇 번이나 참조되는지 판단 가능.  
 scope를 벗어나는 경우 등등에서 참조 횟수 감소함.  
@@ -257,28 +252,47 @@ std::shared_ptr는 이걸 자동으로 해줌!
 멀티쓰레드 환경에서 안전하려면, lock이나 atomic연산이 필요.  
 ++mRefCount보다 확연히 느림  
 순환참조문제 해결이 안됨! (곧 배울텐데, c++에 해결책이 있음)  
-<img width="970" height="392" alt="image" src="https://github.com/user-attachments/assets/73322550-728f-4a4d-9711-f1c5c516235e" />  
-
+- 전통적인 메모리 누수는 없음
+  - 즉, delete 잊은 경우.
+- 하지만 여전히 메모리 누수발생 가능
+  - 예: 순환참조
+  - 이런 실수는 덜 하지만, 발견한들 고치기 쉽지 않음
+    
 가비지컬렉션 vs 참조카운팅  
-<img width="704" height="348" alt="image" src="https://github.com/user-attachments/assets/4df5baa1-aadd-4e5f-8b96-11f516e8d71b" />  
+- 가비지컬렉션
+  - 사용하기 훨씬 쉽다
+  - 실시간/고성능 프로그램에 부적합 (계속 정지되는 순간 존재)
+- 참조 카운팅
+  - 사용하기 쉽다
+  - 실시간/고성능 프로그램에 적합
+  - 멀티스레드 환경에서는 순수한 포인터보다 훨씬 느림
 
 ## 공유(Shared) 포인터
 std::shared_ptr만들기  
-<img width="832" height="225" alt="image" src="https://github.com/user-attachments/assets/c22fbf87-1ad5-4bf2-b12a-571f4eab7596" />  
+``` cpp
+std::shared_ptr<Vector> vector = std::make_shared<Vector>(10.f, 30.f);
+```
 <img width="900" height="435" alt="image" src="https://github.com/user-attachments/assets/0474b0ea-4ece-495a-94bd-356ce968ddac" />  
 
 예시: 포인터 공유하기  
 <img width="1002" height="332" alt="image" src="https://github.com/user-attachments/assets/c5d052ba-dd87-488d-aee3-c5148f04b322" />  
 <img width="829" height="422" alt="image" src="https://github.com/user-attachments/assets/a55e4a50-5ecb-477a-a490-2099c4eb2d0e" />  
 
-예시: 포인터 재설정하기  
+예시: 포인터 재설정하기(reset())  
 <img width="813" height="448" alt="image" src="https://github.com/user-attachments/assets/56ac02d2-3c12-40a4-9aad-98af1ce90538" />  
 <img width="916" height="433" alt="image" src="https://github.com/user-attachments/assets/c4c3a424-d582-42b0-991d-95a011dcafc9" />  
 
 원시 포인터를 해제한다. 참조 카운트가 1 줄어듦  
 
 예시: 참조 횟수 구하기 (안중요)  
-<img width="877" height="411" alt="image" src="https://github.com/user-attachments/assets/7f51b95f-4104-4f47-b9be-56a3b0ef51e6" />  
+``` cpp
+std::shared_ptr<Vector> vector = std::make_shared<Vector>(10.f, 30.f);
+std::cout << "Vector: " << vector.use_count() << std::endl;  // vector:1
+
+std::shared_ptr<Vector> copiedVector = vector;
+std::cout << "Vector: " << vector.use_count() << std::endl;  // vector:2
+std::cout << "copiedVector: " << vector.use_count() << std::endl;  // copiedVector:2
+```
 
 순환참조 예시  
 <img width="987" height="323" alt="image" src="https://github.com/user-attachments/assets/b0edd32b-571b-4f0f-894d-1c0f002eb3fe" />  
