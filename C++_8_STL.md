@@ -12,11 +12,13 @@ Standard Template Library (STL)컨테이너 중 하나.
 vector<int>라는게 템플릿 이라고 함  
 <img width="551" height="264" alt="image" src="https://github.com/user-attachments/assets/d498173e-dd8f-4443-aa98-3d1052e57d68" />  
 <img width="653" height="274" alt="image" src="https://github.com/user-attachments/assets/0f5bb23b-3211-499e-95c8-7e09ccfb4dd7" />  
+
 복사생성자와 같음  
 
 ## 요소 삽입/삭제, 용량, 크기, 요소 접근, 반복자
 제일 마지막에 요소 추가  
 <img width="513" height="231" alt="image" src="https://github.com/user-attachments/assets/89faadfd-da0b-48a0-b0e0-416e8451d81c" />  
+
 pop_back(); // 맨 뒤에 요소 제거  
 중간에 요소 제거는 조금 복잡함.  
 
@@ -24,21 +26,40 @@ capacity vs size
 capacity: 벡터에 할당된 요소 공간 수  
 size: 실제로 들어있는 요소 수  
 
-벡터 용량늘리기: reserve(<size>);  
+벡터 용량늘리기: reserve(\<size\>);  
 용량이 증가해야하면 새로운 저장 공간을 재할당하고 기존 요소들을 모두 새 공간으로 복사  
 불필요한 재할당을 막기위해, 벡터를 생성한 직후에 이 함수를 호출하자!!!! (미리 넉넉히)  
 
 요소 하나에 접근하기  
 <img width="526" height="237" alt="image" src="https://github.com/user-attachments/assets/0a83ddb2-cdb8-4336-8279-cdec5f95fbb8" />  
+
 이 방식은 벡터에만 쓸 수 있음.  
 map에서는 인덱스로 operator[]를 쓸 수 없음.  
 STL컨테이너를 순회할때는 iterator를 쓰는게 표준 방식임.  
-<img width="743" height="344" alt="image" src="https://github.com/user-attachments/assets/694a8aa6-f53a-4632-b0ac-2189dd6b696e" />  
+``` cpp
+#include <iostream>
+#include <vector>
+
+int main()
+{
+	std::vector<int> scores;
+	scores.reserve(2);
+
+	scores.push_back(30);
+	scores.push_back(50);
+
+	for (std::vector<int>::iterator iter = scores.begin(); iter != scores.end(); ++iter)
+	{
+		// do something
+	}
+}
+```
 
 반복자(iterator)  
 <img width="626" height="158" alt="image" src="https://github.com/user-attachments/assets/56417ec0-d5ee-4fcc-8ede-b46dc3d6da07" />  
 begin(), end()  
 <img width="851" height="352" alt="image" src="https://github.com/user-attachments/assets/1d73ade0-89ce-49f8-bdb4-9f509f4ab9c3" />  
+
 c string맨 뒤는 \0인것처럼 마지막 요소 다음을 가리킬 필요가 있음.  
 
 코드보기: 내 점수 추가, 출력  
@@ -89,7 +110,7 @@ namespace samples
 	{
 		cout << "Current elements : ";
 		for (vector<int>::const_iterator iter = scores.begin(); iter != scores.end(); ++iter)
-		{ // score가 const라서 const_iterator써야만 함
+		{ // 입력인자 scores가 const라서 const_iterator써야만 함
 			cout << *iter << " ";
 		}
 		cout << endl;
@@ -107,6 +128,19 @@ begin(), end(), rbegin(), rend()
 
 특정 위치에 요소 삽입하기  
 <img width="769" height="250" alt="image" src="https://github.com/user-attachments/assets/8279a991-2411-43b8-8c28-579037b8b65d" />  
+``` cpp
+std::vector<int> scores;
+
+scores.reserve(4);
+scores.push_back(10);
+scores.push_back(50);  // 10, 50
+scores.push_back(38);
+scores.push_back(100); // 10, 50, 38, 100
+
+std::vector<int>::iterator it = scores.begin();
+
+it = scores.insert(it, 80); // 80, 10, 50, 38, 100
+```
 it++;하고 insert했다면, 10 80 50 38 100이 되었을것.  
 
 복사 문제  
@@ -118,24 +152,83 @@ it++;하고 insert했다면, 10 80 50 38 100이 되었을것.
 재할당, 복사문제  
 <img width="813" height="292" alt="image" src="https://github.com/user-attachments/assets/ef7025a5-e5c8-40c2-9a9d-7d74bcdaf23e" />  
 역시 통째로 복사하고 메모리 찾아서 재할당  
-이 연산이 비싸므로 미리 크게 할당하는게 좋음  
+**이 연산이 비싸므로 미리 크게 할당하는게 좋음**  
 
 특정위치에 있는 요소 삭제  
-<img width="547" height="263" alt="image" src="https://github.com/user-attachments/assets/3db23265-a332-435a-887c-1a80e4c5f26e" />  
+``` cpp
+std::vector<int> scores;
+
+scores.reserve(4);
+scores.push_back(10);
+scores.push_back(50);  // 10, 50
+scores.push_back(38);
+scores.push_back(100); // 10, 50, 38, 100
+
+std::vector<int>::iterator it = scores.begin();
+
+it = scores.erase(it); // 50, 38, 100
+
+// 참고
+while (it != scores.end())
+// while 쓴 이유는 erase하면서 end()기준이 움직여서 그럼.
+// for loop 쓰면 위험: erase 후의 it는 end인지 아닌지와 무관하게 무효화된 iterator에 ++를 적용하는 순간 undefined behavior
+{
+	if (*it == 38)
+	// *it 는 원본 참조한것
+	// Score score = *it 처럼 primitive형 아니라 클래스 개체였다면
+	// 원본 참조한거를 가지고 새로운 score를 복사해서 생성한 것이다.
+	// 그래서 score를 암만 바꿔도 scores내용물은 바뀌지 않는다. (아래 Object vector참고)
+	{
+		it = scores.erase(it);
+		// 여기는 ++it를 추가하면 안됨
+		// 지워진 자리에 다음 요소가 자리를 채워주므로, 추가로 it를 옮기면
+		// 지금 채워진 요소를 검사 안하는것임
+	}
+	else
+	{
+		++it;
+	}
+}
+```
 요소 앞으로 한칸씩 당기므로 복사  
 <img width="809" height="241" alt="image" src="https://github.com/user-attachments/assets/de66eff3-26f0-4919-aca5-6ba4a320e436" />  
 (재할당은 메모리 공간 새로 잡는걸 말함)  
 (순서 상관없는 배열이면, 마지막 요소를 맨앞으로 땡겨오면 O(n)대신 O(1)으로 처리 가능)  
 
 벡터 교환하기  
-<img width="677" height="248" alt="image" src="https://github.com/user-attachments/assets/a46cbd68-468d-48e0-b8de-9c036378cb2c" />  
-요소 대입: n개의 <data>값을 벡터에 넣는다. assign(size_t n, <data>);  
+``` cpp
+std::vector<int> scores;
+scores.reserve(2);
+
+scores.push_back(85);
+scores.push_back(73); // 85, 73
+
+std::vector<int> anotherScores;
+anotherScores.assign(7, 100); // 100, 100, 100, 100, 100, 100, 100
+scores.swap(anotherScores);  // scores: 100, 100, 100, 100, 100, 100, 100
+                             // anotherScores: 85, 73
+```  
+요소 대입: n개의 \<data\>값을 벡터에 넣는다. assign(size_t n, \<data\>);  
 두 벡터 교환: 두 배열 내용을 바꿈. swap(vector& other);  
 구현은, 메모리 주소랑, size, capacity정보만 바꾸면 됨.  
 
 크기 변경, 모든 요소 제거하기  
-<img width="599" height="284" alt="image" src="https://github.com/user-attachments/assets/179f9e9c-6942-4521-8c4d-ad1dc4002b44" />  
-작아져서 초과분(마지막꺼) 날라감. 기존 용량보다 크면 재할당.  
+``` cpp
+std::vector<int> scores;
+scores.reserve(3);
+
+scores.push_back(30);
+scores.push_back(100);
+scores.push_back(70); // 30, 100, 70
+
+scores.resize(2);
+
+for (int i = 0; i < scores.size(); ++i)
+{
+	std:cout << scores[i] << " "; // "30 100"
+}
+```
+size작아져서 초과분(마지막꺼) 날라감. 기존 용량보다 크면 재할당.  
 reserve는 줄이는거 없음. 그냥 유지됨. resize는 줄이기 가능.  
 
 모든 요소 제거: clear();  
@@ -143,7 +236,7 @@ size는 0이 되고 용량은 변하지 않음.
 
 Object 벡터  
 <img width="861" height="362" alt="image" src="https://github.com/user-attachments/assets/d1352185-5ce1-4bbe-b4a5-a18712651a34" />  
-실제 scores안에 Score개체가 들어감. score에 mScore 4바이트,  
+실제 scores안에 Score개체가 들어감. 힙에 할당한 주소를 가리켜서 4바이트만 있는게 아님!! score에 mScore 4바이트,  
 string(capacity 4바이트, size 4바이트, c_str 주소 4바이트)  
 여기서 string은 컨테이너에서 나온 개념.  
 16바이트가 4개 : 64바이트  
