@@ -229,6 +229,8 @@ changeValue();
 ## 매개변수 목록  
 <img width="902" height="457" alt="image" src="https://github.com/user-attachments/assets/2d50ef7d-3c99-4a6f-9a3a-93eab1186915" />  
 ()를 생략할 순 있다.  
+[] 안에 넣는 것은 외부 변수(스코프 밖 변수)를 람다 안으로 가져오는 방법  
+() 안에 넣는 것은 람다가 호출될 때 전달되는 '매개변수'  
 
 정렬하기 처럼 한번 쓰고 말 함수는 람다식이 좋다.  
 <img width="953" height="386" alt="image" src="https://github.com/user-attachments/assets/da344cc1-cbf5-4cf8-9a8b-ca11ab331d7c" />  
