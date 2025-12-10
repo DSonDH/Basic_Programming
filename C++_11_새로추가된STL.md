@@ -241,7 +241,7 @@ scope를 벗어나는 경우 등등에서 참조 횟수 감소함.
 예시: 수동 참조 카운팅  
 <img width="1256" height="578" alt="image" src="https://github.com/user-attachments/assets/ec5a4ec5-f382-4aeb-b7dc-aae090abe2c1" />  
 
-COM(죽 DirectX)이 수동 참조 카운팅을 지원.  
+COM(즉 DirectX)이 수동 참조 카운팅을 지원.  
 std::shared_ptr는 이걸 자동으로 해줌!  
 
 강한(Strong) 참조: 개체A가 개체B를 참조할 때, B는 절대 소멸되지 않음을 의미  
