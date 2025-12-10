@@ -56,7 +56,7 @@ MyString::MyString(MyString&& other) {...}
 이동생성자: 새 개체 만들때 다른 개체 털기  
 이동대입연산자: 기존꺼 있고, 다른 개체 털고, 기존 내꺼는 지워주고  
 <img width="1013" height="456" alt="image" src="https://github.com/user-attachments/assets/8f4148c7-17ba-4b2e-81eb-5c50f269036b" />  
-이동 생성자와 같은 개념, 메모리 재할당 안함, 얕은 복사 비슷  
+이동 생성자와 같은 개념, 메모리 재할당 안함, 얕은복사 비슷  
 ``` cpp
 MyString::MyString::operator=(MyString&& other) {...}
 ```
@@ -69,11 +69,10 @@ rvalue 최적화
 - 한때 잘못 사용한 또 다른 C++ 프로그래밍 유행어
 - 이동생성자와 이동대입연산자는 아직 유효함
 - 포인터 대신 개체 자체를 반환하는 함수
-  - 함수에서 rvalue를 반환하는건 실제로 매우 느림
   - 반환값 최적화 (Return Value Optimization)이라 하는 컴파일러 최적화를 깨뜨림
 - BP
-  - 기본적으로 그냥 개체 반환
-  - 더 빨라진다고 입증된 경우에만 함수가 rvalue를 반환하도록 바꾸자
+  - 기본적으로 그냥 개체를 반환하자..
+  - 더 빨라진다고 입증된 경우에만 rvalue로 반환하도록 바꾸자
 
 코드보기: 이동생성자와 이동대입연산자  
 
@@ -168,18 +167,16 @@ constexpr int num7 = num6;  // OK
 : 비어있음. 캡쳐하지 않음
 
 =
-: 값에의한 캡쳐. 모든 외부변수를 캡쳐함
-: 람다식 안에서 수정 불가
+: 값에의한 캡쳐. 모든 외부변수를 캡쳐함, 람다식 안에서 수정 불가
 
 &
-: 참조에 의한 캡쳐. 모든 외부변수 캡쳐
+: 참조에 의한 캡쳐. 모든 외부변수 캡쳐, 람다식 안에서 수정 가능
 
 <변수이름>
-: 특정 변수를 값으로 캡쳐
-: 람다식 안에서 수정 불가
+: 특정 변수를 값으로 캡쳐, 람다식 안에서 수정 불가
 
 &<변수이름>
-: 특정 변수를 참조로 캡쳐
+: 특정 변수를 참조로 캡쳐, 람다식 안에서 수정 가능
 ```
 예: 외부 변수 사용하기  
 ``` cpp
@@ -228,11 +225,12 @@ changeValue();
 
 ## 매개변수 목록  
 <img width="902" height="457" alt="image" src="https://github.com/user-attachments/assets/2d50ef7d-3c99-4a6f-9a3a-93eab1186915" />  
+
 ()를 생략할 순 있다.  
 [] 안에 넣는 것은 외부 변수(스코프 밖 변수)를 람다 안으로 가져오는 방법  
 () 안에 넣는 것은 람다가 호출될 때 전달되는 '매개변수'  
 
-정렬하기 처럼 한번 쓰고 말 함수는 람다식이 좋다.  
+정렬하기처럼 한번 쓰고 말 함수는 람다식이 좋다.  
 <img width="953" height="386" alt="image" src="https://github.com/user-attachments/assets/da344cc1-cbf5-4cf8-9a8b-ca11ab331d7c" />  
 
 ## 지정자, 변환 형  
@@ -241,7 +239,7 @@ changeValue();
 <img width="945" height="335" alt="image" src="https://github.com/user-attachments/assets/2169ad5f-19fa-4e59-bab6-25dd03ab66c3" />  
 전에는 컴파일오류 났는데, 이 키워드 넣으면 수정 가능  
 
-반환 형  
+**반환 형**  
 <img width="841" height="307" alt="image" src="https://github.com/user-attachments/assets/460a6212-76be-4d09-9540-98243aec57dd" />  
 
 장단점  
