@@ -282,7 +282,7 @@ scores.clear();
 <img width="799" height="263" alt="image" src="https://github.com/user-attachments/assets/2029dcb0-de72-4b0e-aeec-c494fd183e1c" />  
 
 기존 10이랑 "C++"을 다시 할당한게 아니라서 빨라짐.  
-그러나, 모든 요소에 대해 delete꼭 호출할 일이 늘어남.  
+그러나, 모든 요소에 대해 delete 일일히 호출해줘야 함.  
 
 ``` cpp
 std::vector<Score*> scores;
