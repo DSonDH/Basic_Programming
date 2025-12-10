@@ -129,6 +129,7 @@ namespace samples
 
 ## 클래스 템플릿 트릭  
 <img width="738" height="296" alt="image" src="https://github.com/user-attachments/assets/29adea18-75d0-4b57-b417-6b796cd754c6" />  
+
 벡터 만들 때 처음부터 최대 크기 강요해서, 동적으로 커지지 않게 하는 방법.  
 
 코드보기: FixedVector (동영상 강의 다시 보기)  
