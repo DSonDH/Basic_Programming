@@ -30,6 +30,12 @@ vector<int>라는게 템플릿 이라고 함
 
 복사생성자와 같음  
 
+``` cpp
+std::vector<int> v(7, 10);   // v = {10,10,10,10,10,10,10}
+std::vector<int> v2(6);      // v2 = {0,0,0,0,0,0}
+```
+
+
 ## 요소 삽입/삭제, 용량, 크기, 요소 접근, 반복자
 제일 마지막에 요소 추가  
 <img width="513" height="231" alt="image" src="https://github.com/user-attachments/assets/89faadfd-da0b-48a0-b0e0-416e8451d81c" />  
