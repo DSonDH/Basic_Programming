@@ -150,6 +150,16 @@ reset은 nullptr와 같다.
 - 하지만 reset()은 vector가 원시포인터가 아님을 분명하게 보여줌
 - 포프님은 개인적으로 nullptr선호
 
+``` cpp
+std::vector<std::unique_ptr<int>> v;
+
+std::unique_ptr<int> p1 = std::make_unique<int>(10);
+std::unique_ptr<int> p2 = std::make_unique<int>(20);
+
+v.push_back(p1);  // p1 은 lvalue라서 복사를 시도하게 되는데, unique_ptr 는 복사 생성/복사 대입이 삭제(delete) 되어 있어서 컴파일 오류
+v.push_back(std::move(p2));  // OK
+```
+
 get()  
 naked 포인터 반환  
 <img width="860" height="327" alt="image" src="https://github.com/user-attachments/assets/bc5cb0cd-2461-4538-848f-3c48c0f7d8b3" />  
