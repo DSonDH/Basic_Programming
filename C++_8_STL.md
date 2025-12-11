@@ -415,6 +415,7 @@ map만들 때 comparer넣어줄수도 있음
 : StudentiInfo 클래스에 bool operator<(const StudentInfo& object) const; 를 구현해서  
 이름이랑 StudentID가 다르면 false, 같으면 true를 반환하도록 구현해놨기에 key 비교를 내부적으로 할 수 있음.  
 위 함수를 구현하지 않으면 컴파일오류. 항상 true면 중복 key들어오면 컴파일오류. 항상 false면, 2개 이상 key를 받아들이지 않음.  
+**저 함수도 대충만들어서 중복 키가 들어왔을 때, 다른 기준으로 가르마 타주지 않으면, false떠서 추가 안해준다!!**  
 메서드 만드는거 아니면, 아예 클래스를 따로 구현해서 map 생성 시 세번째 인자로 넣기 가능.  
 map<StudentInfo2, int, StudentInfo2Comparer> studentScores;  
 
