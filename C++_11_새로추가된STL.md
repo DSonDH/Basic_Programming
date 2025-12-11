@@ -94,6 +94,9 @@ std::unique_ptr
 std::unique_ptr<Vector> myVector(new Vector(10.f, 30.f);
 std::unique_ptr<Vector> copiedVector1 = myVector; // 컴파일 에러
 std::unique_ptr<Vector> copiedVector2(myVector); // 컴파일 에러
+
+std::unique_ptr<Vector> b;
+b = std::move(a); // 이렇게 남을 가리키는건 얼마든지 가능. 남이 날 가리키면 컴파일에러
 ```
 
 다음의 세 경우에 적합함!  
