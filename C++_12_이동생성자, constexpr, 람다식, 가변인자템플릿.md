@@ -151,6 +151,10 @@ constexpr int num7 = num6;  // OK
 ```
 <img width="966" height="550" alt="image" src="https://github.com/user-attachments/assets/09f4f526-6f46-4ec0-a9fb-7a7e5624ceec" />  
 
+이 그림에 Fibonacci 바디는 일부러 생략한 것. 시그내쳐만 보시라.  
+- constexpr 함수는 비멤버 함수에도 적용할 수 있다.  
+- const 함수는 멤버 함수에만 가능하다.  
+
 코드보기: 간단한 해쉬맵. 동영상 강의 다시 보기  
 
 # Lambda Expression
