@@ -320,6 +320,7 @@ Pet, Owner가 서로 참조하고 아무도 그 둘을 안쓰고 있어서 그�
 약한참조! 원시포인터 해제에 영향을 끼치지 않음  
 약한참조로 참조되는 개체는 강한참조 카운트가 0이 될 때 소멸됨  
 순환참조 문제의 해결책  
+weak_ptr는 직접 Dereference( *w ) 할 수 없음!
 
 약한 포인터 만들기  
 <img width="898" height="449" alt="image" src="https://github.com/user-attachments/assets/8f0f9c97-1331-4ba5-949b-b7c1321110d6" />  
