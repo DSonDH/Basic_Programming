@@ -229,7 +229,7 @@ private:
 RAII(Resource Acquisition Is Initialization) 원칙에도 잘 맞음.  
 실수하기 어려우니까 모든 곳에 쓰자!!  
 
-## 가비지 콜렉션 (Gargage collection)
+## 가비지 콜렉션 (Garbage collection)
 자동 메모리 관리는, 가비지 컬렉션, 참조 카운팅 두 가지 방법이 있음.  
 
 가비지 콜렉션: 보통 tracing garbage collection을 의미함.  
