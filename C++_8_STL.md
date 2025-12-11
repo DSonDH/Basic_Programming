@@ -191,7 +191,10 @@ it = scores.erase(it); // 50, 38, 100
 // 참고
 while (it != scores.end())
 // while 쓴 이유는 erase하면서 end()기준이 움직여서 그럼.
-// for loop 쓰면 위험: erase 후의 it는 end인지 아닌지와 무관하게 무효화된 iterator에 ++를 적용하는 순간 undefined behavior
+// for loop 쓰면 위험: erase 후의 it는 end인지 아닌지와 무관하게 무효화된 iterator임
+// 근데 for loop에서는 it를 동일하게 가져가고 있으므로, 이미 이상한 it가 되버렸는데 ++를 적용하는 순간 undefined behavior
+// 하지만 아래처럼 while loop 안에서 it를 erase하고 재할당 받으면, 유효한 iterator를 계속 가지고 갈 수 있음.
+// 물론 for loop 내부에서도 유효한 it를 재할당 받으면 괜찮을거같긴 함
 {
 	if (*it == 38)
 	// *it 는 원본 참조한것
