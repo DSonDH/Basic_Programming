@@ -2,11 +2,22 @@
 unique_ptr에서 나만 쓰는주소, 남한테 양도하는 과정에서 나온 것.  
 
 ## 값(value)의 분류  
-lvalue: 단일 식을 넘어 지속되는 개체, 주소가 있음, 이름이 있는 변수  
+lvalue: 단일 식을 넘어 지속되는 개체, 주소가 있음, 이름이 있는 변수, const 변수, 클래스 멤버, 문자열 리터럴, ...  
 지금까지 봐온 클래스멤버, 문자열 리터럴, 비트필드, 등등  
 
-rvalue: lvalue가 아닌 개체. 지속되지 않는 일시적인 값, 주소가 없는 개체, 리터럴 등등   
+rvalue: lvalue가 아닌 개체. 단일 식을 넘어 지속되지 않는 일시적인 값, 주소가 없는 개체, 리터럴 (문자열 리터럴 제외) 등등   
 주소가 없는 개체, enum, lambda등  
+
+``` cpp
+int number = 10; // 10은 rvalue
+10 = number;  // compile error. 10은 rvalue이므로
+(number + 1) = 20 ;  // compile number + 1 결과는 rvalue이므로
+
+int anotherNumber = 20;  // anotherNumber lvalue
+int result = number + anotherNumber;  // (number + anotherNumber) 즉, 더하고 나온 결과는 rvalue
+
+&number = 20; // compile error. rvalue이므로
+```
 
 과거 c++ 11이전에 문제가 있었는데,  
 <img width="996" height="436" alt="image" src="https://github.com/user-attachments/assets/4a7222d6-68f9-48eb-8bc5-f2a3a8dd05f0" />  
