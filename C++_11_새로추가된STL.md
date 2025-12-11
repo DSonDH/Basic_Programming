@@ -164,7 +164,8 @@ v.push_back(std::move(p2));  // OK
 ```
 
 get()  
-naked 포인터의 사본 반환. 원본 소유권을 넘기는게 아님  
+naked 포인터 반환. 원본자체x 원본의주소만! 소유권을 넘기는게 아니지만, 원본이 언제든지 훼손될 수 있다.  
+더욱이 delete를 호출하면 안된다!!  
 <img width="860" height="327" alt="image" src="https://github.com/user-attachments/assets/bc5cb0cd-2461-4538-848f-3c48c0f7d8b3" />  
 
 release()  
