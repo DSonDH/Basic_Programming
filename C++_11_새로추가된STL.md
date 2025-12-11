@@ -335,6 +335,9 @@ lock()으로 참조를 하나 더 넣어줌.
 <img width="957" height="423" alt="image" src="https://github.com/user-attachments/assets/64fe3c43-6776-43c1-8fa2-1f733edd1ba9" />  
 
 lock(): 내가 쓰고있는 도중에 남이 지우지 못하게 한다.  
+lock()은 객체가 살아있으면 shared_ptr을 만들어 준다 → 역참조 가능  
+lock() 호출 시 strong count 증가, weak count는 변하지 않음  
+weak_ptr은 절대 strong count를 만들지 않으며, 소유권도 없음  
 
 공유포인터 존재 확인하기: expired()  
 <img width="1042" height="436" alt="image" src="https://github.com/user-attachments/assets/ac248b7e-462c-4aac-8dbf-d25b32d9f20c" />  
