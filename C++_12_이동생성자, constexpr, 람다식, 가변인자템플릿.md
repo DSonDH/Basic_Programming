@@ -224,6 +224,10 @@ auto changeValue = [=, &score1]()  //올바름
 };
 
 changeValue();
+
+auto magic2 = [=, &y, z]() { y = 10; w = 0; return w + x + y + z;  }; // 컴파일 오류: =로 들어왔는데 z또 추가하면 안됨
+// &z로 들어오는건 다른 의도가 있는거니 OK
+
 // ...
 ```
 
